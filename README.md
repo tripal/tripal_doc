@@ -41,13 +41,21 @@ For more information, please see the Sphinx setup guide: http://www.sphinx-doc.o
 
 ### Building your changes
 
-For more extensive edits, or when contributing new guides, you should build the documentation locally. Clone a copy of this repository and execute make html. The built site will be in `_build/html/index.html`.
+For more extensive edits, or when contributing new guides, you should build the documentation locally. 
+
+```
+git clone https://github.com/tripal/tripal_doc
+cd tripal_doc
+make html --dir=docs
+```
+
+The built site will be in `docs/_build/html/index.html`.
 
 ### Tripal conventions
 
 Please follow these guidelines when updating our docs. Let us know if you have any questions or something isn’t clear.
 
-Please place images in the same folder as the guide text file, following the convention `[file_name].[n].[optional description].[extension]`. For example, `configuring_page_display.3.rearrange.png` or `configuring_page_display.1.png` are both located in `user_guide/` and are part of the `configuring_page_display.rst` guide.
+Please place images in the same folder as the guide text file, following the convention `[file_name].[n].[optional description].[extension]`. For example, `configuring_page_display.3.rearrange.png` or `configuring_page_display.1.png` are both located in `docs/user_guide/` and are part of the `configuring_page_display.rst` guide.
 
 We currently use the following syntax:
 

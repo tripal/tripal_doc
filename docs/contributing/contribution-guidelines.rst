@@ -41,6 +41,7 @@ The goal of this document is to make it easy for **A)** contributors to make pul
     - Concerns are merge blocking if they are examples of these guidelines not being followed (e.g. no automated testing) or if the functionality being added does not work as described or produces a WSOD.
 - PRs that include new functionality **must** also provide Automated Testing.
     - A PR should not reduce the overall test coverage of the repository. Code Climate will comment on your PR with the total coverage in the repository and include the change caused by your PR. This change must not be negative.
+    - .. image:: contribution-guidelines.testcoverageexample.png
 - PRs **must** pass all automated testing marked as "Required" at the bottom of the PR.
 - Branches **must** follow the following format:
     - ``tv4g[0-9]-issue\d+-[optional short descriptor]``
@@ -56,11 +57,11 @@ There are great instructions on creating a PR on `Digital Ocean: How To Create a
 
 1. `Fork the repository <https://docs.github.com/en/github/getting-started-with-github/fork-a-repo>`_ or `update an existing fork <https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork>`_
 2. `Clone <https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository>`_ the fork
-3. `Create a branch <https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging>`_ specific to your change: ``[issue\_number]-[tripal\_version]-[short\_description]``
+3. `Create a branch <https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging>`_ specific to your change: ``tv4g[0-9]-issue\d+-[optional short descriptor]``
 4. Make your changes, `committing <https://git-scm.com/docs/git-commit#_examples>`_ often with useful commit messages.
 5. `Push <https://git-scm.com/docs/git-push#_examples>`_ your changes to your fork.
-6. `Create a PR by going to your fork <https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork>`_: target should be ``tripal:7.x-3.x``. For specifics, see guidelines above.
+6. `Create a PR by going to your fork <https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork>`_: target should be ``tripal:9.x-4.x``. For specifics, see guidelines above.
 
 .. note:
 
-  If you are a `committer <>`_, you can clone the Tripal repository directly with no need to create or maintain a fork. Please make sure you are always creating new branches off of ``7.x-3.x`` and that you have pulled all recent changes to ``7.x-3.x`` before creating a new branch.
+  If you are a `committer <>`_, you can clone the Tripal repository directly with no need to create or maintain a fork. Please make sure you are always creating new branches off of ``9.x-4.x`` and that you have pulled all recent changes to ``9.x-4.x`` before creating a new branch.

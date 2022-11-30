@@ -25,31 +25,51 @@ Idealistic Overview:
 
 Please feel free to create new issues in this repository to provide feedback or suggestions for this design! Also, if there is anything in particular you would like documented which is not currently, please start an issue for it! This helps us be purposeful in our documentation and ensure we are meeting the needs of our community.
 
-## Documentation Style
+## Contributing
 
-The Tripal documentation is written in **Restructured Text**, compiled with Sphinx, and built/hosted with ReadTheDocs. The docs directory, when compiled, is hosted at https://tripal.readthedocs.io/en/latest/.
+The Tripal documentation is written in **Restructured Text**, compiled with Sphinx, and built/hosted with ReadTheDocs. The docs directory, when compiled, is hosted at https://tripaldoc.readthedocs.io/en/latest.
+
+### Small Minor Changes
 
 For minor changes, you can simply [Edit the file using the Github editor](https://help.github.com/articles/editing-files-in-your-repository/), which will allow you to make a Pull Request. Once approved, your changes will be reflected in the documentation automatically!
 
-For more extensive changes:
+### More Extensive Changes
 
-### Install Sphinx
+Use our docker image to build the documentation locally. This allows you to make changes locally and then build the documentation to ensure it renders properly before submitting a Pull Request.
 
-For minor changes, you don’t need to build the documentation! If you want to see how your changes will look on the built site, however, you will need Sphinx installed.
-
-For more information, please see the Sphinx setup guide: http://www.sphinx-doc.org/en/master/usage/quickstart.html
-
-### Building your changes
-
-For more extensive edits, or when contributing new guides, you should build the documentation locally. 
+If you are part of the github tripal organization then you can clone this repository directly:
 
 ```
 git clone https://github.com/tripal/tripal_doc
-cd tripal_doc
-make html --dir=docs
 ```
 
-The built site will be in `docs/_build/html/index.html`.
+Otherwise, you will want to [make a fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) of our repository and then clone your fork locally.
+
+```
+git clone https://github.com/YOUR-GITHUB-USERNAME/tripal_doc
+```
+
+Then create a new branch for your changes which matches the github issue you are looking to resolve. For example, if you were working on Issue #123 which was to add documentation for a Tripal Gold medal extension module named tripal_genomic, you would do the following:
+
+```
+cd tripal_doc
+git checkout -b 123-tripal_genomic_docs
+git push --set-upstream origin 123-tripal_genomic_docs
+```
+
+Then you would make your changes to the files in the docs folder to add the documentation. Make sure to follow the style conventions described below.
+
+Once you have saved some changes and want to see your locally rendered docs then you run the following command:
+
+```
+docker run --rm --volume=`pwd`:/tripal_doc tripaldocs:latest make html
+```
+
+If this is the first time you have ever used our image you will see a warning that it was not found locally and then it will download it from docker hub. Then this command creates a container with all the requirements needed and builds the documentation. Since you mounted it to your local directory, the built docs will also be available locally when the container completes and cleans itself up.
+
+To open your recently built docs you will open the index file at `tripal_doc/docs/_build/html/index.html` and navigate through the side menu links to the documentation you added.
+
+Please commit regularily as you work and when your changes are complete and fully committed, push them up to github and submit a pull request to our repository.
 
 ### Tripal conventions
 

@@ -62,7 +62,7 @@ Then you would make your changes to the files in the docs folder to add the docu
 Once you have saved some changes and want to see your locally rendered docs then you run the following command:
 
 ```
-docker run --rm --volume=`pwd`:/tripal_doc tripaldocs:latest make html
+docker run --rm --volume=`pwd`:/tripal_doc tripalproject/tripaldoc:latest make html
 ```
 
 If this is the first time you have ever used our image you will see a warning that it was not found locally and then it will download it from docker hub. Then this command creates a container with all the requirements needed and builds the documentation. Since you mounted it to your local directory, the built docs will also be available locally when the container completes and cleans itself up.

@@ -1,0 +1,9 @@
+Additional Resources
+======================
+
+ - `Official Drupal 8: Testing Documentation <https://www.drupal.org/docs/testing>`_
+ - `Official Drupal 8: PHPUnit file structure, namespace, and required metadata <https://www.drupal.org/docs/testing/phpunit-in-drupal/phpunit-file-structure-namespace-and-required-metadata>`_
+ - `Official Drupal 8: Running PHPUnit Tests <https://www.drupal.org/docs/testing/phpunit-in-drupal/running-phpunit-tests>`_
+ - `Official Drupal 8: PHPUnit Browser test tutorial <https://www.drupal.org/docs/testing/phpunit-in-drupal/phpunit-browser-test-tutorial>`_
+ - `Drupal 8: Writing Your First Unit Test With PHPUnit <https://www.axelerant.com/resources/team-blog/drupal-8-writing-your-first-unit-test-with-phpunit>`_
+ - `Writing Simple (PHPUnit) Tests for Your D8 module <https://www.mediacurrent.com/blog/writing-simple-phpunit-tests-your-d8-module/>`_

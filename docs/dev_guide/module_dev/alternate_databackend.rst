@@ -11,8 +11,8 @@ Tripal provides a Drupal Plugin for hooking into TripalVocab, TripalVocabSpace a
 
 To create your own data backend for Vocabularies and Terms, you can follow the standard Drupal procedure for implementing plugins which will be detailed below.
 
-Step 1: Create your plugin implementation class.
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Step 1: Create your plugin implementation class
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Your entire data backend will exist in a single class. This class implements the TripalTermStorageInterface and extends the TripalTermStorageBase. It also uses a number of other classes in order to pull them into the current scope. The following shows the Chado Integration class as an example. To create your own change the namespace to match your modules, the annotation to describe your data backend and the class name. This file should be created in your ``src/Plugin/TripalTermStorage`` directory in order to be discovered by Drupal/Tripal.
 

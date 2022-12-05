@@ -11,10 +11,10 @@ Custom Module Development
    module_dev/file_structure
    module_dev/routing
    module_dev/entities
-   module_dev/fields
    module_dev/forms
    module_dev/views
    module_dev/config
    module_dev/theme
    module_dev/caching
+   module_dev/fields
    module_dev/alternate_databackend

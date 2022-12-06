@@ -650,7 +650,7 @@ key of "value".
 
 .. code:: php
 
-  public function tripalValuesTemplate($field_definition) {
+  public function tripalTypes($field_definition) {
     $values = [];
 
     // Get the entity type and default property settings.

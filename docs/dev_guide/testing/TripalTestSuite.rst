@@ -3,9 +3,6 @@ Tripal Test Suite
 
 The Tripal Test Suite is the core set of automated tests distributed with Tripal. These docs will give you an overview of where these tests are located within the codebase and what groups of tests are available.
 
-Where are they located?
-------------------------
-
 You can find the tests for any Drupal module in the `tests` directory. Since Tripal core is composed of a number of submodules, you will find our test suite covers a number of directories:
 
 - Tripal Core (`tripal/tests`): these tests are focused on core functionality which is available to all Tripal sites.
@@ -21,3 +18,11 @@ You will notice that in each of these test directories, there are a number of su
     - Kernel: PHPUnit-based tests with a bootstrapped kernel, and a minimal number of extensions enabled.
     - Functional: PHPUnit-based tests with a full bootstrapped Drupal instance. These tests include browser based tests and other tests looking at full subsystems.
     - FunctionalJavascript: PHPUnit-based tests that use Webdriver to perform tests of Javascript and Ajax functionality in the browser.
+
+The Tripal Test Suite will eventually test all of the Tripal submodules distributed with Tripal core. Here are the subsystems that currently have automated some testing. You can see the full code coverage for Tripal over at `Code Climate <https://codeclimate.com/github/tripal/t4d8/code>`_.
+
+- Tripal DBX:
+
+  This API extends Drupal's Database API to support multiple schema. We have both functional and unit testing for this API which use mock classes in order to test the abstract base classes. Tests can be found in `tripal/tests/Unit/TripalDbx` and `tripal/tests/Functional/TripalDBX`.
+
+  Code Coverage: greater than 80%

@@ -14,16 +14,9 @@ Design Documentation
 --------------------
 Organization
 ^^^^^^^^^^^^
-All documentation for Tripal v4 design can be found here in one of two sections:
+All documentation for Tripal v4 design can be found either throughout the Developers Guide or in  :doc:`../pending`.
 
-- :doc:`../current`
-- :doc:`../pending`
-
-Designs that are in active preparation should be found in the :doc:`../pending` section. Docs that have been approved by the PMC are found in the :doc:`../current`
-
-.. note::
-
-    Deigns in the :doc:`../current` section may change as needed but are not expected to undergo major changes.
+Designs that are in active preparation should be found in the :doc:`../pending` section. Docs that have been approved by the PMC are incorporated throughout the main documentation.
 
 How to Contribute Design Documents
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -46,9 +39,9 @@ All design documentation must first be added to the :doc:`../pending` section. A
 
 Submitting Designs
 """"""""""""""""""
-The PMC must approve all pending design documentation for it to be offically part of the Tripal v4 design.  Designs that get approved are moved into the :doc:`../current` section.  These designs can still be altered but are now considered "official".  To submit a pending design do the following:
+The PMC must approve all pending design documentation for it to be officially part of the Tripal v4 design.  Designs that get approved are moved into the core documentation.  These designs can still be altered but are now considered "official".  To submit a pending design do the following:
 
-1.  Move your documentation from the `docs/design/pending` section to the `docs/design/current` section. Ask if you are unsure of where to place it.
+1.  Move your documentation from the `docs/design/pending` section to the Developers Guide (i.e. within `docs/dev_guide`). Ask if you are unsure of where to place it.
 2.  Submit a pull request requesting review by the PMC.
 3.  The pull request must stay in the queue for at least 2 days to allow for comment by the community. This is to allow others to have a say if they feel the design is lacking.
 4.  The PMC merge the pull request if the design passes review or suggest changes if needed.

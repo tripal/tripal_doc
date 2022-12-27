@@ -21,8 +21,8 @@ of data in biological databases such as Chado.
 
 .. note::
 
-  Note every custom module will require fields. But if you need a new way
-  to store and retrieved data, or if you need data to appear on an existing
+  Not every custom module will require fields. But if you need a new way
+  to store and retrieve data, or if you need data to appear on an existing
   Tripal content type then you will want to create a new field for your
   custom module.
 
@@ -60,8 +60,8 @@ Directory Setup
 ^^^^^^^^^^^^^^^
 Drupal manages fields using its `Plugin API <https://www.drupal.org/docs/drupal-apis/plugin-api>`_.
 this means that as long as new field classes are placed in the correct directory
-and have the correct "annotations" in the class comments then Drupal will find it
-and make it available.  All new fields must be placed inside of the custom
+and have the correct "annotations" in the class comments then Drupal will find them
+and make the field available.  All new fields must be placed in the custom
 extension module inside of the `src/Plugin/Field` directory. There are three
 subdirectories, one each for the three elements of a field:
 `FieldType`, `FieldWidget`, `FieldFormatter`.  For a new field named `MyField`
@@ -145,14 +145,14 @@ These columns are specific to the field:
 
 Support for Chado
 `````````````````
-For fields storing biological data in stores other than Drupal tables,
+For fields storing biological data in something other than Drupal tables,
 Tripal provides its own plugin named `TripalStorage`.  If a custom module wants to
 store data in a data backend other than in Drupal tables, it must create an implementation
 of this plugin. By default, Tripal provides the `ChadoStorage` implementation
 that allows a field to interact with a Chado database.
 
-The `ChadoStorage` backend is similar to the `SqlContentEntityStorage` in
-that it will create a table in the Drupal schema for every Tripal field that is
+The `ChadoStorage` backend extends the `SqlContentEntityStorage` and
+will create a table in the Drupal schema for every Tripal field that is
 added to a content type.  The table columns will have the same default columns.
 It will also have a set of additional columns for every property the field wants
 to manage.
@@ -169,8 +169,8 @@ described in the following sections.
 .. note::
 
   The `ChadoStorage` backend will not store biological data in the Drupal
-  tables--only in the Chado tables.  The only exception is record IDs that
-  associate the field with the entity.
+  tables--only in the Chado tables.  The only exceptions are record IDs that
+  associate the field with data in Chado.
 
 
 Implementing a ChadoFieldItemBase Class
@@ -207,12 +207,12 @@ instructions to add the field during installation of your module.
 
 Complex Fields
 ~~~~~~~~~~~~~~
-A complex field is one that manages multiple properties within a single field.  An example
+A complex field is one that manages multiple properties (or multiple values) within a single field.  An example
 of a complex field is one that stores/loads the organism of a germplasm content type.
 Within Chado, a record in the `stock` table is used to store germplasm data. The
 `stock` table has a foreign key constraint with the `organism` table. Therefore,
 a germplasm page must provide a field that allows the user to specify an organism
-for saving and format the organism name for display.
+for saving. It should also format the organism name for display.
 
 In practice, the `stock` table stores the numeric `organism_id` when saving
 a germplasm.  We could use a single-value `ChadoIntegerTypeItem` to allow the
@@ -283,8 +283,8 @@ class example:
      * {@inheritdoc}
      */
     public static function defaultStorageSettings() {
-      $settings = [];
-      return $settings + parent::defaultStorageSettings();
+      $settings = parent::defaultStorageSettings();
+      return $settings;
     }
 
     /**
@@ -307,22 +307,27 @@ class example:
      * {@inheritdoc}
      */
     public static function tripalTypes($field_definition) {
-      $types = [];
+      $entity_type_id = $field_definition->getTargetEntityTypeId();
 
-      $default_types = ChadoFieldItemBase::defaultTripalTypes($entity_type_id, self::$id);
-      $types = array_merge($types, $default_types);
-      return $types;
-    }
+      // Get the settings for this field.
+      $settings = $field_definition->getSetting('storage_plugin_settings');
+      $base_table = $settings['base_table'];
 
-    /**
-     * {@inheritdoc}
-     */
-    public function tripalValuesTemplate($field_definition) {
-      $values = [];
+      // Determine the primary key of the base table.
+      $chado = \Drupal::service('tripal_chado.database');
+      $schema = $chado->schema();
+      $base_schema_def = $schema->getTableDef($base_table, ['format' => 'Drupal']);
+      $base_pkey_col = $base_schema_def['primary key'];
 
-      $default_values = ChadoFieldItemBase::defaultTripalValuesTemplate($entity_type_id, self::$id, $entity_id);
-      $values = array_merge($values, $default_values);
-      return $values;
+      // Return the array of property types.
+      return [
+        new ChadoIntStoragePropertyType($entity_type_id, self::$id,'record_id', [
+          'action' => 'store_id',
+          'drupal_store' => TRUE,
+          'chado_table' => $base_table,
+          'chado_column' => $base_pkey_col
+        ]),
+      ];
     }
   }
 
@@ -341,11 +346,11 @@ field.
 
 .. note::
 
-  Be sure to change `mymodule` in the namespace to the name of your module.
+  Be sure to change `mymodule` in the `namespace` to the name of your module.
 
 .. warning::
 
-  If you misspell the namespace your field will not work properly.
+  If you misspell the `namespace` your field will not work properly.
 
 
 The following "use" statements are required for all Chado fields.
@@ -369,9 +374,9 @@ classes you could import if needed.
 Annotation Section
 ``````````````````
 
-The following section in the class file is the in-line comments for the class.
-Note the @FieldType stanza in the comments. These are annotations.  Drupal
-uses these annotations to recognize our field. it provides information such
+The annotation section in the class file is the in-line comments for the class.
+Note the @FieldType stanza in the comments. Drupal
+uses these annotations to recognize the new field. It provides information such
 as the field ID, label and description. It also indicates the default widget
 and formatter class. This annotation is required.
 
@@ -416,9 +421,8 @@ the `.php` extension).
 The defaultFieldSettings() Function
 ```````````````````````````````````
 This is an optional function.  If your field requires some additional settings
-in the form of key/value pairs, that must be set when the field is added to
-a content type you can set those here.  An example of where default
-settings are added will be shown later.
+that must be set when the field is added to a content type you can set
+those here.
 
 .. code-block:: php
 
@@ -450,36 +454,56 @@ As an example, the Tripal organism field sets the term ID space and accession:
     return $settings;
   }
 
-.. note::
-
-   Not all fields will need the `termIdSpace` and `termAccession` hardcoded like
-   in the example above.  A field can be re-used for different terms and those
-   can be set with the field is added automatically. See the
-   :ref:`Automate Adding a Field to a Content Type` section.
+Not all fields will need the `termIdSpace` and `termAccession` hardcoded like
+in the example above.  A field can be re-used for different terms and those
+can be set with the field is added automatically. See the
+:ref:`Automate Adding a Field to a Content Type` section.
 
 The defaultStorageSettings() Function
 `````````````````````````````````````
 The field settings described in the previous function apply to the field. But
 some settings may be needed for the storage backend. Drupal distinguishes
-between field settings and field storage settings.  If you need to provide any
-settings for the field as a whole you can add any that you need.
+between field settings and field storage settings.
 
-For example, the `ChadoStringTypeItem` field needs to keep track of the maximum
-size of the string. This is set in the `defaultStorageSettings` function.
+.. code:: php
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function defaultStorageSettings() {
+    $settings = parent::defaultStorageSettings();
+    $settings['storage_plugin_settings']['base_column'] = '';
+    return $settings;
+  }
+
+In the example above the first line calls ``parent::defaultStorageSettings()``.
+this will retrieve the default settings for all Chado fields.  This
+includes a setting named ``base_table`` in the ``storage_plugin_settings`` array.
+The ``ChadoStorage`` backend requires a ``base_table`` setting to tell it what table
+of Chado this field works with.  Tripal will pass to the storage backend any settings
+in the ``storage_plugin_settings`` array. But you are free to add any additional
+settings you would like to help manage your field, especially if those settings
+help the field define how it will interact with Chado.
+
+An example where a storage settings is needed is in the ``ChadoStringTypeItem`` field
+that gets used for any single-value string mapped to a Chado table column.  Here
+we must set the maximum length of the string. Here is the corresonding ``defaultStorageSettings``
+function from this field:
 
 .. code:: php
 
   public static function defaultStorageSettings() {
-    $settings = [
-      'max_length' => 255,
-    ];
-    return $settings + parent::defaultStorageSettings();
+    $settings = parent::defaultStorageSettings();
+    $settings['max_length'] = 255;
+    $settings['storage_plugin_settings']['base_table'] = '';
+    $settings['storage_plugin_settings']['base_column'] = '';
+    return $settings;
   }
 
 The storageSettingsForm() Function
 ``````````````````````````````````
 If a field needs input from the user to provide values for settings, then the
-`storageSettingsForm()` function can be implemented.  Simply add the form
+`storageSettingsForm()` function can be implemented.  Add the form
 elements needed for the user to provide values.
 
 For example, the `ChadoStringTypeItem` field wants to allow the site admin to
@@ -523,7 +547,7 @@ The site admin will be able to change the storage settings if they:
 The fieldSettingsForm() Function
 ````````````````````````````````
 The `fieldSettingsForm()` functions in the same was as the `storageSettingsForm()`
-function but for the field settings instead.
+function but for the field settings.
 
 
 The getConstraints() Function
@@ -561,65 +585,45 @@ to ensure that that max length of the string is not exceeded.
 
 The tripalTypes() Function
 ``````````````````````````
-
 The `tripalTypes()` function is used to specify the property types that this
 field will manage.  A field may house as many properties as it needs. For
-example, the organism field needs to know the genus, species, infraspecific type,
-and infraspecific name for an organism. These are each properties and house
-a single value. Each property has a specific type (e.g., string, text, integer, etc.)
-and those types must be defined. This function is used to define the property types.
-A property type is an object.  Thus, this function returns an array of property type
+example, the organism field that may appear on a stock page needs to track the
+genus, species, infraspecific type, and infraspecific name for an organism.
+These can be tracked using properties. Each property is of a
+specific type such as string, text, integer, etc. This function is used to define the property types.
+A property type is actually an object, thus, this function returns an array of property type
 objects. See the :ref:`Property Types` section below for more information about
 these object classes.
 
-Note, that this function must call the `ChadoFieldItemBase::defaultTripalTypes()`
-function and merge the property type objects returned with those defined in
-this function.
+In the code block below you can see the steps where the field settings are
+retrieved, and then used to create an array containing a single property.
+More about properties is described in the next section.
 
 .. code-block:: php
 
-    public static function tripalTypes($field_definition) {
-      $types = [];
+  public static function tripalTypes($field_definition) {
+    $entity_type_id = $field_definition->getTargetEntityTypeId();
 
-      $default_types = ChadoFieldItemBase::defaultTripalTypes($entity_type_id, self::$id);
-      $types = array_merge($types, $default_types);
-      return $types;
-    }
+    // Get the settings for this field.
+    $settings = $field_definition->getSetting('storage_plugin_settings');
+    $base_table = $settings['base_table'];
 
+    // Determine the primary key of the base table.
+    $chado = \Drupal::service('tripal_chado.database');
+    $schema = $chado->schema();
+    $base_schema_def = $schema->getTableDef($base_table, ['format' => 'Drupal']);
+    $base_pkey_col = $base_schema_def['primary key'];
 
-.. warning::
-
-    If you do not call `ChadoFieldItemBase::defaultTripalTypes()` and merge its
-    returned property types with those you define, then your field may not work
-    properly with the `ChadoStorage` backend.
-
-
-The tripalValuesTemplate() Function
-```````````````````````````````````
-The `tripalValuesTemplate()` function provides a set of empty property value
-objects.  The storage backend will call this function to get the set of
-property objects and then set their values.  See the :ref:`Property Values`
-section below for more information about these object classes.
-
-Note, that this function must call the `ChadoFieldItemBase::defaultTripalTypes()`
-function and merge the property value objects returned with those defined in
-this function.
-
-.. code-block:: php
-
-    public function tripalValuesTemplate($field_definition) {
-      $values = [];
-
-      $default_values = ChadoFieldItemBase::defaultTripalValuesTemplate($entity_type_id, self::$id, $entity_id);
-      $values = array_merge($values, $default_values);
-      return $values;
-    }
-
-.. warning::
-
-    If you do not call `ChadoFieldItemBase::defaultTripalValuesTemplate()` and merge its
-    returned property values with those you define, then your field may not work
-    properly with the `ChadoStorage` backend.
+    // Return the array of property types.
+    return [
+      new ChadoIntStoragePropertyType($entity_type_id, self::$id,'record_id', [
+        'action' => 'store_id',
+        'drupal_store' => TRUE,
+        'chado_table' => $base_table,
+        'chado_column' => $base_pkey_col
+      ]),
+    ];
+  }
 
 
 Property Types
@@ -643,114 +647,76 @@ All of these classes can be instantiated with four arguments:
 - The entity type ID:  the unique ID for the entity type.
 - The field ID:  the unique ID of the field this property belongs to.
 - The property "key": a unique key for this property.
-- The property settings: an array of settings for this property.
-
-As an example, the following creates a new property of type "integer" with the
-key of "value".
-
-.. code:: php
-
-  public function tripalTypes($field_definition) {
-    $values = [];
-
-    // Get the entity type and default property settings.
-    $entity_type_id = $field_definition->getTargetEntityTypeId();
-    $settings = $field_definition->getSetting('storage_plugin_settings');
-
-    // Get the default property settings provided when the field was created.
-    $value_settings = $settings['property_settings']['value'];
-
-    // Create a new value property of type integer.
-    $values[] = new ChadoIntStoragePropertyType($entity_type_id, self::$id, 'value', $value_settings);
-
-    // Get the default Tripal property types and add those to our list.
-    // This will add in the property with key `record_id`.
-    $default_values = ChadoFieldItemBase::defaultTripalValuesTemplate($entity_type_id, self::$id, $entity_id);
-    $values = array_merge($values, $default_values);
-
-    // Return the final list of property type values.
-    return $values;
-  }
-
-See the :ref:`Property Settings` section below for more information on how to
-specify the property settings array.
-
-Every field will have a `record_id` property.  This is added by the call to then
-`parent::defaultTripalTypes()` function. This field keeps track of the record
-ID (or primary key) of the record in Chado that this field is associated with.
-
-Every field must also include at a minimum a single property with a key of `value`.
-
-
-.. note::
-
-  All fields must have two properties with the keys: `record_id` and `value`.
-  The `record_id` property is automatically provided. The developer must
-  create the `value` property.
-
-Property Values
-```````````````
-As was introduced in the :ref:`The tripalValuesTemplate() Function` section above, each
-field must provide an array of empty property value objects. The set of property
-value objects is returned by the `tripalValuesTemplate()` function. Tripal
-provides a single class for this. The `StoragePropertyValue` class.
-
-This class can be instantiated with four arguments:
-
-- The entity type ID:  the unique ID for the entity type.
-- The field ID:  the unique ID of the field this property belongs to.
-- The property "key": a unique key for this property.
-- The entity id: a unique ID for the entity.
-
-For example:
-
-.. code:: php
-
-  public function tripalValuesTemplate($field_definition) {
-
-    // Get information about the entity that this field is attached to.
-    $entity = $this->getEntity();
-    $entity_type_id = $entity->getEntityTypeId();
-    $entity_id = $entity->id();
-
-    // Build the values array.
-    $values[] = new StoragePropertyValue($entity_type_id, self::$id, 'value', $entity_id),
-
-    // Get the default Tripal property values and add those to our list.
-    // This will add in the property with key `record_id`.
-    $default_values = ChadoFieldItemBase::defaultTripalValuesTemplate($entity_type_id, self::$id, $entity_id);
-    $values = array_merge($values, $default_values);
-
-    // Return the final list of property type values.
-    return $values;
-  }
-
-.. note::
-
-  You must create an instance of `StoragePropertyValue` class for every property
-  that was defined in the `tripalTypes()` function.
+- The property settings: an array of settings for this property. See the :ref:`Property Settings`
+  section below for more information on how to specify the property settings array.
 
 
 Property Settings
 `````````````````
 The :ref:`Property Types` section above indicated that each property type class
 has a fourth argument that provides settings for the property.  These settings
-are critical for describing how the property is managed by the `ChadoStorage`
+are critical for describing how the property is managed by the ``ChadoStorage``
 backend. The settings are an associative array of key-value pairs that specify an
 "action" to perform for each property and corresponding helper information.  The
 following actions can be used:
 
+- **store_id**: indicates that the value of this property will hold the
+  record ID (or primary key ID) of the record in the base table of Chado. Common
+  base tables include: analysis, feature, stock, pub, organism. This action
+  uses the following key/value pairs:
+
+  - **chado_table**: (required) the name of the table that this property will
+    get stored in. This will always be the base table name (e.g. feature).
+  - **chado_column**: (required) the name of the column in the table where This
+    property value will get stored. This will always be the primary key of the
+    base table (e.g., feature_id).
+
+- **store_link**: indicates that the value of this property will hold the
+  value of a foreign key ID to the base table.  A property with this action
+  is required for fields that provide ancillary information about a record
+  but that information is not stored in a column of the base table, but instead
+  in a linked table.  Examples for such a situation would be
+  values from property table: e.g., analysisprop, featureprop, stockprop, etc.
+  This action uses the following key/value pairs:
+
+  - **chado_table**: (required) the name of the linked table (e.g. analysisprop)
+  - **chado_column**: (required) the name of the foreign key column that
+    links to the base table (e.g. analysis_id)
+  - **drupal_store**: (requited) this setting should always be TRUE for this action.
+    This forces Tripal to store this value in the Drupal field tables. Without
+    this, Tripal cannot link the fields in Drupal with a base record.
+
+- **store_pkey**: indicates that the value of this property will hold the
+  primary key ID of a linked table.  As with the ``store_link`` action, a
+  property with this action is required for fields that provide ancillary information about a record
+  but that information is not stored in a column of the base table, but instead
+  in a linked table.  Examples for such a situation would be
+  values from property table: e.g., analysisprop, featureprop, stockprop, etc.
+  This action uses the following key/value pairs:
+
+  - **chado_table**: (required) the name of the linked table (e.g. analysisprop)
+  - **chado_column**: (required) the name of the primary key column that
+    links to the base table (e.g. analysisprop_id)
+  - **drupal_store**: (requited) this setting should always be TRUE for this action.
+    This forces Tripal to store this value in the Drupal field tables. Without
+    this, Tripal cannot link the fields in Drupal with a base record.
+
 - **store**: indicates that the value of this property should be stored in the
-  Chado database. This action requires the following key/value pairs:
+  Chado table. This action uses the following key/value pairs:
 
   - **chado_table**: (required) the name of the table that this property will
     get stored in.
-  - **chado_column**: (required) the name of the column in the table where This
+  - **chado_column**: (required) the name of the column in the table where this
     property value will get stored.
-  - **fixed_value**: (optional) if the value of this field should never change
-    and should be fixed at the provided value.
+  - **delete_if_empty**: (optional) if TRUE and this field is for ancillary data
+    then the ancillary record should be removed if this value is empty.
+  - **empty_value**:  (optional) the value that indicates an empty state.  This
+    could be ``0``, an empty string or NULL.  Whichever is appropriate for the
+    property.  This value is used in conjunction with the **delete_if_empty**
+    setting.
+
 - **join**: indicates that the value of this property is obtained by joining
-  the record specified in the `record_id` property with another table in Chado.
+  the record ID in the property with the **store_id** action with another table in Chado.
 
   - **path**: (required) the sequence of joins that should be performed.
 
@@ -760,23 +726,12 @@ following actions can be used:
     - Separate multiple joins with a semicolon. For example to get the
       infraspecific name of an organism:
       `feature.organism_id>organism.organism_id;organism.type_id>cvterm.cvterm_id`.
+
   - **chado_column**: (required) the name of the column from the last join that will
     contain the value for this field.
   - **as**: (optional) to prevent a naming conflict in the SQL that the
     `ChadoStorage` backend will generate, you can rename the `chado_column`
     with a different name.
-
-- **link**:  indicates that the value of this property is the ID of a linking
-  table (e.g., a property table).
-
-  - **chado_table**: (required) the name of the table that should be linked to the base
-    table. For example, if the base table is `analysis` and you want to link to
-    the `analysisprop` table, this would be `analysisprop`.
-  - **chado_column**:  (required) the chado column that will house the value of this property.
-    This should *always* be the primary key field of the linked table
-    (e.g. `analysispropr_id`).
-  - **link_column**: (required) the column in the `chado_table` that is the foreign key
-    to the base table (e.g. `anslysis_id`).
 
 - **replace**:  indicates that the value of this property is a tokenized string
   and should be replaced with values from other properties.
@@ -794,49 +749,93 @@ following actions can be used:
 
     - *Currently not implemented in Alpha release v1*
 
-As an example, the following settings were used for property types in the organism field
-of Tripal.
+As an example, let's look at the ``tripalTypes()`` function of the field that
+allows an end-user to add an organism to content.  This code is found
+in the ``tripal_chado\src\Plugin\Field\FieldType\obi__organism.php`` file of
+Tripal:
 
 .. code:: php
 
-    // Use the default settings for the `value` property.
-    $value_settings = $settings['property_settings']['value'];
+  public static function tripalTypes($field_definition) {
+    $entity_type_id = $field_definition->getTargetEntityTypeId();
 
-    // Use a tokenized string to build the organism label (full scientific name).
-    $label_settings = [
-      'action' => 'replace',
-      'template' => "<i>[$genus_term] [$species_term]</i> [$iftype_term] [$ifname_term]",
+    // Get the length of the database fields so we don't go over the size limit.
+    $chado = \Drupal::service('tripal_chado.database');
+    $schema = $chado->schema();
+    $organism_def = $schema->getTableDef('organism', ['format' => 'Drupal']);
+    $cvterm_def = $schema->getTableDef('cvterm', ['format' => 'Drupal']);
+    $genus_len = $organism_def['fields']['genus']['size'];
+    $species_len = $organism_def['fields']['species']['size'];
+    $iftype_len = $cvterm_def['fields']['name']['size'];
+    $ifname_len = $organism_def['fields']['infraspecific_name']['size'];
+    $label_len = $genus_len + $species_len + $iftype_len + $ifname_len;
+
+    // Get the base table columns needed for this field.
+    $settings = $field_definition->getSetting('storage_plugin_settings');
+    $base_table = $settings['base_table'];
+    $base_schema_def = $schema->getTableDef($base_table, ['format' => 'Drupal']);
+    $base_pkey_col = $base_schema_def['primary key'];
+    $base_fk_col = array_keys($base_schema_def['foreign keys']['organism']['columns'])[0];
+
+    // Return the properties for this field.
+    return [
+      new ChadoIntStoragePropertyType($entity_type_id, self::$id, 'record_id', [
+        'action' => 'store_id',
+        'drupal_store' => TRUE,
+        'chado_table' => $base_table,
+        'chado_column' => $base_pkey_col
+      ]),
+      new ChadoIntStoragePropertyType($entity_type_id, self::$id, 'organism_id', [
+        'action' => 'store',
+        'chado_table' => $base_table,
+        'chado_column' => $base_fk_col,
+      ]),
+      new ChadoVarCharStoragePropertyType($entity_type_id, self::$id, 'label', $label_len, [
+        'action' => 'replace',
+        'template' => "<i>[genus] [species]</i> [infraspecific_type] [infraspecific_name]",
+      ]),
+      new ChadoVarCharStoragePropertyType($entity_type_id, self::$id, 'genus', $genus_len, [
+        'action' => 'join',
+        'path' => $base_table . '.organism_id>organism.organism_id',
+        'chado_column' => 'genus'
+      ]),
+      new ChadoVarCharStoragePropertyType($entity_type_id, self::$id, 'species', $species_len, [
+        'action' => 'join',
+        'path' => $base_table . '.organism_id>organism.organism_id',
+        'chado_column' => 'species'
+      ]),
+      new ChadoVarCharStoragePropertyType($entity_type_id, self::$id, 'infraspecific_name', $ifname_len, [
+        'action' => 'join',
+        'path' => $base_table . '.organism_id>organism.organism_id',
+        'chado_column' => 'infraspecific_name',
+      ]),
+      new ChadoIntStoragePropertyType($entity_type_id, self::$id, 'infraspecific_type', [
+        'action' => 'join',
+        'path' => $base_table . '.organism_id>organism.organism_id;organism.type_id>cvterm.cvterm_id',
+        'chado_column' => 'name',
+        'as' => 'infraspecific_type_name'
+      ])
     ];
+  }
 
-    // Join to the organism table to get the genus.
-    $genus_settings = [
-      'action' => 'join',
-      'path' => $base_table . '.organism_id>organism.organism_id',
-      'chado_column' => 'genus'
-    ];
+The Tripal organism property is used to associate an organism
+to a base record that has an ``organism_id`` column in the Chado table.  We only
+need to store the ``organism_id`` to make this work, but again, requiring an
+end-user to enter a numeric organism is not ideal. Also we want our formatter
+to print a nicely formatted scientific name for the organism.  We need more
+properties.
 
-    // Join to the organism table to get the species.
-    $species_settings = [
-      'action' => 'join',
-      'path' => $base_table . '.organism_id>organism.organism_id',
-      'chado_column' => 'species'
-    ];
+In the code above, we create seven properties for this field.  As required we
+must have a property that uses the action ``store_id`` that will house the
+record ID (e.g., feature.feature_id).  Because this field is supposed to
+store the ``organism_id`` for the feature, stock, etc., we have a property that
+uses the action ``store`` and maps to the ``organism_id`` column of the table.
 
-    // Join to the cvterm table via the organism table to get the infraspecific type.
-    $iftype_settings = [
-      'action' => 'join',
-      'path' => $base_table . '.organism_id>organism.organism_id;organism.type_id>cvterm.cvterm_id',
-      'chado_column' => 'name',
-      'as' => 'infraspecific_type_name'
-    ];
-
-    // Join to the organism table to get the infraspecific name.
-    $ifname_settings = [
-      'action' => 'join',
-      'path' => $base_table . '.organism_id>organism.organism_id',
-      'chado_column' => 'infraspecific_name',
-    ];
-
+We also have a variety of properties with a join action.  These are used to
+join on the base table to get information such as the genus, species,
+and infraspecific type.  Lastly, we have a property with the action ``replace``
+that uses a tokenized string to create a nicely formatted scientific name for
+the organism.
 
 
 Implementing a TripalWidgetBase Class

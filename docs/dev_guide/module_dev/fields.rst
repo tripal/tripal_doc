@@ -1,6 +1,6 @@
 
-Fields
-======
+Fields (content building blocks)
+==================================
 
 Fields are the building blocks of content in Drupal. For example, all content
 types (e.g. "Article", or "Basic Page") provide content to the end-user via
@@ -27,25 +27,39 @@ of data in biological databases such as Chado.
   custom module.
 
 Field Classes
--------------
+---------------
 Anyone who wants to implement a new field in Drupal must implement three
 different classes:
 
 - `FieldItemBase <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Field%21FieldItemBase.php/class/FieldItemBase/9.4.x>`_:
-  the class that defines a new field.
+  the class that defines a new field. This class interacts directly with the
+  data storage plugin to load and save the data managed by this field.
 - `WidgetBase <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Field%21WidgetBase.php/class/WidgetBase/9.4.x>`_:
   the class that defines the form elements (widgets) provided to the end-user
-  to provide data for the field.
+  to supply or change the data managed by this field.
 - `FormatterBase <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Field%21FormatterBase.php/class/FormatterBase/9.4.x>`_:
-  the class taht defines how the field is rendered on the page.
+  the class that defines how the field is rendered on the page.
 
 These classes were extended by Tripal to provide additional
-functionality that allows Tripal-based fields to communicate with the data
-store where biological data is house. Chado is the default data store supported
-by Tripal.  Custom module developers who wish to add new fields to Tripal
-should implement the following three classes for every new field:
+functionality that allows Tripal-based fields to communicate with additional
+data stores housing biological data. There is support for a number of
+types of datastores (e.g. MySQL, PostgreSQL, SQLite) in core Drupal but you are
+required to choose a single data store for your site. The extension to support
+multiple data stores provided by Tripal allows you to keep your biological data
+separate from the website and still available to scientific analysis and
+visualization tools.
 
-- **ChadoFieldItemBase**: a class that extends the Tripal class `TripalFieldItemBase`
+Chado is the default data store implemented within Tripal as it offers flexible
+support for a wide breadth of biological data types, ontology-focused metadata,
+and robust data integrity. The following documentation will demonstrate how to
+develop custom fields with data stored in Chado. However, the Tripal data storage
+plugin and Tripal Fields are designed to work with additional data stores and
+documentation showing how to take advantage of this will be written in the future.
+
+Custom module developers who wish to add new fields to Tripal whose data are
+stored in Chado should implement the following three classes for every new field:
+
+- **ChadoFieldItemBase**: extends the Tripal class `TripalFieldItemBase`
   which extends the Drupal class `FiedlItemBase`. The `TripalFieldItemBase`
   must be used for all fields attached to Tripal content types and the
   `ChadoFieldItemBase` adds Chado-specific support.
@@ -54,10 +68,10 @@ should implement the following three classes for every new field:
 
 
 How to Write a New Field for Chado
------------------------------------
+------------------------------------
 
 Directory Setup
-^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^
 Drupal manages fields using its `Plugin API <https://www.drupal.org/docs/drupal-apis/plugin-api>`_.
 this means that as long as new field classes are placed in the correct directory
 and have the correct "annotations" in the class comments then Drupal will find them
@@ -87,9 +101,10 @@ the directory structure would look like the following:
 
 
 About the Storage Backend
-^^^^^^^^^^^^^^^^^^^^^^^^^
-Default Behavior
-~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Default Drupal Behavior
+````````````````````````
 By default, all built-in fields provided by Drupal store their data in the
 Drupal database.  This is provided by Drupal's
 `SqlContentEntityStorage <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Entity%21Sql%21SqlContentEntityStorage.php/class/SqlContentEntityStorage/9.4.x>`_
@@ -144,7 +159,7 @@ These columns are specific to the field:
 
 
 Support for Chado
-`````````````````
+```````````````````
 For fields storing biological data in something other than Drupal tables,
 Tripal provides its own plugin named `TripalStorage`.  If a custom module wants to
 store data in a data backend other than in Drupal tables, it must create an implementation
@@ -174,12 +189,12 @@ described in the following sections.
 
 
 Implementing a ChadoFieldItemBase Class
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 When creating a new Tripal field, the first class that must be created is the
 "type" class. This must extend the `ChadoFieldItemBase` class.
 
 Single-Value Fields
-~~~~~~~~~~~~~~~~~~~
+`````````````````````
 A single-value field is the simplest Chado field.  This is a field that manages
 a data value from a single column in a single Chado table.  For example,
 the `genus` column of the `organism` table of Chado stores the genus of an
@@ -206,7 +221,7 @@ See the section :ref:`Automate Adding a Field to a Content Type` for
 instructions to add the field during installation of your module.
 
 Complex Fields
-~~~~~~~~~~~~~~
+````````````````
 A complex field is one that manages multiple properties (or multiple values) within a single field.  An example
 of a complex field is one that stores/loads the organism of a germplasm content type.
 Within Chado, a record in the `stock` table is used to store germplasm data. The
@@ -230,7 +245,7 @@ Instead what we need is:
 
 
 Class Setup
-~~~~~~~~~~~
+`````````````
 To create a new field, we will extend the `ChadoFieldItemBase`.  For a new
 field named `MyField` we would create a new file in our module here:
 `src/Plugin/Field/FieldType/MyfieldType.php`.  The following is an empty
@@ -334,7 +349,7 @@ class example:
 Below is a line-by-line explanation of each section of the code snippet above.
 
 Namespace and Use Statements
-````````````````````````````
+``````````````````````````````
 
 The following should always be present and specifies the namespace for this
 field.
@@ -372,7 +387,7 @@ classes you could import if needed.
 
 
 Annotation Section
-``````````````````
+````````````````````
 
 The annotation section in the class file is the in-line comments for the class.
 Note the @FieldType stanza in the comments. Drupal
@@ -401,7 +416,7 @@ and formatter class. This annotation is required.
 
 
 Class Definition
-````````````````
+``````````````````
 
 Next, the class definition line must extend the `ChadoFieldItemBase` class. You
 must name your class the same as the filename in which it is contained (minus
@@ -419,7 +434,7 @@ the `.php` extension).
     Drupal.
 
 The defaultFieldSettings() Function
-```````````````````````````````````
+`````````````````````````````````````
 This is an optional function.  If your field requires some additional settings
 that must be set when the field is added to a content type you can set
 those here.
@@ -460,7 +475,7 @@ can be set with the field is added automatically. See the
 :ref:`Automate Adding a Field to a Content Type` section.
 
 The defaultStorageSettings() Function
-`````````````````````````````````````
+```````````````````````````````````````
 The field settings described in the previous function apply to the field. But
 some settings may be needed for the storage backend. Drupal distinguishes
 between field settings and field storage settings.
@@ -501,7 +516,7 @@ function from this field:
   }
 
 The storageSettingsForm() Function
-``````````````````````````````````
+````````````````````````````````````
 If a field needs input from the user to provide values for settings, then the
 `storageSettingsForm()` function can be implemented.  Add the form
 elements needed for the user to provide values.
@@ -545,13 +560,13 @@ The site admin will be able to change the storage settings if they:
   fixed.
 
 The fieldSettingsForm() Function
-````````````````````````````````
+``````````````````````````````````
 The `fieldSettingsForm()` functions in the same was as the `storageSettingsForm()`
 function but for the field settings.
 
 
 The getConstraints() Function
-`````````````````````````````
+```````````````````````````````
 The `getConstraints()` function is used to provide a set of constraints to
 ensure that values provided to fields are appropriate. You can read more
 about defining validation contraints for fields
@@ -584,7 +599,8 @@ to ensure that that max length of the string is not exceeded.
   }
 
 The tripalTypes() Function
-``````````````````````````
+````````````````````````````
+
 The `tripalTypes()` function is used to specify the property types that this
 field will manage.  A field may house as many properties as it needs. For
 example, the organism field that may appear on a stock page needs to track the
@@ -627,7 +643,8 @@ More about properties is described in the next section.
 
 
 Property Types
-``````````````
+````````````````
+
 As was introduced in the :ref:`The tripalTypes() Function` section above, each
 field must define the set of properties that it will manage. The set of property
 types is returned by the `tripalTypes()` function.
@@ -652,7 +669,8 @@ All of these classes can be instantiated with four arguments:
 
 
 Property Settings
-`````````````````
+```````````````````
+
 The :ref:`Property Types` section above indicated that each property type class
 has a fourth argument that provides settings for the property.  These settings
 are critical for describing how the property is managed by the ``ChadoStorage``
@@ -839,13 +857,38 @@ the organism.
 
 
 Implementing a TripalWidgetBase Class
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. warning::
+
+  This documentation is still being developed. In the meantime there are examples
+  in the Tripal core codebase. Specifically, look in the
+  `tripal_chado/src/Plugin/Field/FieldWidget` directory.
 
 Implementing a TripalFormatterBase Class
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. warning::
+
+  This documentation is still being developed. In the meantime there are examples
+  in the Tripal core codebase. Specifically, look in the
+  `tripal_chado/src/Plugin/Field/FieldFormatter` directory.
 
 Automate Adding a Field to a Content Type
------------------------------------------
+------------------------------------------
+
+.. warning::
+
+  This documentation is still being developed. In the meantime there are
+  examples for programmatically adding TripalFields in the Tripal core codebase.
+  Specifically, look in the Chado Preparer class in
+  `tripal_chado/src/Task/ChadoPreparer.php`.
 
 What About Fields not for Chado?
---------------------------------
+---------------------------------
+
+.. warning::
+
+  This documentation is still being developed. Currently ChadoStorage provides
+  an example for implementing the TripalStorage data store extension. It can be
+  found in `tripal_chado/src/Plugin/TripalStorage/ChadoStorage.php`.

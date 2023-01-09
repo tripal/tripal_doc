@@ -35,10 +35,7 @@ The goal of this document is to make it easy for **A)** contributors to make pul
     - In almost every case, there should be an issue for a PR.  This allows feedback and discussion before the coding happens.  Not grounds to reject, but encourage users to create issues at start of their PR.  Better late than never :).
 - PRs **must** be left unmerged for 3 weekdays to give core developers a chance to learn from each other and provide any feedback. Larger or particularly important/interesting PRs should be announced in the Slack #core-dev channel.
 - PRs **must** describe what they do and provide manual testing instructions.
-- If providing a PR review, please keep the following in mind:
-    - Use of deprecated functions should be pointed out but do not block merge.
-    - Limit your comments to merge blocking and deprecated functions. Any other concerns you have you can create an issue to document in the repository and assign it to yourself.
-    - Concerns are merge blocking if they are examples of these guidelines not being followed (e.g. no automated testing) or if the functionality being added does not work as described or produces a WSOD.
+- PRs **must not** use any functions deprecated in the currently supported version of Drupal.
 - PRs that include new functionality **must** also provide Automated Testing.
     - A PR should not reduce the overall test coverage of the repository. Code Climate will comment on your PR with the total coverage in the repository and include the change caused by your PR. This change must not be negative.
     - .. image:: contribution-guidelines.testcoverageexample.png

@@ -10,13 +10,13 @@ The following guidelines are meant to encourage contribution to Tripal source-co
 
 .. note::
 
-	Guidelines serve as suggestions ( **should** ) or requirements (**must**). When the word "should" is used in the text below, the stated policy is expected but there may be minor exceptions.  When the word "must" is used there are no exceptions to the stated policy.
+  Guidelines serve as suggestions ( **should** ) or requirements (**must**). When the word "should" is used in the text below, the stated policy is expected but there may be minor exceptions.  When the word "must" is used there are no exceptions to the stated policy.
 
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Contents:
 
-   contributing/communication
+   contributing/contribution-guidelines
    contributing/code-of-conduct
    contributing/github

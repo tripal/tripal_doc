@@ -11,5 +11,4 @@ Extending Tripal
    dev_guide/biodata
    dev_guide/module_dev
    dev_guide/testing
-   dev_guide/tripal_console
    dev_guide/lessons

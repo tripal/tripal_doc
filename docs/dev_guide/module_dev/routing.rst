@@ -46,6 +46,17 @@ This defines a typically menu link; in this case, a link labelled "Hello" will a
  - local action: link at the top of a page (i.e. "+ Add Content" on ``admin/content``) which allows the admin to complete an action.
  - contextual links: similar to tabs but appear near the title (e.g. view, edit on a content page). These are different from tabs because they are dynamic and often require a parameters (e.g. entity id).
 
+For Tripal Extension modules, it is good practice to have the main configuration page for your module available on Tripal's own Extensions menu page. To accomplish this, the main configuration page for your module should have an entry with tripal.extension as the parent. For example:
+
+.. code::
+
+  hello_world.config:
+    route_name: hello_world.config
+    title: 'Hello World Config'
+    description: 'Configure how to greet the world'
+    parent: tripal.extension
+    weight: 0
+
 Check out the additional resources for how to define these other types of menu items and for more information in general.
 
 Additional Resources

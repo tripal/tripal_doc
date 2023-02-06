@@ -99,6 +99,38 @@ the directory structure would look like the following:
   ├── tests
   └── templates
 
+Note that the file name must match the class name.
+
+Naming convention
+^^^^^^^^^^^^^^^^^
+
+The filename for your new field should adhere to the following schema. Please note the casing
+used. In addition, for fields that will be included in Tripal Core, note the 'Default'
+designation:
+
+  +------------------+-----------------------------+
+  | File             | Filename                    |
+  +==================+=============================+
+  | Type             | MyFieldTypeDefault.php      |
+  +------------------+-----------------------------+
+  | Formatter        | MyFieldFormatterDefault.php |
+  +------------------+-----------------------------+
+  | Widget           | MyFieldWidgetDefault.php    |
+  +------------------+-----------------------------+ 
+
+Within the individual files, in the annotation section, the ID also has to follow 
+a specific format, and would look like the following:
+
+  +------------------+----------------------------+
+  | File             | ID within annotation       |
+  +==================+============================+
+  | Type             | my_field_default           |
+  +------------------+----------------------------+
+  | Formatter        | my_field_formatter_default |
+  +------------------+----------------------------+
+  | Widget           | my_field_widget_default    |
+  +------------------+----------------------------+ 
+
 
 About the Storage Backend
 ^^^^^^^^^^^^^^^^^^^^^^^^^^

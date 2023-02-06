@@ -96,6 +96,16 @@ Using Latest tagged version
     git clone https://github.com/tripal/tripal
     git checkout 4.x
 
+3. When editing core always make a new branch. Use following naming convention for branches
+
+  - `tv4g[0-9]` indicates the functionality group the branch relates to. See tags for groups available.  
+  - `issue\d+` indicates the issue describing the purpose of the branch. By making a new issue for each major task before we start working on it, we give room for others to jump in and save you time if something is already done, beyond scope, or can be made easier by something they are working on!  
+  - `[optional short descriptor]` can be anything without spaces. This is meant to make the branches more readable so we don’t have to look up the issue every time. You are encouraged to only have one branch per issue! That said, there are some edge-cases where multiple branches may be needed (i.e. partitioned reviews) where variations in the optional short description can make the purpose of multiple branches clear.
+
+Example for new branch for creating a new field
+  .. code-block:: bash
+  git checkout -b  ttv4g1-issue1414-[data__sequence_length]
+
 3. Create a docker container based on the most recent TripalDocker image with your cloned version of Tripal4 mounted inside it.
 
   .. code-block:: bash

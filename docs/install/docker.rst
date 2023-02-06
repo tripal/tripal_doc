@@ -103,8 +103,10 @@ Using Latest tagged version
   - `[optional short descriptor]` can be anything without spaces. This is meant to make the branches more readable so we don’t have to look up the issue every time. You are encouraged to only have one branch per issue! That said, there are some edge-cases where multiple branches may be needed (i.e. partitioned reviews) where variations in the optional short description can make the purpose of multiple branches clear.
 
 Example for new branch for creating a new field
+
   .. code-block:: bash
-  git checkout -b  ttv4g1-issue1414-[data__sequence_length]
+    git checkout -b  ttv4g1-issue1414-[data__sequence_length]
+
 
 4. Create a docker container based on the most recent TripalDocker image with your cloned version of Tripal4 mounted inside it.
 

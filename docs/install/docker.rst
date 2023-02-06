@@ -25,19 +25,19 @@ Quickstart
 
     .. code::
 
-      docker run --publish=9000:80 --name=t4d8 -tid tripalproject/tripaldocker:latest
+      docker run --publish=9000:80 --name=t4 -tid tripalproject/tripaldocker:latest
 
     b) Development container with current directory mounted within the container for easy edits. Change my_module with the name of yours.
 
     .. code::
 
-      docker run --publish=9000:80 --name=t4d8 -tid --volume=`pwd`:/var/www/drupal9/web/modules/contrib/my_module tripalproject/tripaldocker:latest
+      docker run --publish=9000:80 --name=t4 -tid --volume=`pwd`:/var/www/drupal9/web/modules/contrib/my_module tripalproject/tripaldocker:latest
 
 2. Start the PostgreSQL database.
 
 .. code::
 
-  docker exec t4d8 service postgresql start
+  docker exec t4 service postgresql start
 
 
 Development Site Information:
@@ -59,25 +59,31 @@ Usage
 
    .. code::
 
-    docker exec --workdir=/var/www/drupal9/web/modules/contrib/tripal t4d8 phpunit
+    docker exec --workdir=/var/www/drupal9/web/modules/contrib/tripal t4 phpunit
 
- - Run Drupal Console to generate code for your module!
+ - Open PSQL to query the database on the command line. The password is docker.
 
    .. code::
 
-    docker exec t4d8 drupal generate:module
+     docker exec -it t4 psql --user docker sitedb
+
+ - Run Drush to generate code for your module!
+
+   .. code::
+
+    docker exec t4 drush generate module
 
  - Run Drush to rebuild the cache
 
    .. code::
 
-    docker exec t4d8 drush cr
+    docker exec t4 drush cr
 
  - Run Composer to upgrade Drupal
 
    .. code::
 
-    docker exec t4d8 composer up
+    docker exec t4 composer up
 
 Detailed Setup for Core Development
 ------------------------------------
@@ -93,37 +99,51 @@ Using Latest tagged version
 
     mkdir ~/Dockers
     cd ~/Dockers
-    git clone https://github.com/tripal/t4d8
+    git clone https://github.com/tripal/tripal
+    git checkout 4.x
 
-3. Create a docker container based on the most recent TripalDocker image with your cloned version of Tripal4 mounted inside it.
+3. When editing core always make a new branch. Use following naming convention for branches: `tv4g[0-9]-issue\d+-[optional short descriptor]`.
+
+  - `tv4g[0-9]` indicates the functionality group the branch relates to. See tags for groups available.
+  - `issue\d+` indicates the issue describing the purpose of the branch. By making a new issue for each major task before we start working on it, we give room for others to jump in and save you time if something is already done, beyond scope, or can be made easier by something they are working on!
+  - `[optional short descriptor]` can be anything without spaces. This is meant to make the branches more readable so we don’t have to look up the issue every time. You are encouraged to only have one branch per issue! That said, there are some edge-cases where multiple branches may be needed (i.e. partitioned reviews) where variations in the optional short description can make the purpose of multiple branches clear.
+
+  Example for new branch for creating a new field:
 
   .. code-block:: bash
 
-    cd t4d8
-    docker run --publish=9000:80 --name=t4d8 -tid --volume=`pwd`:/var/www/drupal9/web/modules/contrib/tripal tripalproject/tripaldocker:latest
+    git checkout -b  tv4g1-issue1414-data__sequence_length
+
+
+4. Create a docker container based on the most recent TripalDocker image with your cloned version of Tripal4 mounted inside it.
+
+  .. code-block:: bash
+
+    cd t4
+    docker run --publish=9000:80 --name=t4 -tid --volume=`pwd`:/var/www/drupal9/web/modules/contrib/tripal tripalproject/tripaldocker:latest
 
   The first time you run this command you will see ``Unable to find image 'tripalproject/tripaldocker:latest' locally``. This is not an error! It's just a warning and the command will automatically pull the image from the docker cloud.
 
   So, what does this command mean? I'll try to explain the parts below for users new to docker. If you are familiar with docker, feel free to ignore the next points!
 
    - The ``docker run`` command creates a container from a docker image. You can think of a dockerfile as instructions, an image as an OS and a container as a running machine.
-   - The ``--name=t4d8`` is how you will access the container later using ``docker exec`` commands as shown in the usage section.
+   - The ``--name=t4`` is how you will access the container later using ``docker exec`` commands as shown in the usage section.
    - The ``-tid`` part runs the container in the background with an interactive terminal ready to be accessed using exec.
    - The ``--publish=9000:80`` opens port 9000 on your computer and ensures when you access localhost:9000 you will see the website inside the container.
    - The ``--volume=[localpath]:[containerpath]`` ensures that your local changes will be sync'd with that directory inside the container. This makes development in the container a lot easier!
 
   The command above was written for linux or mac users. Here is some information for Windows users.
-   - For Windows users the above command will not works as written. Specifically, the ``pwd`` needs to be replaced with the absolute path in including the t4d8 directory.
+   - For Windows users the above command will not works as written. Specifically, the ``pwd`` needs to be replaced with the absolute path in including the t4 directory.
 
    .. code-block:: bash
 
-    docker run --publish=9000:80 --name=t4d8 -tid --volume=C:\Users\yourusername\Dockers\t4d8:/var/www/drupal9/web/modules/contrib/tripal tripalproject/tripaldocker:latest``
+    docker run --publish=9000:80 --name=t4 -tid --volume=C:\Users\yourusername\Dockers\t4:/var/www/drupal9/web/modules/contrib/tripal tripalproject/tripaldocker:latest``
 
-4. Start the PostgreSQL database.
+5. Start the PostgreSQL database.
 
   .. code-block:: bash
 
-    docker exec t4d8 service postgresql start
+    docker exec t4 service postgresql start
 
 **This will create a persistent Drupal/Tripal site for you to play with! Data is stored even when your computer restarts and Tripal will already be enabled with Chado installed.**
 
@@ -134,19 +154,20 @@ Testing install for a specific branch or update the docker image.
 
 The following instructions will show you how to create the TripalDocker image from the code existing locally. **This should only be needed if you have made changes to Tripal 4 that impact the installation process, you have created a new module and/or if you have created a new Tripal release. Otherwise, you should be able to use the image from docker hub accessed via the docker pull command.**
 
-First if you do not have a local copy of the t4d8 repository, you can use the following instructions to get one. If you do have a copy already, make sure it is up to date and contains the changes you would like to test.
+First if you do not have a local copy of the t4 repository, you can use the following instructions to get one. If you do have a copy already, make sure it is up to date and contains the changes you would like to test.
 
 .. code-block:: bash
 
   mkdir ~/Dockers
   cd ~/Dockers
-  git clone https://github.com/tripal/t4d8
+  git clone https://github.com/tripal/tripal
+  git checkout 4.x
 
 Next, you use the `docker build <https://docs.docker.com/engine/reference/commandline/build/>`_ command to create an image from the existing TripalDocker Dockerfile. Since we are testing Tripal 4 on multiple versions of Drupal, you can set the Drupal major version using the drupalversion argument as shown below. The version of Drupal used for the latest tag is the default value of the argument in the Dockerfile.
 
 .. code-block:: bash
 
-  cd t4d8
+  cd t4
   docker build --tag=tripalproject/tripaldocker:drupal9.1.x-dev --build-arg drupalversion='9.1.x-dev' ./
 
 This process will take a fair amount of time as it completely installs Drupal, Tripal and PostgreSQL. You will see a large amount of red text but hopefully not any errors. You should always test the image by running it before pushing it up to docker hub!
@@ -164,7 +185,7 @@ This process will take a fair amount of time as it completely installs Drupal, T
 
 .. note::
 
-  To **test your image**, execute any of the ``docker run`` commands documented above making sure to also start PostgreSQL (i.e. ``docker exec t4d8 service postgresql restart``). At this point you will already have Drupal, Tripal and Chado installed. It is recommended to also do a quick test of core functionality which may have been impacted by any recent changes.
+  To **test your image**, execute any of the ``docker run`` commands documented above making sure to also start PostgreSQL (i.e. ``docker exec t4 service postgresql restart``). At this point you will already have Drupal, Tripal and Chado installed. It is recommended to also do a quick test of core functionality which may have been impacted by any recent changes.
 
 Troubleshooting
 ---------------
@@ -177,8 +198,8 @@ On my web browser, I got the message "The provided host name is not valid for th
 
 .. code::
 
-  docker exec -it t4d8 chmod +w /var/www/drupal9/web/sites/default/settings.php
-  docker exec -it t4d8 vi /var/www/drupal9/web/sites/default/settings.php
+  docker exec -it t4 chmod +w /var/www/drupal9/web/sites/default/settings.php
+  docker exec -it t4 vi /var/www/drupal9/web/sites/default/settings.php
 
 For instance, if your server name is ``www.yourservername.org``:
 
@@ -193,11 +214,11 @@ As Tripal 4 is currently under rapid development, this could be due to not using
 
 .. code-block:: bash
 
-  docker rm --force t4d8
+  docker rm --force t4
   docker rmi tripalproject/tripaldocker:latest
   docker pull tripalproject/tripaldocker:latest
 
-At this point, you can follow up with the appropriate ``docker run`` command. If your run command mounts the current directory through the ``--volume`` parameter then make sure you are in a copy of the t4d8 repository on the main branch with the most recent changes pulled.
+At this point, you can follow up with the appropriate ``docker run`` command. If your run command mounts the current directory through the ``--volume`` parameter then make sure you are in a copy of the t4 repository on the main branch with the most recent changes pulled.
 
 Debugging
 ---------
@@ -220,7 +241,7 @@ To enable Xdebug, issue the following command:
 
 .. code::
 
-  docker exec --workdir=/var/www/drupal9/web/modules/contrib/tripal t4d8 xdebug_toggle.sh
+  docker exec --workdir=/var/www/drupal9/web/modules/contrib/tripal t4 xdebug_toggle.sh
 
 This will toggle the Xdebug configuration file and restart Apache. You should use this command to disable Xdebug if it is enabled prior to running PHPUnit Tests as it seriously impacts test run duration (approximately 8 times longer).
 
@@ -248,14 +269,14 @@ A new configuration should be made using PHP. The following options can be used 
             "type": "php",
             "request": "launch",
             "port": 9003,
-            "pathMappings": { "/var/www/drupal9/web/modules/contrib/tripal": "~/Dockers/t4d8" }
+            "pathMappings": { "/var/www/drupal9/web/modules/contrib/tripal": "~/Dockers/t4" }
         }
     ]
   }
 
 The important parameter here is `pathMappings` which will allow Xdebug and your IDE know which paths on the host and in the Docker VM coorespond to eachother.
 The first path listed is the one within the Docker and should point to the Tripal directory. The seocnd path is the one on your local host machine where you
-installed the repo and built the Docker image. If you followed the instructions above, this should be in your user folder under `~/Dockers/t4d8`.
+installed the repo and built the Docker image. If you followed the instructions above, this should be in your user folder under `~/Dockers/t4`.
 
 9003 is the default port and should only be changed if 9003 is already in use on your host system.
 
@@ -273,6 +294,6 @@ To view these files, we recommend using Webgrind. It can be launched as a separa
 
 .. code::
 
-  docker run --rm -v ~/Dockers/t4d8/tripaldocker/xdebug_output:/tmp -v ~/Dockers/t4d8:/host -p 8081:80 jokkedk/webgrind:latest
+  docker run --rm -v ~/Dockers/t4/tripaldocker/xdebug_output:/tmp -v ~/Dockers/t4:/host -p 8081:80 jokkedk/webgrind:latest
 
 You may need to adjust the paths given in the command above, similar to when setting up the pathMappings for step debugging earlier.

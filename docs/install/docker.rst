@@ -106,7 +106,7 @@ Example for new branch for creating a new field
   .. code-block:: bash
   git checkout -b  ttv4g1-issue1414-[data__sequence_length]
 
-3. Create a docker container based on the most recent TripalDocker image with your cloned version of Tripal4 mounted inside it.
+4. Create a docker container based on the most recent TripalDocker image with your cloned version of Tripal4 mounted inside it.
 
   .. code-block:: bash
 
@@ -130,7 +130,7 @@ Example for new branch for creating a new field
 
     docker run --publish=9000:80 --name=t4 -tid --volume=C:\Users\yourusername\Dockers\t4:/var/www/drupal9/web/modules/contrib/tripal tripalproject/tripaldocker:latest``
 
-4. Start the PostgreSQL database.
+5. Start the PostgreSQL database.
 
   .. code-block:: bash
 

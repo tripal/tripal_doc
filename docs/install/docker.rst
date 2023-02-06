@@ -93,37 +93,37 @@ Using Latest tagged version
 
     mkdir ~/Dockers
     cd ~/Dockers
-    git clone https://github.com/tripal/t4d8
+    git clone https://github.com/tripal/tripal
 
 3. Create a docker container based on the most recent TripalDocker image with your cloned version of Tripal4 mounted inside it.
 
   .. code-block:: bash
 
     cd t4d8
-    docker run --publish=9000:80 --name=t4d8 -tid --volume=`pwd`:/var/www/drupal9/web/modules/contrib/tripal tripalproject/tripaldocker:latest
+    docker run --publish=9000:80 --name=t4 -tid --volume=`pwd`:/var/www/drupal9/web/modules/contrib/tripal tripalproject/tripaldocker:latest
 
   The first time you run this command you will see ``Unable to find image 'tripalproject/tripaldocker:latest' locally``. This is not an error! It's just a warning and the command will automatically pull the image from the docker cloud.
 
   So, what does this command mean? I'll try to explain the parts below for users new to docker. If you are familiar with docker, feel free to ignore the next points!
 
    - The ``docker run`` command creates a container from a docker image. You can think of a dockerfile as instructions, an image as an OS and a container as a running machine.
-   - The ``--name=t4d8`` is how you will access the container later using ``docker exec`` commands as shown in the usage section.
+   - The ``--name=t4`` is how you will access the container later using ``docker exec`` commands as shown in the usage section.
    - The ``-tid`` part runs the container in the background with an interactive terminal ready to be accessed using exec.
    - The ``--publish=9000:80`` opens port 9000 on your computer and ensures when you access localhost:9000 you will see the website inside the container.
    - The ``--volume=[localpath]:[containerpath]`` ensures that your local changes will be sync'd with that directory inside the container. This makes development in the container a lot easier!
 
   The command above was written for linux or mac users. Here is some information for Windows users.
-   - For Windows users the above command will not works as written. Specifically, the ``pwd`` needs to be replaced with the absolute path in including the t4d8 directory.
+   - For Windows users the above command will not works as written. Specifically, the ``pwd`` needs to be replaced with the absolute path in including the t4 directory.
 
    .. code-block:: bash
 
-    docker run --publish=9000:80 --name=t4d8 -tid --volume=C:\Users\yourusername\Dockers\t4d8:/var/www/drupal9/web/modules/contrib/tripal tripalproject/tripaldocker:latest``
+    docker run --publish=9000:80 --name=t4 -tid --volume=C:\Users\yourusername\Dockers\t4d8:/var/www/drupal9/web/modules/contrib/tripal tripalproject/tripaldocker:latest``
 
 4. Start the PostgreSQL database.
 
   .. code-block:: bash
 
-    docker exec t4d8 service postgresql start
+    docker exec t4 service postgresql start
 
 **This will create a persistent Drupal/Tripal site for you to play with! Data is stored even when your computer restarts and Tripal will already be enabled with Chado installed.**
 

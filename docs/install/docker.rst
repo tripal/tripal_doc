@@ -61,11 +61,17 @@ Usage
 
     docker exec --workdir=/var/www/drupal9/web/modules/contrib/tripal t4 phpunit
 
- - Run Drupal Console to generate code for your module!
+ - Open PSQL to query the database on the command line. The password is docker.
 
    .. code::
 
-    docker exec t4 drupal generate:module
+     docker exec -it t4 psql --user docker sitedb
+
+ - Run Drush to generate code for your module!
+
+   .. code::
+
+    docker exec t4 drush generate module
 
  - Run Drush to rebuild the cache
 

@@ -19,13 +19,19 @@ Testing an unmerged pull request
       git clone https://github.com/tripal/tripal tripal-9999
       cd tripal-9999
 
-4. We will create the docker image, this takes a bit of time to complete.
+4. Now checkout the branch you want to test
+
+    .. code::
+
+      git checkout tv4g4-issue9999-example-branch
+
+5. We will create the docker image, this takes a bit of time to complete.
 
     .. code::
 
       sudo docker build --tag=tripaldocker:testing-9999 --build-arg drupalversion="9.5.x-dev" --file tripaldocker/Dockerfile-php8.1-pgsql13 ./
 
-5. We will now create a running docker container from this image, and map the web port to a value available on the test system.
+6. We will now create a running docker container from this image, and map the web port to a value available on the test system.
 
     .. code::
 
@@ -37,22 +43,22 @@ Testing an unmerged pull request
 
       --publish=80:8080
 
-6. And finally we need to start up Postgres inside the docker container.
+7. And finally we need to start up Postgres inside the docker container.
 
     .. code::
 
       sudo docker exec testing-9999 service postgresql restart
 
-7. The Tripal site should now be available to evaluate at http://localhost
+8. The Tripal site should now be available to evaluate at http://localhost
 
-8. If at some point you reboot your test system, you can restart this docker container with:
+9. If at some point you reboot your test system, you can restart this docker container with:
 
     .. code::
 
       sudo docker start testing-9999
       sudo docker exec testing-9999 service postgresql restart
 
-9. Listing existing images
+10. Listing existing images
 
     .. code::
 
@@ -60,13 +66,13 @@ Testing an unmerged pull request
       REPOSITORY                   TAG            IMAGE ID       CREATED          SIZE
       tripaldocker                 testing-9999   6b09ee09dd54   29 minutes ago   1.61GB
 
-10. Cleanup. Stopping the docker container.
+11. Cleanup. Stopping the docker container.
 
     .. code::
 
       sudo docker stop testing-9999
 
-11. Deleting the docker container and image when you are done with it.
+12. Deleting the docker container and image when you are done with it.
 
     .. code::
 

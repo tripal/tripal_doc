@@ -49,16 +49,22 @@ Testing an unmerged pull request
 
       sudo docker exec testing-9999 service postgresql restart
 
-8. The Tripal site should now be available to evaluate at http://localhost
+8. The Tripal site should now be available to evaluate at http://localhost:80
 
-9. If at some point you reboot your test system, you can restart this docker container with:
+9. If you need a shell inside the docker, such as to run a drush command, use
+
+    .. code::
+
+      sudo docker exec -it testing-9999 /bin/bash
+
+10. If at some point you reboot your test system, you can restart this docker container with:
 
     .. code::
 
       sudo docker start testing-9999
       sudo docker exec testing-9999 service postgresql restart
 
-10. Listing existing images
+11. Listing existing images
 
     .. code::
 
@@ -66,13 +72,13 @@ Testing an unmerged pull request
       REPOSITORY                   TAG            IMAGE ID       CREATED          SIZE
       tripaldocker                 testing-9999   6b09ee09dd54   29 minutes ago   1.61GB
 
-11. Cleanup. Stopping the docker container.
+12. Cleanup. Stopping the docker container.
 
     .. code::
 
       sudo docker stop testing-9999
 
-12. Deleting the docker container and image when you are done with it.
+13. Deleting the docker container and image when you are done with it.
 
     .. code::
 

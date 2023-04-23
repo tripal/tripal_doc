@@ -50,6 +50,7 @@ Testing an unmerged pull request
     .. code::
 
       sudo docker start testing-9999
+      sudo docker exec testing-9999 service postgresql restart
 
 9. Listing existing images
 

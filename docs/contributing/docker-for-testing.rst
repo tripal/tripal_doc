@@ -84,3 +84,5 @@ Testing an unmerged pull request
 
       sudo docker rm testing-9999
       sudo docker rmi tripaldocker:testing-9999
+
+For more details about TripalDocker including the site administrator login information and more usage commands see :ref:`the install Tripal using Docker usage section<Development Site Information:>`.

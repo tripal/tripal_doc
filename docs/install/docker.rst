@@ -133,7 +133,7 @@ Using Latest tagged version
    - The ``--volume=[localpath]:[containerpath]`` ensures that your local changes will be sync'd with that directory inside the container. This makes development in the container a lot easier!
 
   The command above was written for linux or mac users. Here is some information for Windows users.
-   - For Windows users the above command will not works as written. Specifically, the ``$(pwd)`` needs to be replaced with the absolute path in including the t4 directory.
+   - For Windows users the above command will not work as written. Specifically, the ``$(pwd)`` needs to be replaced with the absolute path in including the t4 directory.
 
    .. code-block:: bash
 

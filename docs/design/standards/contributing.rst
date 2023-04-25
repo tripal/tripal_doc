@@ -25,13 +25,13 @@ Adding New Designs
 """"""""""""""""""
 All design documentation must first be added to the :doc:`../pending` section. Anyone working on the design can do so.  To propose a pending design:
 
-1. Clone or fork the `t4d8` repository.
-2. Create a new branch for you design.
+1. Clone or fork the `tripal` repository.
+2. Create a new branch for your design.
 3. Design documentation is housed in the `docs/design` folder.
 4. Only add new documentation into the `docs/design/pending` folder. If you are unsure where to add your contributions please ask.
 5. Follow `RST <https://sublime-and-sphinx-guide.readthedocs.io/en/latest/index.html>`_ markup.
 6. Use the consistent RST headers as found in other design documents.
-7. Once you have added your documentation, you can submit a pull request for the `9.x-4.x` branch.
+7. Once you have added your documentation, you can submit a pull request for the `4.x` branch.
 8. Pending design do not need PMC review and can be immediately merged. However, the act of creating a pull request alerts the PMC that documentation is being prepared.
 
 .. warning::

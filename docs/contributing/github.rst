@@ -10,7 +10,7 @@ Branch Naming Conventions
 ``tv4g[0-9]-issue\d+-[optional short descriptor]``
 
 Where,
- - ``tv4g[0-9]`` indicates the roadmap group the branch relates to. You can see `the listing of groups here <https://github.com/tripal/t4d8/labels?q=GROUP>`_.
+ - ``tv4g[0-9]`` indicates the roadmap group the branch relates to. You can see `the listing of groups here <https://github.com/tripal/tripal/labels?q=GROUP>`_.
  - ``issue\d+``  indicates the issue describing the purpose of the branch. By making a new issue for each major task before we start working on it, we give room for others to jump in and save you time if something is already done, beyond scope, or can be made easier by something they are working on!
  - ``[optional short descriptor]`` can be anything without spaces. This is meant to make the branches more readable so we don't have to look up the issue every time. You are encouraged to **only have one branch per issue!** That said, there are some edge-cases where multiple branches may be needed (i.e. partitioned reviews) where variations in the optional short description can make the purpose of multiple branches clear.
 

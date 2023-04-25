@@ -57,8 +57,8 @@ There are great instructions on creating a PR on `Digital Ocean: How To Create a
 3. `Create a branch <https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging>`_ specific to your change: ``tv4g[0-9]-issue\d+-[optional short descriptor]``
 4. Make your changes, `committing <https://git-scm.com/docs/git-commit#_examples>`_ often with useful commit messages.
 5. `Push <https://git-scm.com/docs/git-push#_examples>`_ your changes to your fork.
-6. `Create a PR by going to your fork <https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork>`_: target should be ``tripal:9.x-4.x``. For specifics, see guidelines above.
+6. `Create a PR by going to your fork <https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork>`_: target should be ``tripal:4.x``. For specifics, see guidelines above.
 
 .. note:
 
-  If you are a `committer <>`_, you can clone the Tripal repository directly with no need to create or maintain a fork. Please make sure you are always creating new branches off of ``9.x-4.x`` and that you have pulled all recent changes to ``9.x-4.x`` before creating a new branch.
+  If you are a `committer <>`_, you can clone the Tripal repository directly with no need to create or maintain a fork. Please make sure you are always creating new branches off of ``4.x`` and that you have pulled all recent changes to ``4.x`` before creating a new branch.

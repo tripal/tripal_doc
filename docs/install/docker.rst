@@ -31,7 +31,7 @@ Quickstart
 
     .. code::
 
-      docker run --publish=9000:80 --name=t4 -tid --volume=`pwd`:/var/www/drupal9/web/modules/contrib/my_module tripalproject/tripaldocker:latest
+      docker run --publish=9000:80 --name=t4 -tid --volume=$(pwd):/var/www/drupal9/web/modules/contrib/my_module tripalproject/tripaldocker:latest
 
 2. Start the PostgreSQL database.
 
@@ -102,11 +102,11 @@ Using Latest tagged version
     git clone https://github.com/tripal/tripal
     git checkout 4.x
 
-3. When editing core always make a new branch. Use following naming convention for branches: `tv4g[0-9]-issue\d+-[optional short descriptor]`.
+3. When editing core always make a new branch. Use following naming convention for branches: ``tv4g[0-9]-issue\d+-[optional short descriptor]``.
 
-  - `tv4g[0-9]` indicates the functionality group the branch relates to. See tags for groups available.
-  - `issue\d+` indicates the issue describing the purpose of the branch. By making a new issue for each major task before we start working on it, we give room for others to jump in and save you time if something is already done, beyond scope, or can be made easier by something they are working on!
-  - `[optional short descriptor]` can be anything without spaces. This is meant to make the branches more readable so we don’t have to look up the issue every time. You are encouraged to only have one branch per issue! That said, there are some edge-cases where multiple branches may be needed (i.e. partitioned reviews) where variations in the optional short description can make the purpose of multiple branches clear.
+  - ``tv4g[0-9]`` indicates the functionality group the branch relates to. See tags for groups available.
+  - ``issue\d+`` indicates the issue describing the purpose of the branch. By making a new issue for each major task before we start working on it, we give room for others to jump in and save you time if something is already done, beyond scope, or can be made easier by something they are working on!
+  - ``[optional short descriptor]`` can be anything without spaces. This is meant to make the branches more readable so we don’t have to look up the issue every time. You are encouraged to only have one branch per issue! That said, there are some edge-cases where multiple branches may be needed (i.e. partitioned reviews) where variations in the optional short description can make the purpose of multiple branches clear.
 
   Example for new branch for creating a new field:
 
@@ -120,7 +120,7 @@ Using Latest tagged version
   .. code-block:: bash
 
     cd t4
-    docker run --publish=9000:80 --name=t4 -tid --volume=`pwd`:/var/www/drupal9/web/modules/contrib/tripal tripalproject/tripaldocker:latest
+    docker run --publish=9000:80 --name=t4 -tid --volume=$(pwd):/var/www/drupal9/web/modules/contrib/tripal tripalproject/tripaldocker:latest
 
   The first time you run this command you will see ``Unable to find image 'tripalproject/tripaldocker:latest' locally``. This is not an error! It's just a warning and the command will automatically pull the image from the docker cloud.
 
@@ -133,7 +133,7 @@ Using Latest tagged version
    - The ``--volume=[localpath]:[containerpath]`` ensures that your local changes will be sync'd with that directory inside the container. This makes development in the container a lot easier!
 
   The command above was written for linux or mac users. Here is some information for Windows users.
-   - For Windows users the above command will not works as written. Specifically, the ``pwd`` needs to be replaced with the absolute path in including the t4 directory.
+   - For Windows users the above command will not work as written. Specifically, the ``$(pwd)`` needs to be replaced with the absolute path in including the t4 directory.
 
    .. code-block:: bash
 

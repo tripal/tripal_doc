@@ -41,7 +41,7 @@ Testing an unmerged pull request
 
     .. code::
 
-      --publish=80:8080
+      --publish=8080:80
 
 7. And finally we need to start up Postgres inside the docker container.
 

@@ -34,7 +34,7 @@ author = u'Tripal Project Management Committee with the help of the Tripal Commu
 # The short X.Y version
 version = u'4.x'
 # The full version, including alpha/beta/rc tags
-release = u'9.x-4.x'
+release = u'4.x.alpha.1'
 
 
 # -- General configuration ---------------------------------------------------

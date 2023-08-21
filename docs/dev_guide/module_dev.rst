@@ -13,6 +13,7 @@ Custom Module Development
    module_dev/entities
    module_dev/fields
    module_dev/forms
+   module_dev/logging
    module_dev/views
    module_dev/config
    module_dev/theme

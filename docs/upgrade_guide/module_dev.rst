@@ -7,16 +7,15 @@ This page provides useful short snippets of code to help module developers upgra
 tripal_set_message() and tripal_report_error()
 ---------------------------------------------------
 
-These functions have been upgraded and thus can be used as is. However, the new way is use a logger service as shown below.
+These functions have been upgraded and thus can be used as is. However, the new way is to use a logger service. For example:
 
 .. code-block:: php
 
   $logger = \Drupal::service('tripal.logger');
   $logger->notice('Hello world');
-  $logger->info('Hello world');
-  $logger->warning('Hello world');
   $logger->error('Hello world');
-  $logger->debug('Hello world');
+
+For more detailed information see the :ref:`Tripal Logger` documentation.
 
 drupal_set_message()
 ----------------------
@@ -31,16 +30,16 @@ Changelog: https://www.drupal.org/node/2774931
 
   // Add specific type of message within classes.
   $this->messenger->addMessage('Hello world', 'custom');
-  $this->messenger->addError('Hello world');
   $this->messenger->addStatus('Hello world');
   $this->messenger->addWarning('Hello world');
+  $this->messenger->addError('Hello world');
 
   // In procedural code:
   $messenger = \Drupal::messenger();
   $messenger->addMessage('Hello world', 'custom');
-  $messenger->addError('Hello world');
   $messenger->addStatus('Hello world');
   $messenger->addWarning('Hello world');
+  $messenger->addError('Hello world');
 
 format_date()
 -------------

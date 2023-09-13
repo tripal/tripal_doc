@@ -50,7 +50,7 @@ Install Drupal and Tripal
       cd /var/www/tripal4/web/modules/
       git clone git@github.com:tripal/tripal.git
 
-4. Navigate to your new site in your browser: `<siteaddress.com>/core/install.php` and follow the instructions for setting up a Drupal site. You should see a page similar to this:
+4. Navigate to your new site in your browser: ``<siteaddress.com>/core/install.php`` and follow the instructions for setting up a Drupal site. You should see a page similar to this:
     
     .. image:: traditional.1.install_step_1.png
         :width: 600
@@ -77,7 +77,7 @@ Install and Prepare Chado
 
 The site is not quite ready to use yet! The Chado schema must be installed and the site must be prepared to use the installation.
 
-1. On your site, navigate to `<siteaddress.com>/admin/tripal/storage/chado/install`.
+1. On your site, navigate to **Tripal →  Data Storage → Chado → Install Chado**
     The page should warn you that Chado is not installed. Use this form to install it. If you wish, you can provide a custom name to your Chado schema:
 
     .. image:: traditional.4.chado_install.png
@@ -91,7 +91,7 @@ The site is not quite ready to use yet! The Chado schema must be installed and t
       cd /var/www/tripal4/web/
       drush trp-run-jobs --job_id=1 --username=admin --root=/var/www/tripal4/web
 
-3. Once Chado is installed, the site must be further prepared. Navigate to `<siteaddress.com>/admin/tripal/storage/chado/prepare`
+3. Once Chado is installed, the site must be further prepared. Navigate to **Tripal → Data Storage → Chado → Prepare Chado**
 
     .. image:: traditional.5.chado_prepare.png
       :width: 600

@@ -28,7 +28,7 @@ lexers["php-annotations"] = PhpLexer(startinline=True, linenos=1)
 # -- Project information -----------------------------------------------------
 
 project = u'Tripal'
-copyright = u'2020, Tripal Project Management Committee with the help of the Tripal Community'
+copyright = u'2023, Tripal Project Management Committee with the help of the Tripal Community'
 author = u'Tripal Project Management Committee with the help of the Tripal Community'
 
 # The short X.Y version

@@ -10,6 +10,12 @@ Requirements
 - Composer 2+
 - UNIX/Linux
 
+.. note::
+
+  Apache 2+ is recommended as the webserver but Drupal is also known to work well with Nginx. You may have limited support for Nginx from the Tripal community.
+
+  PostgreSQL is required by Chado to function properly, rather than MySQL or any other database management system.
+
 Supported Drupal Versions
 ---------------------------
 

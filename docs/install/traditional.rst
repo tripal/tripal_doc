@@ -3,6 +3,8 @@ Traditional Installation
 
 These instructions assume that your webserver's root directory is ``/var/www`` and that your site will be installed into a directory called ``tripal4``. Please change these in the commands below if your configuration is different.
 
+They also assume that your system meets all the prerequisites for running a Drupal site. Refer to `the Requirements page <requirements.html>`_ for more information.
+
 
 Install Drupal and Tripal
 -------------------------

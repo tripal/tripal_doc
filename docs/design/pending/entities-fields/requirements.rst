@@ -8,7 +8,7 @@ The following are the requirements we are taking into account for our design. Pl
 
 Tripal needs to **support multiple data backends on a single Tripal Entity Type; specifically, on a per field basis.**. For example, a SNP entity type should be able to have data from Drupal (application-specific), Chado (biological metadata-specific), VCF (genotypic data), genetic map files, GWAS-related files, etc. This ensures that biological data can be stored in the format which most makes sense for that data whether that be a flat-file format or a database. Furthermore, it reduces data duplication by allowing support for original file formats rather then requiring all data to be imported into a single database.
 
-Unfortunately this requirement is in direct conflict with the new Drupal 9 paradigm of requiring a single data backend per entity type. All existing extension modules are in keeping with this Drupal paradigm (including `External Entities <https://www.drupal.org/project/external_entities>`_). Since this assumption is interwoven in many of the Entity and Content Entity classes, we cannot simply extend the core classes for our design.
+Unfortunately this requirement is in direct conflict with the new Drupal 9+ paradigm of requiring a single data backend per entity type. All existing extension modules are in keeping with this Drupal paradigm (including `External Entities <https://www.drupal.org/project/external_entities>`_). Since this assumption is interwoven in many of the Entity and Content Entity classes, we cannot simply extend the core classes for our design.
 
 2. Tripal Fields control their own data load + save
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

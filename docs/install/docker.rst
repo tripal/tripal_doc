@@ -8,13 +8,13 @@ Software Stack
 
 Currently we have the following installed:
  - Debian Bullseye(11)
- - PHP 8.0.21 with extensions needed for Drupal (Memory limit 1028M)
- - Apache 2.4.54
- - PostgreSQL 13.7 (Debian 13.7-0+deb11u1)
- - Composer 2.3.10
- - Drush 11.1.1
- - Drupal 9.3.x-dev downloaded using composer (or as specified by drupalversion argument).
- - Xdebug 3.0.1
+ - PHP 8.2.12 with extensions needed for Drupal (Memory limit 1028M)
+ - Apache 2.4.56
+ - PostgreSQL 13.11 (Debian 13.11-0+deb11u1)
+ - Composer 2.6.5
+ - Drush 12.4.2
+ - Drupal 10.1.x-dev downloaded using composer (or as specified by drupalversion argument).
+ - Xdebug 3.2.1
 
 Quickstart
 ----------
@@ -31,7 +31,7 @@ Quickstart
 
     .. code::
 
-      docker run --publish=9000:80 --name=t4 -tid --volume=$(pwd):/var/www/drupal9/web/modules/contrib/my_module tripalproject/tripaldocker:latest
+      docker run --publish=9000:80 --name=t4 -tid --volume=$(pwd):/var/www/drupal/web/modules/contrib/my_module tripalproject/tripaldocker:latest
 
 2. Start the PostgreSQL database.
 
@@ -59,7 +59,7 @@ Usage
 
    .. code::
 
-    docker exec --workdir=/var/www/drupal9/web/modules/contrib/tripal t4 phpunit
+    docker exec --workdir=/var/www/drupal/web/modules/contrib/tripal t4 phpunit
 
  - Open PSQL to query the database on the command line. The password is docker.
 
@@ -120,7 +120,7 @@ Using Latest tagged version
   .. code-block:: bash
 
     cd t4
-    docker run --publish=9000:80 --name=t4 -tid --volume=$(pwd):/var/www/drupal9/web/modules/contrib/tripal tripalproject/tripaldocker:latest
+    docker run --publish=9000:80 --name=t4 -tid --volume=$(pwd):/var/www/drupal/web/modules/contrib/tripal tripalproject/tripaldocker:latest
 
   The first time you run this command you will see ``Unable to find image 'tripalproject/tripaldocker:latest' locally``. This is not an error! It's just a warning and the command will automatically pull the image from the docker cloud.
 
@@ -137,7 +137,7 @@ Using Latest tagged version
 
    .. code-block:: bash
 
-    docker run --publish=9000:80 --name=t4 -tid --volume=C:\Users\yourusername\Dockers\t4:/var/www/drupal9/web/modules/contrib/tripal tripalproject/tripaldocker:latest``
+    docker run --publish=9000:80 --name=t4 -tid --volume=C:\Users\yourusername\Dockers\t4:/var/www/drupal/web/modules/contrib/tripal tripalproject/tripaldocker:latest``
 
 5. Start the PostgreSQL database.
 
@@ -168,7 +168,7 @@ Next, you use the `docker build <https://docs.docker.com/engine/reference/comman
 .. code-block:: bash
 
   cd t4
-  docker build --tag=tripalproject/tripaldocker:drupal9.1.x-dev --build-arg drupalversion='9.1.x-dev' ./
+  docker build --tag=tripalproject/tripaldocker:drupal10.1.x-dev --build-arg drupalversion='10.1.x-dev' ./
 
 This process will take a fair amount of time as it completely installs Drupal, Tripal and PostgreSQL. You will see a large amount of red text but hopefully not any errors. You should always test the image by running it before pushing it up to docker hub!
 
@@ -198,8 +198,8 @@ On my web browser, I got the message "The provided host name is not valid for th
 
 .. code::
 
-  docker exec -it t4 chmod +w /var/www/drupal9/web/sites/default/settings.php
-  docker exec -it t4 vi /var/www/drupal9/web/sites/default/settings.php
+  docker exec -it t4 chmod +w /var/www/drupal/web/sites/default/settings.php
+  docker exec -it t4 vi /var/www/drupal/web/sites/default/settings.php
 
 For instance, if your server name is ``www.yourservername.org``:
 
@@ -241,7 +241,7 @@ To enable Xdebug, issue the following command:
 
 .. code::
 
-  docker exec --workdir=/var/www/drupal9/web/modules/contrib/tripal t4 xdebug_toggle.sh
+  docker exec --workdir=/var/www/drupal/web/modules/contrib/tripal t4 xdebug_toggle.sh
 
 This will toggle the Xdebug configuration file and restart Apache. You should use this command to disable Xdebug if it is enabled prior to running PHPUnit Tests as it seriously impacts test run duration (approximately 8 times longer).
 
@@ -269,7 +269,7 @@ A new configuration should be made using PHP. The following options can be used 
             "type": "php",
             "request": "launch",
             "port": 9003,
-            "pathMappings": { "/var/www/drupal9/web/modules/contrib/tripal": "~/Dockers/t4" }
+            "pathMappings": { "/var/www/drupal/web/modules/contrib/tripal": "~/Dockers/t4" }
         }
     ]
   }

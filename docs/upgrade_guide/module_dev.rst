@@ -2,7 +2,7 @@
 Upgrading an Extension Module
 ================================
 
-This page provides useful short snippets of code to help module developers upgrade their Tripal v3 compatible modules to work with Drupal 8/9. This list is not comprehensive or complete, but is meant to be an aid.
+This page provides useful short snippets of code to help module developers upgrade their Tripal v3 compatible modules to work with Drupal 10. This list is not comprehensive or complete, but is meant to be an aid.
 
 tripal_set_message() and tripal_report_error()
 ---------------------------------------------------
@@ -74,7 +74,7 @@ To create HTML links the Drupal 7 was was:
   $link = l('Administration', '/admin')
 
 
-The Drupal 9 approach is:
+The Drupal 10 approach is:
 
 .. code-block:: php
 
@@ -214,7 +214,7 @@ In Drupal 8 use code similar to the following to embed a view on a page:
 
 Attaching CSS
 -------------
-In Drupal 8/9 CSS files are part of "libraries".  Libraries are groups of "assets" such as CSS, JS, or other resources needed for a particular set of pages that the module provides.  Libraries are defined in the `<module_name>.libraries.yml` file.  For information about preparing your CSS files with drupal see the page about `adding css and js files to a module <https://www.drupal.org/node/2274843>`_.  Once the CSS is setup correctly, you want to add "libraries" to pages that use them.  This is done by adding an '#attached' element to the render array returned by a page using the following form:
+In Drupal 10 CSS files are part of "libraries".  Libraries are groups of "assets" such as CSS, JS, or other resources needed for a particular set of pages that the module provides.  Libraries are defined in the `<module_name>.libraries.yml` file.  For information about preparing your CSS files with drupal see the page about `adding css and js files to a module <https://www.drupal.org/node/2274843>`_.  Once the CSS is setup correctly, you want to add "libraries" to pages that use them.  This is done by adding an '#attached' element to the render array returned by a page using the following form:
 
 .. code-block:: php
 

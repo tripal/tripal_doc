@@ -34,7 +34,7 @@ Install Drupal and Tripal
       
       The ``vendor`` directory is where many of the dependencies like drush (see below) are installed.
       
-      The ``web`` directory is the actual webroot for Drupal. This should be the directory that is served by your webserver. **The two composer files and the** ``vendor`` **directory should not be publically accessible.**
+      The ``web`` directory is the actual webroot for Drupal. This should be the directory that is served by your webserver. **The two composer files and the** ``vendor`` **directory should not be publicly accessible.**
 
 2. Install Drush as well, also with composer, ensuring that you are within your new ``tripal4`` directory:
 
@@ -105,4 +105,4 @@ The site is not quite ready to use yet! The Chado schema must be installed and t
       cd /var/www/tripal4/web/
       drush trp-run-jobs --job_id=2 --username=admin --root=/var/www/tripal4/web
 
-Congratulations, you now have a freshly installed Tripal 4 site with Chado as the storage back end. The next step is :doc:`Building your Site <../sitebuilding_guide>` 
+Congratulations, you now have a freshly installed Tripal 4 site with Chado as the storage back end. The next step is :doc:`Building your Site <../sitebuilding_guide>`

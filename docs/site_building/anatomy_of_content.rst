@@ -56,7 +56,7 @@ This is a working list of content types that are currently built-in to Tripal. S
 Fields
 ------
 
-Each content type is composed a number of datapoints, in Tripal these are **Fields**. By default, Tripal uses the Chado database schema to store data, and each field is linked to a specific table and column in Chado.
+Each content type is composed of a number of datapoints, in Tripal these are **Fields**. By default, Tripal uses the Chado database schema to store data, and each field is linked to a specific table and column in Chado.
 
 For example, the Organism content type comes by default with the following fields, and each one represents a property from Chado's definition of an organism:
 

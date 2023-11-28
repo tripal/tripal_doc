@@ -17,7 +17,7 @@ In addition to the default settings for all users, you may want to allow specifi
         :width: 600
         :alt: Tripal Disk Usage Quotas - Custom User Quota.
 
-Here you must specify the Drupal user name of the user who should be granted a custom quota. This field will auto populate suggestions as you type to help you find the correct username. Enter the desired quota size and expiration days and click the **Submit** button. you will then see the user-specific quota listed in the table at the bottom of the page:
+Here you must specify the Drupal user name of the user who should be granted a custom quota. This field will auto populate suggestions as you type to help you find the correct username. Enter the desired quota size and expiration days and click the **Submit** button. You will then see the user-specific quota listed in the table at the bottom of the page:
 
   .. image:: file_management.3.user_quotas.png
         :width: 600
@@ -25,13 +25,13 @@ Here you must specify the Drupal user name of the user who should be granted a c
 
 Users' Files
 ------------
-User's with permission to upload files are able to use the Tripal file uploader to add files to the server.  The core Tripal Data Importers use the Tripal file uploader and extension modules may use it as well.  You can enable this functionality for users by Navigating to **Admin** > **People** and click the **Permissions** Tab. next scrol to the **Tripal** section and set the **Upload Files** permissions as desired for your site.  The following screenshot shows the permission on a default Drupal site.
+Users with permission to upload files are able to use the Tripal file uploader to add files to the server.  The core Tripal Data Importers use the Tripal file uploader and extension modules may use it as well.  You can enable this functionality for users by Navigating to **Admin** > **People** and click the **Permissions** Tab. next scroll to the **Tripal** section and set the **Upload Files** permissions as desired for your site.  The following screenshot shows the permission on a default Drupal site.
 
   .. image:: file_management.4.file_upload_permission.png
         :width: 600
         :alt: Tripal Permissions showing File Upload Permissions.
 
-User's who have the ability to upload files can manage files on their own Account pages.  
+Users who have the ability to upload files can manage files on their own Account pages.
 
 As described in the previous section, the site administrator can set a system-wide or user-specific default expiration number of days for a file. This means files will be removed automatically from the server once their expiration data is set.
 

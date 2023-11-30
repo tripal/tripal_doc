@@ -64,7 +64,3 @@ Chado CV module
 
 In Chado, controlled vocabularies and ontologies are stored in the `CV Module <http://gmod.org/wiki/Chado_CV_Module>`_. This module provides flexible storage of the individual terms, as well as, the relationships between them.
 
-Hands-on Training
-------------------
-
- - :doc:`/dev_guide/lessons/create_cvterms`

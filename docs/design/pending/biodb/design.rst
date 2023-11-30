@@ -1,6 +1,6 @@
 
-Design Summary
-==============
+BioDB Design Summary
+======================
 
 The Biological Database API provides an API for biological databases but also
 an API to manage concurrent data manipulation tasks: a Task API. This API is
@@ -39,7 +39,7 @@ interface or command line tool the same way.
 Obviously, sometimes, some database task may require more than a couple of
 seconds to perform their job. During that time, no other task should be allowed
 to modify the database concurrently to avoid data corruption. That's why a
-Lock API has been added in order to lock a database schema during a task and 
+Lock API has been added in order to lock a database schema during a task and
 avoid data corruption issues.
 
 While using an exclusive lock on a schema for a task that modifies the data, to

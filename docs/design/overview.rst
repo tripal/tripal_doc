@@ -1,5 +1,5 @@
-Overview
-========
+Design Overview
+=================
 
 Authors
 -------

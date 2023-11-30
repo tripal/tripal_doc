@@ -1,4 +1,4 @@
-FROM python:3.11-bullseye
+FROM python:3.12-bookworm
 
 # Install sphinx
 RUN pip install -U sphinx \

@@ -1,5 +1,5 @@
-User Permissions (Edit v1)
-==========================
+User Permissions
+================
 
 .. warning::
 
@@ -44,9 +44,69 @@ Each user account on your site is automatically given the Authenticated user rol
 
 It is a good practice to make several roles on your Tripal site. For example, you might want the following roles:
 
-A Curator role that allows data curators to edit their own gene, analysis or transcriptome page
+A Curator role that allows data curators to edit their own gene, analysis or transcriptome page.
 A Project Manager role for managing the roles in a scientific Project 
 The Administrator role that was installed with your site, for expert users to manage the site configuration
+
+Creating Roles to enable Curation
+---------------------------------
+
+Here is a walk through creating a “Curator” roles based on a need and then assign these roles permissions in Tripal by the Admin. For example, a curator of genomic data would need access to specific importers and content types.
+
+Create User
+***********
+
+From the top menu -> **People** -> **+Add User** -> 
+  * Username : curator_user
+  * Password : abcd_123_!@#
+  * Roles : Content editor  
+
+Click on **Create new account** leaving other items as default 
+
+From the top menu -> **People** -> *curator_user* appears in list of Usernames.
+
+To perform same action on multiple users, for example, to add the Content editor role, from the top menu, click on -> **People** -> click inside checkbox before *curator_user*.
+
+Click on Apply to selected items.
+
+ .. figure:: curator_role.png
+
+From the top menu -> **People** -> **Permissions**
+
+Click in applicable checkboxes for **Content editor**.
+
+Permission sections available are:
+ * Block
+ * Block Content
+ * Comment
+ * Configuration Manager
+ * Contact
+ * Contextual Links
+ * Devel 
+ * Devel PHP 
+ * Field UI 
+ * File 
+ * Filter 
+ * Image 
+ * Node 
+ * Path
+ * Search 
+ * Shortcut
+ * System 
+ * Taxonomy 
+ * Toolbar 
+ * Tour 
+ * Tripal 
+ * Tripal Chado 
+ * Update Manager 
+ * User 
+ * Views UI 
+
+ Checkboxes are provided under each header: *Anonymous user*,	*Authenticated user*,	*Content editor* and	*Administrator* for every item in each section.Some of the checkboxes are already checked are some are not changeable.
+
+An administrator can change the default permissions for roles. For example, to change roles of *Content editor*, 
+
+From the top menu -> **People** -> **Roles**, next to *Content editor*, click on *Edit* -> *Edit permissions*. Administrator can chnage individual permissions by checking on the Content editor item for the relevant section.
 
 `End Content`_
 ##############

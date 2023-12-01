@@ -1,3 +1,9 @@
+.. warning::
+
+  These docs are still being developed. In the future this page will contain a
+  very short introduction to user management in Drupal and practical examples
+  for site administration of a Tripal site.
+
 User Permissions
 ================
 

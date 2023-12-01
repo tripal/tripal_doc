@@ -1,27 +1,6 @@
 User Permissions
 ================
 
-.. warning::
-
-  These docs are still being developed. In the future this page will contain a
-  very short introduction to user management in Drupal and practical examples
-  for site administration of a Tripal site.
-
-.. hint::
-
-  *Hint for contributing to documentation.*
-
-  Use the information from `Official Drupal Docs: What are Users, Roles, and Permissions? <https://www.drupal.org/docs/user_guide/en/user-concept.html>`_
-  to breifly summarize what a user, role and permission is, with a focus on
-  managing biological data. For example, users and permissions allow you to
-  give certain researchers access to private data, roles can help you setup
-  groups of collaborators so you can assign the permission to the group as a
-  whole which makes it easier if any one member leavers or joins the group.
-
-
-`Begin Content for User Permissions`_
-#####################################
-
 What are *Users* ?
 
 Anyone who visits your website is a *user*, including you. There are three groups of users:
@@ -58,7 +37,7 @@ Create User
 
 From the top menu -> **People** -> **+Add User** -> 
   * Username : curator_user
-  * Password : abcd_123_!@#
+  * Password : `abcd_123_!@#`
   * Roles : Content editor  
 
 Click on **Create new account** leaving other items as default 
@@ -102,43 +81,15 @@ Permission sections available are:
  * User 
  * Views UI 
 
- Checkboxes are provided under each header: *Anonymous user*,	*Authenticated user*,	*Content editor* and	*Administrator* for every item in each section.Some of the checkboxes are already checked are some are not changeable.
+Checkboxes are provided under each header: *Anonymous user*,	*Authenticated user*,	*Content editor* and	*Administrator* for every item in each section.Some of the checkboxes are already checked are some are not changeable.
 
 An administrator can change the default permissions for roles. For example, to change roles of *Content editor*, 
 
 From the top menu -> **People** -> **Roles**, next to *Content editor*, click on *Edit* -> *Edit permissions*. Administrator can chnage individual permissions by checking on the Content editor item for the relevant section.
 
-`End Content`_
-##############
-
-
-
-Creating Roles to enable Curation
-------------------------------------
-
-.. hint::
-
-  *Hint for contributing to documentation.*
-
-  Walk admin through creating one or more "Curator" roles based on their needs
-  and then assign these roles permissions in Tripal. For example, a curator of
-  genomic data would need access to specific importers and content types.
-
 Creating Roles to define collaborative groups
-------------------------------------------------
+---------------------------------------------
 
-.. hint::
-
-  *Hint for contributing to documentation.*
-
-  Walk admin through the idea of creating roles which focus on specific grants
-  or publications. This way and draft or private pages being created related to
-  those projects cab be made available to the group for proof reading and collaboration
-  before they are made public.
-
-  Walk the admin through assigning permissions / visibility to specific content pages.
-  Currently this requires an additional Drupal module: https://www.drupal.org/project/permissions_by_term
-  so use this module in your example including screenshots.
 
 Additional Resources:
  - `Official Drupal Docs: What are Users, Roles, and Permissions? <https://www.drupal.org/docs/user_guide/en/user-concept.html>`_

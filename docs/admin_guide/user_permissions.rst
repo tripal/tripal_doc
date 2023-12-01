@@ -1,5 +1,5 @@
-User Permissions
-================
+User Permissions (Edit v1)
+==========================
 
 .. warning::
 
@@ -17,6 +17,41 @@ User Permissions
   give certain researchers access to private data, roles can help you setup
   groups of collaborators so you can assign the permission to the group as a
   whole which makes it easier if any one member leavers or joins the group.
+
+
+`Begin Content for User Permissions`_
+#####################################
+
+What are *Users* ?
+
+Anyone who visits your website is a *user*, including you. There are three groups of users:
+
+ - Users who are not logged in, or *anonymous users*
+
+ - Users who are logged in, or *authenticated users*
+
+ - The administrative user account that was automatically created when your site was installed, or User 1.
+
+What are *Permissions* ?
+
+The ability to do actions on your site (including viewing content, editing content, and changing configuration) is governed by permissions. Each permission has a name (such as View published content) and covers one action or a small subset of actions. A user must be granted a permission in order to do the corresponding action on the site; permissions are defined by the modules that provide the actions.
+
+What are *Roles* ?
+
+Rather than assigning individual permissions directly to each user, permissions are grouped into roles. You can define one or more roles on your site, and then grant permissions to each role. The permissions granted to authenticated and anonymous users are contained in the Authenticated user and Anonymous user roles, and depending on the installation profile you used when you installed your site, there may also be an Administrator role that is automatically assigned all permissions on your site.
+
+Each user account on your site is automatically given the Authenticated user role, and may optionally be assigned one or more additional roles. When you assign a role to a user account, the user will have all the permissions of the role when logged in.
+
+It is a good practice to make several roles on your Tripal site. For example, you might want the following roles:
+
+A Curator role that allows data curators to edit their own gene, analysis or transcriptome page
+A Project Manager role for managing the roles in a scientific Project 
+The Administrator role that was installed with your site, for expert users to manage the site configuration
+
+`End Content`_
+##############
+
+
 
 Creating Roles to enable Curation
 ------------------------------------

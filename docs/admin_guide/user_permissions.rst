@@ -99,8 +99,21 @@ All user names having prefix `curator_` now have the role of Curator.
 
 Curator Roles are now assigned to the users under Roles.
 
-Permissions
-***********
+Edit User's Role
+****************
+
+To Edit options for a user 
+
+**Home** -> **Administration** -> **People** -> **curator_user** -> **Edit** (under **Operations** column )
+
+To remove the Content editor role for this user,
+
+ .. figure:: edit_curator_user.png
+
+Uncheck Content Editor Role for example, make any other changes in this screen as required and Click Save.
+
+Permissions to Role to define collaborative groups
+**************************************************
 
 From the top menu -> **People** -> **Permissions**
 
@@ -153,8 +166,22 @@ Here are some recommended permissions for the checked under the Curator Role:
  .. figure:: curator_permissions_page_6.png
  .. figure:: curator_permissions_page_7.png
 
-Creating Roles to define collaborative groups
----------------------------------------------
+Permissions checked for the Curator role shown in screenshots above help in editing, revising and reverting content in addition to several others not available to other Roles for importing content into Tripal, edit and maintain them.
+
+Permissions by term
+*******************
+
+The Permissions by Term module extends Drupal by functionality for restricting view access to single nodes via taxonomy terms. If you have installed the Permissions by Entity sub-module, any other content entity type, such as media entities, can be controlled in access restriction, too. 
+
+Taxonomy term permissions can be coupled to specific user accounts and/or user roles. It relies on the entities, which are shipped traditionally with Drupal core: taxonomy terms and nodes.
+
+More information is available at 
+https://www.drupal.org/docs/contributed-modules/permissions-by-term and 
+https://www.drupal.org/project/permissions_by_term. 
+
+An example use in Tripal is Sub-editors working on a research publication. Collecting content together in a taxonomy term allows you to manage that content as a sub site and assign its own administrator. This is useful where you might need someone to produce lots of different types of content but only want them to be able to add it to a specific area of the website that is working on the publication.
+
+Sub-communities within a membership organisation. The topics a membership organisation may cover can be very broad and individual members may only be interested in seeing content from a sub-selection of the areas it covers. The sub-community may have their own executive members who can contribute to the research topic or approve new members to their sub-community.
 
 
 Additional Resources:

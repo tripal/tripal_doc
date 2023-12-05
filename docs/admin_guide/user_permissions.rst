@@ -27,34 +27,82 @@ Rather than assigning individual permissions directly to each user, permissions 
 
 Each user account on your site is automatically given the Authenticated user role, and may optionally be assigned one or more additional roles. When you assign a role to a user account, the user will have all the permissions of the role when logged in.
 
-It is a good practice to make several roles on your Tripal site. For example, you might want the following roles:
+Users and permissions allow you to give certain researchers access to private data, 
+roles can help you setup groups of collaborators so you can assign the permission to the group 
+as a whole which makes it easier if any one member leaves or joins the group.
 
-A Curator role that allows data curators to edit their own gene, analysis or transcriptome page.
-A Project Manager role for managing the roles in a scientific Project 
-The Administrator role that was installed with your site, for expert users to manage the site configuration
+It is a good practice to make several roles on your Tripal site.
+For example, for managing biological data and knowledgebases like model organism database, you might want a Curator role that allows data curators to curate information on a specific organism using appropriate unique traceable identifiers, and providing necessary metadata including source and provenance. a set of genes, and their associated mRNA, CDS, UTRs, etc. For more information, see https://en.wikipedia.org/wiki/Biocuration.
+
 
 Creating Roles to enable Curation
 ---------------------------------
 
-Here is a walk through creating a “Curator” roles based on a need and then assign these roles permissions in Tripal by the Admin. For example, a curator of genomic data would need access to specific importers and content types.
+Biocuration involves the collection, curation, annotation, validation, writing related grants, and publications and integration of information related to the biological sciences into databases or resources.
+
+Here is a walk through creating a “Curator” role in Tripal based on a need and then assign these roles permissions by the Admin. For example, a curator of genomic data would need access to specific importers and content types associated with the genome of the organism.
+
+Steps 
+-----
+From the top menu :
+
+**Home** -> **Administration** -> **People** -> **Roles** -> 
+
+You will find default roles Anonymous user, Authenticated user, and Administrator already present.
 
 Create User
 ***********
 
-From the top menu -> **People** -> **+Add User** -> 
+From the top menu :
+
+**Home** -> **Administration** -> **People** -> **+Add User** -> 
   * Username : curator_user
   * Password : `abcd_123_!@#`
   * Roles : Content editor  
 
 Click on **Create new account** leaving other items as default 
 
-From the top menu -> **People** -> *curator_user* appears in list of Usernames.
+From the top menu -> **People** -> *curator_user* now appears in list of Usernames.
+
+Create Role
+***********
+
+**Home** -> **Administration** -> **People** -> **+Add Role** -> 
+
+ .. figure:: add_curator_role.png
+
+Type *Curator* for Role name in text box and click Save. A status message is displayed.
+
+ .. figure:: role_created_status.png
+
+And you can find the Curator Role added to the list of Roles under Name.
+
+Assign Roles and Permissions
+****************************
+
+To perform same action on multiple users, for example, to add the Curator role to more than 1 user, from the top menu, 
+
+**Home** -> **Administration** -> **People** -> click inside checkbox before all user names having prefix `curator_`.
+
+ .. figure:: applied_curator_roles.png
+
+Click on dropdown next to Action -> select
+**Add the Curator role to the selected users** -> **Apply to selected items**.
+
+ .. figure:: multiple_users_role.png
+
+All user names having prefix `curator_` now have the role of Curator.
+
+**Home** -> **Administration** -> **People** ->
+
+ .. figure:: curator_roles_for_users.png
+
+Curator Roles are now assigned to the users under Roles.
+
+Permissions
+***********
 
 To perform same action on multiple users, for example, to add the Content editor role, from the top menu, click on -> **People** -> click inside checkbox before *curator_user*.
-
-Click on Apply to selected items.
-
- .. figure:: curator_role.png
 
 From the top menu -> **People** -> **Permissions**
 

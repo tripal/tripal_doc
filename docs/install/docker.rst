@@ -100,6 +100,7 @@ Using Latest tagged version
     mkdir ~/Dockers
     cd ~/Dockers
     git clone https://github.com/tripal/tripal
+    cd tripal 
     git checkout 4.x
 
 3. When editing core always make a new branch. Use following naming convention for branches: ``tv4g[0-9]-issue\d+-[optional short descriptor]``.

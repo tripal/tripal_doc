@@ -77,12 +77,12 @@ Type *Curator* for Role name in text box and click Save. A status message is dis
 
 And you can find the Curator Role added to the list of Roles under Name.
 
-Assign Roles and Permissions
-****************************
+Assign Roles
+************
 
 To perform same action on multiple users, for example, to add the Curator role to more than 1 user, from the top menu, 
 
-**Home** -> **Administration** -> **People** -> click inside checkbox before all user names having prefix `curator_`.
+**Home** -> **Administration** -> **People** -> click inside checkbox before all usernames having prefix `curator_`.
 
  .. figure:: applied_curator_roles.png
 
@@ -102,13 +102,11 @@ Curator Roles are now assigned to the users under Roles.
 Permissions
 ***********
 
-To perform same action on multiple users, for example, to add the Content editor role, from the top menu, click on -> **People** -> click inside checkbox before *curator_user*.
-
 From the top menu -> **People** -> **Permissions**
 
 Click in applicable checkboxes for **Content editor**.
 
-Permission sections available are:
+The following Tripal content sections are available to assign permission options for each Role :
  * Block
  * Block Content
  * Comment
@@ -135,11 +133,25 @@ Permission sections available are:
  * User 
  * Views UI 
 
-Checkboxes are provided under each header: *Anonymous user*,	*Authenticated user*,	*Content editor* and	*Administrator* for every item in each section.Some of the checkboxes are already checked are some are not changeable.
+Some of the checkboxes are already checked are some are not changeable.
 
-An administrator can change the default permissions for roles. For example, to change roles of *Content editor*, 
+An administrator can change the default permissions for roles. For example, to change the recently created role of *Curator*, 
 
-From the top menu -> **People** -> **Roles**, next to *Content editor*, click on *Edit* -> *Edit permissions*. Administrator can chnage individual permissions by checking on the Content editor item for the relevant section.
+From the top menu click on -> **People** -> **Permissions**. 
+
+ .. figure:: curator_permissions_page_0.png
+
+In this screen individual permissions can be set for a Role by the administrator viewing the permissions checked for other roles.
+
+Here are some recommended permissions for the checked under the Curator Role:
+
+ .. figure:: curator_permissions_page_1.png
+ .. figure:: curator_permissions_page_2.png
+ .. figure:: curator_permissions_page_3.png
+ .. figure:: curator_permissions_page_4.png
+ .. figure:: curator_permissions_page_5.png
+ .. figure:: curator_permissions_page_6.png
+ .. figure:: curator_permissions_page_7.png
 
 Creating Roles to define collaborative groups
 ---------------------------------------------

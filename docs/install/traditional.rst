@@ -44,14 +44,11 @@ Install Drupal and Tripal
       cd /var/www/tripal4/
       composer require drush/drush
 
-3. Clone the Tripal repository in your ``web/modules`` directory.
-
-    Note: Within the ``modules`` directory, you may create your own custom directory to store other extension modules.
+3. Use Composer to install Tripal as well, ensuring you are still within the same directory as the step abve.
     
     .. code-block:: shell
       
-      cd /var/www/tripal4/web/modules/
-      git clone git@github.com:tripal/tripal.git
+      composer require tripal/tripal
 
 4. Drupal may complain about permissions on certain files, as well as generating a configuration file from the template provided by Drupal. The files in question must be readable and writable by the webserver's user. If you're using Apache, this is typically ``www-data`` and for Nginx, it is commonly ``nginx``. Read more about Drupal's requirements here: `Administering a Drupal site - security in Drupal <https://www.drupal.org/docs/administering-a-drupal-site/security-in-drupal/securing-file-permissions-and-ownership>`__, or run the following commands to satisfy them:
 

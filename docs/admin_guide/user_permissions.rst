@@ -7,40 +7,26 @@
 User Permissions
 ================
 
-What are *Users* ?
+*Users* : Anyone who visits your website including you. There are three groups of users. *anonymous users* (who are not logged in), *authenticated users* (who are logged in) and *administrative users* (created when a site was installed, or User 1).
 
-Anyone who visits your website is a *user*, including you. There are three groups of users:
+*Permissions* : A group of actions (example - import a GFF3 file, view/edit content and change configuration). Permissions are defined by the modules that provide the actions.
 
- - Users who are not logged in, or *anonymous users*
+*Roles* : Permissions are grouped into roles, each of which can be defined and then permissions are granted. Exaample roles are Curators or Data Submittors.
 
- - Users who are logged in, or *authenticated users*
-
- - The administrative user account that was automatically created when your site was installed, or User 1.
-
-What are *Permissions* ?
-
-The ability to do actions on your site (including viewing content, editing content, and changing configuration) is governed by permissions. Each permission has a name (such as View published content) and covers one action or a small subset of actions. A user must be granted a permission in order to do the corresponding action on the site; permissions are defined by the modules that provide the actions.
-
-What are *Roles* ?
-
-Rather than assigning individual permissions directly to each user, permissions are grouped into roles. You can define one or more roles on your site, and then grant permissions to each role. The permissions granted to authenticated and anonymous users are contained in the Authenticated user and Anonymous user roles, and depending on the installation profile you used when you installed your site, there may also be an Administrator role that is automatically assigned all permissions on your site.
-
-Each user account on your site is automatically given the Authenticated user role, and may optionally be assigned one or more additional roles. When you assign a role to a user account, the user will have all the permissions of the role when logged in.
-
-Users and permissions allow you to give certain researchers access to private data, 
-roles can help you setup groups of collaborators so you can assign the permission to the group 
+Users and permissions allow you to give certain groups for example, researchers access to private data. Roles can help you setup groups of collaborators so you can assign the permission to the group 
 as a whole which makes it easier if any one member leaves or joins the group.
+
+Refer to https://www.drupal.org/docs/user_guide/en/user-concept.html for more details.
 
 It is a good practice to make several roles on your Tripal site.
 For example, for managing biological data and knowledgebases like model organism database, you might want a Curator role that allows data curators to curate information on a specific organism using appropriate unique traceable identifiers, and providing necessary metadata including source and provenance. a set of genes, and their associated mRNA, CDS, UTRs, etc. For more information, see https://en.wikipedia.org/wiki/Biocuration.
-
 
 Creating Roles to enable Curation
 ---------------------------------
 
 Biocuration involves the collection, curation, annotation, validation, writing related grants, and publications and integration of information related to the biological sciences into databases or resources.
 
-Here is a walk through creating a “Curator” role in Tripal based on a need and then assign these roles permissions by the Admin. For example, a curator of genomic data would need access to specific importers and content types associated with the genome of the organism.
+Here is a walk through creating a “Curator” role in Tripal based on a need and then assign these roles permissions by the Administrator. For example, a curator of genomic data would need access to specific importers and content types associated with the genome of the organism.
 
 Steps 
 -----
@@ -112,7 +98,7 @@ To remove the Content editor role for this user,
 
 Uncheck Content Editor Role for example, make any other changes in this screen as required and Click Save.
 
-Permissions to Role to define collaborative groups
+Permissions for Role to define collaborative groups
 **************************************************
 
 From the top menu -> **People** -> **Permissions**
@@ -156,22 +142,20 @@ From the top menu click on -> **People** -> **Permissions**.
 
 In this screen individual permissions can be set for a Role by the administrator viewing the permissions checked for other roles.
 
-Here are some recommended permissions for the checked under the Curator Role:
+Here are some recommended permissions checked for the Role of the Curator in the File, Node and Tripal categories:
 
  .. figure:: curator_permissions_page_1.png
  .. figure:: curator_permissions_page_2.png
  .. figure:: curator_permissions_page_3.png
- .. figure:: curator_permissions_page_4.png
- .. figure:: curator_permissions_page_5.png
- .. figure:: curator_permissions_page_6.png
- .. figure:: curator_permissions_page_7.png
 
 Permissions checked for the Curator role shown in screenshots above help in editing, revising and reverting content in addition to several others not available to other Roles for importing content into Tripal, edit and maintain them.
+
+Site administrators wanting to allow their curators to delete Tripal content can do so by applying the "Delete Tripal Content" permission. If their curator also imports data via available custom data importers like GFF3 importer they may want to assign the Tripal Importer permissions, publish and "Upload Tripal Data files". 
 
 Permissions by term
 *******************
 
-The Permissions by Term module extends Drupal by functionality for restricting view access to single nodes via taxonomy terms. If you have installed the Permissions by Entity sub-module, any other content entity type, such as media entities, can be controlled in access restriction, too. 
+The Permissions by Term is a module that extends Drupal by providing functionality for restricting view access to single nodes via taxonomy terms. This module can be useful for Tripal users interested in creating, documenting and maintaining Ontologies, for example. 
 
 Taxonomy term permissions can be coupled to specific user accounts and/or user roles. It relies on the entities, which are shipped traditionally with Drupal core: taxonomy terms and nodes.
 
@@ -179,7 +163,7 @@ More information is available at
 https://www.drupal.org/docs/contributed-modules/permissions-by-term and 
 https://www.drupal.org/project/permissions_by_term. 
 
-An example use in Tripal is Sub-editors working on a research publication. Collecting content together in a taxonomy term allows you to manage that content as a sub site and assign its own administrator. This is useful where you might need someone to produce lots of different types of content but only want them to be able to add it to a specific area of the website that is working on the publication.
+An example use-case in Tripal is Sub-editors working on a research publication. Collecting content together in a taxonomy term allows you to manage that content as a sub site and assign its own administrator. This is useful where you might need someone to produce lots of different types of content but only want them to be able to add it to a specific area of the website that is working on the publication.
 
 Sub-communities within a membership organisation. The topics a membership organisation may cover can be very broad and individual members may only be interested in seeing content from a sub-selection of the areas it covers. The sub-community may have their own executive members who can contribute to the research topic or approve new members to their sub-community.
 

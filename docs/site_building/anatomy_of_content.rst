@@ -82,7 +82,7 @@ For example, the Organism content type comes by default with the following field
 Just like with Content Types, each field must also have its own Controlled Vocabulary term associated to it. If we look at the Organism example again, we have the following terms that are drawn from ontologies and their identifier:
 
 +--------------------+------------------------------+--------------------------------------------------------------------------------------+
-|Field Name          |Chado "organism" table column |PUMPKIN                                                                               |
+|Field Name          |Chado "organism" table column |Term name                                                                             |
 +====================+==============================+======================================================================================+
 |Abbreviation        |abreviation                   |local:abbreviation                                                                    |
 +--------------------+------------------------------+--------------------------------------------------------------------------------------+

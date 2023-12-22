@@ -133,16 +133,29 @@ The filename for your new field should adhere to the following schema. Please no
 Within the individual files, in the annotation section, the ID also has to follow 
 a specific format, and would look like the following:
 
-  +------------------+----------------------------+
-  | File             | ID within annotation       |
-  +==================+============================+
-  | Type             | my_field_default           |
-  +------------------+----------------------------+
-  | Formatter        | my_field_formatter_default |
-  +------------------+----------------------------+
-  | Widget           | my_field_widget_default    |
-  +------------------+----------------------------+ 
+  .. table:: Tripal Core modules:
 
+    +------------------+----------------------------+
+    | File             | ID within annotation       |
+    +==================+============================+
+    | Type             | my_field_type_default      |
+    +------------------+----------------------------+
+    | Formatter        | my_field_formatter_default |
+    +------------------+----------------------------+
+    | Widget           | my_field_widget_default    |
+    +------------------+----------------------------+ 
+
+  .. table:: Extension modules:
+
+    +------------------+----------------------------+
+    | File             | ID within annotation       |
+    +==================+============================+
+    | Type             | my_field_type              |
+    +------------------+----------------------------+
+    | Formatter        | my_field_formatter         |
+    +------------------+----------------------------+
+    | Widget           | my_field_widget            |
+    +------------------+----------------------------+ 
 
 About the Storage Backend
 ^^^^^^^^^^^^^^^^^^^^^^^^^^

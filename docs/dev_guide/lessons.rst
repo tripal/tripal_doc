@@ -7,3 +7,5 @@ The following lessons provide hands-on training for various aspects of Tripal ex
 .. toctree::
    :maxdepth: 1
    :caption: Lessons:
+
+   lessons/gettingStarted.rst

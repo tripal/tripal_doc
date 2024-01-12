@@ -1,14 +1,14 @@
 How to use Custom Tables in Chado
 =================================
-This lessons describes how to programmatically create and manage :doc:`../biodata/custom_tables`.
+This lesson describes how to programmatically create and manage :doc:`../biodata/custom_tables`.
 
 .. warning::
-    You should avoid making any changes to existing Chado tables as it could make upgrades to future releases of Chado more difficult and could break functionality in Tripal that expects Chado tabes to be a certain way.
+    You should avoid making any changes to existing Chado tables as it could make upgrades to future releases of Chado more difficult and could break functionality in Tripal that expects Chado tabes to be a certain way.  Instead, use custom tables!
 
 
 Creating a Custom Table
 -----------------------
-To create a new custom table, you must first define the table schema which will include the table columns, constraints, default values, and indexes.  This design must then be written using the the Drupal `Schema API <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Database%21database.api.php/group/schemaapi/10>`_, which is a PHP associate array with key/value pair that specify the components of the table.  The following provides an example table schema array for a custom ``library_stock`` table that is intended to link recrods in the ``stock`` table of Chado with records in the ``library`` table of Chado:
+To create a new custom table, you must first define the table schema which will include the table columns, constraints, default values, and indexes.  This design must then be written using the the Drupal `Schema API <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Database%21database.api.php/group/schemaapi/10>`_, which is a PHP associate array with key/value pairs that specify the components of the table.  The following provides an example table schema array for a custom ``library_stock`` table that is intended to link records in the ``stock`` table of Chado with records in the ``library`` table of Chado:
 
 .. code-block:: php
 
@@ -75,13 +75,13 @@ The code above will create an instance of a ``ChadoCustomTable`` object but it d
 .. code-block:: php
 
     // Provide the Schema API array defining the table structure.
-    $custom_table->setTableSchema($schema);
+    $success = $custom_table->setTableSchema($schema);
 
 In the code above, the ``$schema`` variable contains the Schema API array defined above. Calling ``setTableSchema()`` will automatically create the table in the Chado schema and return ``TRUE`` on success.  If there are any errors in the structure of the ``$schema`` array or any problems creating the table, messages will be logged to Drupal, the attempt will fail and the function will return ``FALSE``.
 
 Hiding a Custom Table
 ---------------------
-Tripal will provides to the site developers, an interface by which they can add custom tables. Site developers will also be able to see custom tables in the interface which allows them to delete them, rename them or alter them.  If you are adding a custom table for use by your extension module and you do not want the site administrator to alter it in any way, you can hide the table from the administrator.  Non custom Chado tables are not avaialble for alteration and custom tables that are necessary for the functioning of a module should not be either.
+Tripal provides to the site developers an interface by which they can add custom tables. Site developers can see custom tables in the interface which allows them to delete them, rename them or alter them.  If you are adding a custom table for use by your extension module and you do not want the site developers to alter it in any way, you can hide the table from the developers.  Non custom Chado tables are not avaialble for alteration and custom tables that are necessary for the functioning of a module should not be either.
 
 After creation of your custom table, you can hide the table from the site developers by calling the ``setHidden()`` function on the ``ChadoCustomTable`` object and passing ``TRUE`` as the only argument.
 
@@ -98,7 +98,7 @@ Every custom table in Tripal is given a unique ID.  You can retreive this ID usi
     $table_id = $custom_table->getTableId();
 
 
-Later, you can find the ID of any custom table by calling the ``findByName()`` function of the Tripal Custom Table Service:
+Later, you can find the ID of any custom table using its name by calling the ``findByName()`` function of the Tripal Custom Table Service:
 
 .. code-block:: php
 
@@ -140,7 +140,7 @@ Custom table names should be unique. So, if you only know the table name, you ca
     $custom_table = $ct_service->loadbyName('library_stock');
 
 Getting a List of Custom Tables
--------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 If you need to get a list of existing custom tables, you can retrieve the names and IDs by calling the ``getTables()`` function of the Tripal Custom Tables Service;
 
 .. code-block:: php
@@ -155,7 +155,7 @@ In the code above, the ``$custom_tables`` variable will be an associative array 
 
 Deleting a Custom Table
 -----------------------
-You can delete a custom table by calling the ``delete()`` function on the ``ChadoCustomTable`` object. You must know the table ID or the table name to do so.  Here is exmaple code using the table name:
+You can delete a custom table by calling the ``delete()`` function on the ``ChadoCustomTable`` object. You must know the table ID or the table name to do so.  Here is example code using the table name:
 
 .. code-block:: php
 
@@ -168,7 +168,7 @@ You can delete a custom table by calling the ``delete()`` function on the ``Chad
 
 Changing a Custom Table
 -----------------------
-Suppose you have created a custom table for your module and relased the module for others to use.  Later you recognize you need to make changes to the custom table for improved functinoality. To make changes to the table seamlessly for everyone who uses your module, you should create an `update hook function <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Extension%21module.api.php/function/hook_update_N/10>`_ in your module's ``.install`` file. Within the update hook function you should perform the following:
+Suppose you have created a custom table for your module and relased the module for others to use.  Later you recognize you need to make changes to the custom table for improved functinoality. To make changes to the table occur seamlessly for everyone who uses your module, you should create an `update hook function <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Extension%21module.api.php/function/hook_update_N/10>`_ in your module's ``.install`` file. Within the update hook function you should perform the following:
 
 - Create a new version of the table.
 - Copy the data from the old table.
@@ -178,6 +178,6 @@ Suppose you have created a custom table for your module and relased the module f
 Then, when your module is upgraded on a Drupal site to the next version, the table changes will happen automatically.
 
 
-
-
-
+Using the Custom Table
+----------------------
+After the custom table has been created you can use it the same as any other table in Chado.  You  can find examples for interacting with Chado tables in the :doc:`../biodata/tripaldbx`.

@@ -47,11 +47,11 @@ To use drush we are going to need to be inside the docker container since that i
 
 Now you can run any commands just as if you had installed everything locally!
 
-To generate a new module template, issue the following command. You'll be prompted several times for different options:
+To generate a new module template, issue the following command. You'll be prompted several times for different options. After each option, some defaults are given in square brackets. To accept the default, hit Return. For most Tripal Extension modules, the defaults for Package and Dependencies should be used.
 
   .. code-block:: shell
 
-    $ drush generate tripal:extension_module
+    $ drush generate tripal:extension-module
 
     Welcome to tripal:extension_module generator!
     –––––––––––––––––––––––––––––––––––––––––––––––
@@ -100,7 +100,25 @@ To generate a new module template, issue the following command. You'll be prompt
     • /var/www/t4/web/modules/my_potato_module/src/Controller/MyPotatoModuleController.php
     • /var/www/t4/web/modules/my_potato_module/src/Form/MyPotatoModuleSettingsForm.php
 
-And now you will have the files above both inside your container and locally! This means you can open your editor of choice and edit the generated files added to your local potato_module directory to make it more specific to your extension module. 
+And now you will have the files above both inside your container and locally! This means you can open your editor of choice and edit the generated files added to your local potato_module directory to make it more specific to your extension module. Your new module's directory structure may look like this:
+
+  .. code-block:: shell
+
+    my_potato_module/
+    ├── config
+    │   └── schema
+    │       └── my_potato_module.schema.yml
+    ├── my_potato_module.info.yml
+    ├── my_potato_module.libraries.yml
+    ├── my_potato_module.links.menu.yml
+    ├── my_potato_module.module
+    ├── my_potato_module.routing.yml
+    └── src
+        ├── Controller
+        │   └── MyPotatoModuleController.php
+        └── Form
+            └── MyPotatoModuleSettingsForm.php
+
 
 You can also use other generators built-in to Drush, such as to extend this module further or to generate parts that you initially declined. In the example above, we opted not to make an install file. We can still have Drush's generator create one for us:
 
@@ -121,8 +139,8 @@ You can also use other generators built-in to Drush, such as to extend this modu
     –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     • /var/www/t4/web/modules/my_potato_module/my_potato_module.install
 
-  .. note::
+.. note::
 
-    The generator uses the machine name to make a guess at what the module name should be, so you may need to change this to reflect the actual module name, including uppercase letters, as seen above.
+  The generator uses the machine name to make a guess at what the module name should be, so you may need to change this to reflect the actual module name, including uppercase letters, as seen above.
 
- To see an up-to-date list of other available generators, run the ``drush generate`` command with no arguments.
+To see an up-to-date list of other available generators, run the ``drush generate`` command with no arguments.

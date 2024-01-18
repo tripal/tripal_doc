@@ -51,65 +51,78 @@ To generate a new module template, issue the following command. You'll be prompt
 
   .. code-block:: shell
 
-    root@0335ed1a94c3:/var/www/drupal9/web# drush generate module
+    $ drush generate tripal:extension_module
 
-    Welcome to module generator!
-    ––––––––––––––––––––––––––––––
+    Welcome to tripal:extension_module generator!
+    –––––––––––––––––––––––––––––––––––––––––––––––
 
-    Module name [Web]:
+    Module name:
     ➤ My Potato Module
 
     Module machine name [my_potato_module]:
-    ➤ potato_module
+    ➤ 
 
     Module description [Provides additional functionality for the site.]:
     ➤ This module will integrate beautiful potato pictures in a Drupal site.
 
-    Package [Custom]:
-    ➤ Tripal Extensions
+    Package [Tripal Extension]:
+    ➤ 
 
-    Dependencies (comma separated):
-    ➤ tripal, tripal_chado
+    Dependencies (comma separated) [tripal, tripal_chado]:
+    ➤ 
 
-    Would you like to create module file? [No]:
-    ➤ Yes
+    Would you like to create module file? [Yes]:
+    ➤ 
 
-    Would you like to create install file? [No]:
-    ➤ Yes
+    Would you like to create install file? [Yes]:
+    ➤ No
 
-    Would you like to create libraries.yml file? [No]:
-    ➤ Yes
+    Would you like to create libraries.yml file? [Yes]:
+    ➤ 
 
     Would you like to create permissions.yml file? [No]:
-    ➤ Yes
-
-    Would you like to create event subscriber? [No]:
     ➤ 
 
-    Would you like to create block plugin? [No]:
+    Would you like to create a controller? [Yes]:
     ➤ 
 
-    Would you like to create a controller? [No]:
-    ➤ Yes
-
-    Would you like to create settings form? [No]:
-    ➤ Yes
+    Would you like to create settings form? [Yes]:
+    ➤ 
 
     The following directories and files have been created or updated:
     –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-    • /var/www/drupal9/web/modules/potato_module/potato_module.info.yml
-    • /var/www/drupal9/web/modules/potato_module/potato_module.install
-    • /var/www/drupal9/web/modules/potato_module/potato_module.libraries.yml
-    • /var/www/drupal9/web/modules/potato_module/potato_module.links.menu.yml
-    • /var/www/drupal9/web/modules/potato_module/potato_module.module
-    • /var/www/drupal9/web/modules/potato_module/potato_module.permissions.yml
-    • /var/www/drupal9/web/modules/potato_module/potato_module.routing.yml
-    • /var/www/drupal9/web/modules/potato_module/config/schema/potato_module.schema.yml
-    • /var/www/drupal9/web/modules/potato_module/src/Controller/PotatoModuleController.php
-    • /var/www/drupal9/web/modules/potato_module/src/Form/SettingsForm.php
+    • /var/www/t4/web/modules/my_potato_module/my_potato_module.info.yml
+    • /var/www/t4/web/modules/my_potato_module/my_potato_module.libraries.yml
+    • /var/www/t4/web/modules/my_potato_module/my_potato_module.links.menu.yml
+    • /var/www/t4/web/modules/my_potato_module/my_potato_module.module
+    • /var/www/t4/web/modules/my_potato_module/my_potato_module.routing.yml
+    • /var/www/t4/web/modules/my_potato_module/config/schema/my_potato_module.schema.yml
+    • /var/www/t4/web/modules/my_potato_module/src/Controller/MyPotatoModuleController.php
+    • /var/www/t4/web/modules/my_potato_module/src/Form/MyPotatoModuleSettingsForm.php
 
-And now you will have the files above both inside your container and locally!
+And now you will have the files above both inside your container and locally! This means you can open your editor of choice and edit the generated files added to your local potato_module directory to make it more specific to your extension module. 
 
-This means you can open your editor of choice and edit the generated files added to your local potato_module directory to make it more specific to your extension module. You can also use the other generators we saw above to continually add to this module!
+You can also use other generators built-in to Drush, such as to extend this module further or to generate parts that you initially declined. In the example above, we opted not to make an install file. We can still have Drush's generator create one for us:
 
+  .. code-block:: shell
 
+    $ drush generate install-file
+
+    Welcome to install-file generator!
+    ––––––––––––––––––––––––––––––––––––
+
+    Module machine name [tripal]:
+    ➤ my_potato_module
+
+    Module name [My potato module]:
+    ➤ My Potato Module
+
+    The following directories and files have been created or updated:
+    –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+    • /var/www/t4/web/modules/my_potato_module/my_potato_module.install
+
+  .. note::
+
+    The generator uses the machine name to make a guess at what the module name should be, so you may need to change this to reflect the actual module name, including uppercase letters, as seen above.
+
+ To see an up-to-date list of other available generators, run the ``drush generate`` command with no arguments.

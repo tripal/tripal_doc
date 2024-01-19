@@ -4,10 +4,10 @@ Upgrading a Module
 
 Upgrading a module from Drupal 7 to Drupal 10 and beyond can be accomplished by following the following instructions.
 
-Github Recommendation
+Coding Recommendation
 ---------------------
 
-The Tripal team recommends creating a new empty branch in your Github or Gitlab repository, generating the template, and then moving over functionality. Rather than creating a new branch and deleting all of your old code, the ``--orphan`` argument can be used to create a fresh branch free of all files and history:
+The file and directory hierarchy between Drupal 7 and Drupal 10+ has changed radically. Rather than trying to upgrade your module's code in-place, it is recommended to start fresh and move functionality into the new format. With this in mind, if you are using git for storing and tracking changes in your module, the Tripal team recommends creating a new empty branch in your Github or Gitlab repository and then generate the new module skeleton (see below). Rather than creating a new branch and deleting all of your old code, the ``--orphan`` argument can be used to create a fresh branch free of all files and history:
 
   .. code:: 
 

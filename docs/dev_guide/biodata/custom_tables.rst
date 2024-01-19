@@ -9,4 +9,4 @@ To support custom tables in Chado, Tripal provides a service that has management
 
 
 .. note::
-    For a hands on example to programmatically create and maange custom tables see :doc:`../lessons/custom_tables`.
+    For a hands-on example to programmatically create and manage custom tables see :doc:`../lessons/custom_tables`.

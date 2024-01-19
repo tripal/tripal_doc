@@ -50,8 +50,8 @@ Click on **Create new account** leaving other items as default
 
 From the top menu -> **People** -> *curator_user* now appears in list of Usernames.
 
-Create Role
-***********
+Create Roles and Assign them to Users
+*************************************
 
 **Home** -> **Administration** -> **People** -> **+Add Role** -> 
 
@@ -62,9 +62,6 @@ Type *Curator* for Role name in text box and click Save. A status message is dis
  .. figure:: role_created_status.png
 
 And you can find the Curator Role added to the list of Roles under Name.
-
-Assign Roles
-************
 
 To perform same action on multiple users, for example, to add the Curator role to more than 1 user, from the top menu, 
 
@@ -99,7 +96,7 @@ To remove the Content editor role for this user,
 Uncheck Content Editor Role for example, make any other changes in this screen as required and Click Save.
 
 Permissions for Role to define collaborative groups
-**************************************************
+***************************************************
 
 From the top menu -> **People** -> **Permissions**
 
@@ -138,21 +135,32 @@ An administrator can change the default permissions for roles. For example, to c
 
 From the top menu click on -> **People** -> **Permissions**. 
 
- .. figure:: curator_permissions_page_0.png
+ .. figure::curator_permissions_top.png
 
 In this screen individual permissions can be set for a Role by the administrator viewing the permissions checked for other roles.
 
 Here are some recommended permissions checked for the Role of the Curator in the File, Node and Tripal categories:
 
- .. figure:: curator_permissions_page_1.png
- .. figure:: curator_permissions_page_2.png
- .. figure:: curator_permissions_page_3.png
+File permissions 
+******************
+
+ .. figure:: curator_permissions_file.png
+
+Node permissions 
+******************
+
+ .. figure:: curator_permissions_node.png
+
+Tripal permissions 
+******************
+
+ .. figure:: curator_permissions_tripal.png
 
 Permissions checked for the Curator role shown in screenshots above help in editing, revising and reverting content in addition to several others not available to other Roles for importing content into Tripal, edit and maintain them.
 
 Site administrators wanting to allow their curators to delete Tripal content can do so by applying the "Delete Tripal Content" permission. If their curator also imports data via available custom data importers like GFF3 importer they may want to assign the Tripal Importer permissions, publish and "Upload Tripal Data files". 
 
-Permissions by term
+Permissions by Term
 *******************
 
 The Permissions by Term is a module that extends Drupal by providing functionality for restricting view access to single nodes via taxonomy terms. This module can be useful for Tripal users interested in creating, documenting and maintaining Ontologies, for example. 

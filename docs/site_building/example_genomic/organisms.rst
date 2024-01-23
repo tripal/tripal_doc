@@ -11,7 +11,7 @@ We can add the organism using the **Add Tripal Content** link in the top adminis
 
 .. note::
 
- Drupal provides its own content types such as Article and Basic Page. These content types are referred to as nodes in Drupal speak. You can add these content types via the Add Content page. Tripal v4 derived content types are separated from these Drupal content types.
+ Drupal provides its own content types such as Article and Basic Page. These content types are referred to as nodes in Drupal speak. You can add these content types via the Add Content page. Tripal v4 derived content types are separated from these Drupal content types. While 
 
 .. figure:: add_tripal_content.png
 
@@ -87,9 +87,11 @@ Drupal now knows about these new fields!  But if we were to look at the Citrus s
 
 .. image:: organisms.new_fields2.png
 
+
 We can move these new fields out of the Disabled section by clicking on the cross-hair icons to the left of the name and dragging the field into a section above.   Drag these fields into the **Summary** section underneath the **Summary Table**.  Notice in the screenshot below that the fields that were once in the **Disabled** section are now in the **Summary Table** section.  Click the **Save** button at the bottom to make all changes final.
 
 .. image:: organisms.new_fields3.png
+
 
 Now, if we return to the organism page we will see these new properties were added to the page inside of the Summary Table.
 

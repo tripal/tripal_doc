@@ -43,11 +43,11 @@ If you do not like this layout you can change it!  One of the benefits for using
 
 Load data from NCBI Taxonomy
 ----------------------------
-Tripal makes it easy to import additional information about any organisms within a Tripal site from the `NCBI Taxonomy database <https://www.ncbi.nlm.nih.gov/taxonomy>`_.  The importer will only import data for species that you currently have in the Tripal database.  The taxonomic names must match those in the NCBI Taxonomy database.  Currently, we only have a single organism (Citrus sinensis) and we will import additional properties for this organism from NCBI but we can return later to import data for new organisms we may add later.  To import additional organism details, navigate to **Tripal → Data Loaders → Chado NCBI Taxonomy Loader**.  The following page appears:
+Tripal makes it easy to import additional information about any organisms within a Tripal site from the `NCBI Taxonomy database <https://www.ncbi.nlm.nih.gov/taxonomy>`_.  The importer will only import data for species that you currently have in the Tripal database.  The taxonomic names must match those in the NCBI Taxonomy database.  Currently, we only have a single organism (Citrus sinensis) and we will import additional properties for this organism from NCBI but we can return later to import data for new organisms we may add later.  To import additional organism details, navigate to **Tripal → Data Loaders → Taxonomy Loader**.  The following page appears:
 
 .. image:: organisms.taxonomy_loader.png
 
-Click the checkbox beside the 'Import taxonomy for existing species' and click Submit.  Now run the submitted job:
+Click the checkbox beside the 'Import taxonomy for existing species' and click Import Taxonomy.  Now run the submitted job:
 
 ::
 
@@ -64,15 +64,14 @@ You will see the following output:
 
 ::
 
-  Tripal Job Launcher (in parallel)
-  Running as user 'administrator'
-  -------------------
-  2017-10-06 15:45:47: There are 1 jobs queued.
-  2017-10-06 15:45:47: Calling: tripal_chado_ncbi_taxonomy_import()
-
-  NOTE: Importing of NCBI taxonomy data is performed using a database transaction.
-  If the load fails or is terminated prematurely then the entire set of
-  insertions/updates is rolled back and will not be found in the database
+2024-01-23 21:11:10
+Tripal Job Launcher
+Running as user 'drupaladmin'
+-------------------
+2024-01-23 21:11:10: Job ID 4.
+2024-01-23 21:11:10: Calling: tripal_run_importer(6)
+Running 'Taxonomy Loader' importer
+NOTE: Loading of this file is performed using a database transaction. If it fails or is terminated prematurely then all insertions and updates are rolled back and will not be found in the database
 
   2711    Citrus sinensis
 

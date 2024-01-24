@@ -9,22 +9,25 @@ Now that we have our organism and whole genome analysis ready, we can begin load
 - `Citrus sinensis-scaffold00001.fasta <http://tripal.info/sites/default/files/Citrus_sinensis-scaffold00001.fasta>`_
 - `Citrus sinensis-orange1.1g015632m.g.fasta <http://tripal.info/sites/default/files/Citrus_sinensis-orange1.1g015632m.g.fasta>`_
 
-One of the new features available in many of the Tripal v3 data loaders is an HTML5 file upload element which allows administrators and users to upload large files reliably. This removes the requirement in previous versions of this tutorial to download these files directly on the server and provide a path to the file. Instead, if you have the file on your current local machine you can now simply upload it for loading.
+One of the new features available in many of the Tripal v4 data loaders is an HTML5 file upload element which allows administrators and users to upload large files reliably. This removes the requirement in previous versions of this tutorial to download these files directly on the server and provide a path to the file. Instead, if you have the file on your current local machine you can now simply upload it for loading.
 
-Another new option in Tripal v3 Data Loaders is the ability to provide a remote path of a file to be loaded. This completely alleviates the need to transfer large files multiple times and eases the loading process.
+Tripal v4 Data Loaders has the ability to provide a remote path of a file to be loaded alleviating the need to transfer large files multiple times and eases the loading process.
 
 Loading a GFF3 File
 -------------------
-The gene features (e.g. gene, mRNA, 5_prime_UTRs, CDS 3_prime_UTRS) are stored in the GFF3 file downloaded in the previous step. We will load this GFF3 file and consequently load our gene features into the database. Navigate to **Tripal → Data Loaders → Chado GFF3 Loader**.
+The gene features (e.g. gene, mRNA, 5_prime_UTRs, CDS 3_prime_UTRS) are stored in the GFF3 file downloaded in the previous step. We will load this GFF3 file and consequently load our gene features into the database. Navigate to **Tripal → Data Loaders → Chado GFF3 File  Loader**.
 
 .. image:: genomes_genes.1.png
+.. image:: genomes_genes.2.png
+.. image:: genomes_genes.3.png
 
 Enter the following:
 
 .. csv-table::
+  :widths: 20,50
   :header: "Field Name", "Value"
 
-  "File", "Upload the file name Citrus_sinensis-orange1.1g015632m.g.gff3"
+  "File", "Upload the file name *Citrus_sinensis-orange1.1g015632m.g.gff3*"
   "Analysis", "Whole Genome Assembly and Annotation of Citrus sinensis"
   "Existing Organism", "Citrus sinensis"
   "Landmark Type", "supercontig"
@@ -98,9 +101,12 @@ You should see output similar to the following:
 
 Loading FASTA files
 -------------------
-Using the Tripal GFF3 loader we were able to populate the database with the genomic features for our organism. However, those features now need nucleotide sequence data. To do this, we will load the nucleotide sequences for the mRNA features and the scaffold sequence. Navigate to the **Tripal → Data Loaders → Chado FASTA Loader**.
+Using the Tripal GFF3 loader we were able to populate the database with the genomic features for our organism. However, those features now need nucleotide sequence data. To do this, we will load the nucleotide sequences for the mRNA features and the scaffold sequence. Navigate to the **Tripal → Data Loaders → Chado FASTA File Loader**.
 
-.. image:: genomes_genes.2.png
+.. image:: genomes_genes.4.png
+.. image:: genomes_genes.5.png
+.. image:: genomes_genes.6.png
+
 
 Before loading the FASTA file we must first know the Sequence Ontology (SO) term that describes the sequences we are about to upload. We can find the appropriate SO terms from our GFF file. In the GFF file we see the SO terms that correspond to our FASTA files are 'scaffold' and 'mRNA'.
 
@@ -133,9 +139,10 @@ If however, we cannot guarantee the that feature name is unique then we can use 
 Now, enter the following values in the fields on the web form:
 
 .. csv-table::
+  :widths: 20,50
   :header: "Field Name", "Value"
 
-  "FASTA file", "Upload the file named Citrus_sinensis-scaffold00001.fasta"
+  "FASTA file", "Upload the file named *Citrus_sinensis-scaffold00001.fasta*"
   "Analysis", "Whole Genome Assembly and Annotation of Citrus sinensis"
   "Organism", "Citrus sinensis (Sweet orange)"
   "Sequence type", "supercontig (scaffold is an alias for supercontig in the sequence ontology)"
@@ -151,9 +158,10 @@ Click the Import Fasta File, and a job will be added to the jobs system. Run the
 Notice that the loader reports the it "Found 1 sequences(s).". Next fill out the same form for the mRNA (transcripts) FASTA file:
 
 .. csv-table::
+  :widths: 20,50
   :header: "Field Name", "Value"
 
-  "FASTA file", "Upload the file named Citrus_sinensis-orange1.1g015632m.g.fasta"
+  "FASTA file", "Upload the file named *Citrus_sinensis-orange1.1g015632m.g.fasta*"
   "Analysis", "Whole Genome Assembly and Annotation of Citrus sinensis"
   "Organism", "Citrus sinensis (Sweet orange)"
   "Sequence type", "mRNA"
@@ -169,6 +177,7 @@ The FASTA loader has some advanced options. The advanced options allow you to cr
 Here we have more information than just the feature name. We have a unique Phytozome accession number (e.g. PAC:18136217) for the mRNA. Using the **External Database Reference** section under **Additional Options** we can import this information to associate the Phytozome accession with the features.  A regular expression is required to uniquely capture that ID.  In the example above the unique accession is 18136217.  Because Tripal is a PHP application, the syntax for regular expressions follows the PHP method. Documentation for regular expressions used in PHP can be found `here <http://php.net/manual/en/reference.pcre.pattern.syntax.php>`_.  Enter the following value to make the associate between the mRNA and it's corresponding accession at Phytozome:
 
 .. csv-table::
+  :widths: 20,50
   :header: "Field Name", "Value"
 
   "External Database", "Phytozome"
@@ -192,13 +201,13 @@ Now the scaffold sequence and mRNA sequences are loaded!
 
 Creating Gene Pages
 -------------------
-Now that we've loaded our feature data, we must publish them. This is different than when we manually created our Organism and Analysis pages.  Using the GFF and FASTA loaders we imported our data into Chado, but currently there are no published pages for this data that we loaded.  To publish these genomic features, navigating to Structure → Tripal Content Types and click the link titled Publish Chado Content.  The following page appears:
+Now that we've loaded our feature data, we must publish them. This is different than when we manually created our Organism and Analysis pages.  Using the GFF and FASTA loaders we imported our data into Chado, but currently there are no published pages for this data that we loaded.  To publish these genomic features, navigating to **Structure → Tripal Content Type** and click the link titled **Publish Chado Content**.  The following page appears:
 
-.. image:: genomes_genes.3.png
+.. image:: genomes_genes.-.png
 
 Here we can specify the types of content to publish. For our site we want to offer both gene and mRNA pages (these types were present in our GFF file). First, to create pages for genes select 'Gene' from the dropdown.  A new Filter section is present and when opened appears as follows.
 
-.. image:: genomes_genes.4.png
+.. image:: genomes_genes.-.png
 
 The **Filters** section allows you to provide filters to limit what you want to publish.  For example, if you only want to publish genes for a single organism you can select that organism in the Organism drop down list.  We only have one organism in our site, but for the sake of experience, add a filter to publish only genes for Citrus sinesis by selecting it from the Organism drop down.  Scroll to the bottom a click the Publish button.  A new job is added to the job queue.  Manually run the job:
 
@@ -244,7 +253,7 @@ Now, repeat the steps above to publish the mRNA content type.  You should see th
 
 Now, we can view our gene and mRNA pages. Click the Find Tripal Content link. Find and click the new page titled **orange1.1g015632m.g**. Here we can see the gene feature we added and its corresponding mRNA's.
 
-.. image:: genomes_genes.5.png
+.. image:: genomes_genes.-.png
 
 Next find an mRNA page to view.  Remember when we loaded our FASTA file for mRNA that we associated the record with Phytozome.  On these mRNA pages you will see a link in the left side bar titled **Database Cross Reference**.  Clicking that will open a panel with a link to Phytozome.  This link appears because:
 
@@ -258,21 +267,21 @@ Customizing Transcripts on Gene Pages
 -------------------------------------
 By default the gene pages provided by Tripal will have a link in the sidebar table of contents named **Transcripts** and when clicked a table appears that lists all of the transcripts (or mRNA) that belong to the gene.  The user can click to view more information about each published transcript.
 
-.. image:: genomes_genes.6.png
+.. image:: genomes_genes.-.png
 
 Sometimes however, more than just a listing of transcripts is desired on a gene page.  You can customize the information that is presented about each transcript by navigating to the gene content type at  **Structure → Tripal Content Types** and clicking **mange fields** in the **Gene** row.  This page allows you to customize the way fields are displayed on the gene page.  Scroll down the page to the **Transcript** row and click the **edit** button.  The following page should appear.
 
-.. image:: genomes_genes.7.png
+.. image:: genomes_genes.-.png
 
 Open the field set titled **Transcript (mRNA) Field Selection** to view a table that lists all of the available fields for a transcript.
 
-.. image:: genomes_genes.8.png
+.. image:: genomes_genes.-.png
 
 On this page you can check the boxes next to the field that you want to show for a transcript on the gene page.  For this example, we will select the fields **Name**, **Identifier**, **Resource Type**, **Anotations**, and **Sequences** (they may not be in this order on your own site). You can control the order in which fields will be shown by dragging them using the crosshairs icon next to each one.  Scroll to the bottom of the page and click the **Save Settings** button.
 
 Next return to the gene page, reload it, and click on the **Transcripts** link. Now you are provided a select box with the transcript names. When a transcript is selected, the pane below will populate with the fields that you selected when editing in the Transcript field.
 
-.. image:: genomes_genes.9.png
+.. image:: genomes_genes.-.png
 
 You can return to the Transcript field edit page under the Gene content  type at any time to add, remove or change the order of fields that appear for the transcript.
 

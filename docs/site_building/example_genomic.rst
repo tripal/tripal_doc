@@ -5,16 +5,16 @@ The following tutorial will walk you through creating content and loading genomi
 
 Freshly installed Tripal 4 has only Generic content types activated. It is necessary to add *Genomic* content types to setup a site containing Gene and related content. This is done by **Structure** -> **Tripal Content Types** -> + **Import type Collection** -> Check **Genomic Content Types (Chado)** and click on **Import**  
 
-.. image:: import_tripal_collection.png
+.. image:: example_genomic/import_tripal_collection.png
 
 
-Now run the submitted job:
+Now run the submitted job from command line:
 
 ::
 
   drush trp-run-jobs --username=administrator --root=$DRUPAL_HOME
 
-If Tripal is running from a docker container named $cntr_name,
+If Tripal is running from a docker container named $cntr_name, run
 
 ::
 
@@ -35,8 +35,7 @@ As a rule, extension modules are not documented in the Tripal User’s Guide. Yo
    ./example_genomic/organisms
    ./example_genomic/analyses
    ./example_genomic/cross_references
-   ./example_genomic/controlled_vocabularies
+   ./example_genomic/controlled_vocabs
    ./example_genomic/genomes_and_genes
    ./example_genomic/importing_publications 
    ./example_genomic/functional_annotations
-

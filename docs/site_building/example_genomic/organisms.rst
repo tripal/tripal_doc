@@ -64,25 +64,31 @@ You will see the following output:
 
 ::
 
-2024-01-23 21:11:10
-Tripal Job Launcher
-Running as user 'drupaladmin'
--------------------
-2024-01-23 21:11:10: Job ID 4.
-2024-01-23 21:11:10: Calling: tripal_run_importer(6)
-Running 'Taxonomy Loader' importer
-NOTE: Loading of this file is performed using a database transaction. If it fails or is terminated prematurely then all insertions and updates are rolled back and will not be found in the database
+  2024-01-23 21:11:10
+  Tripal Job Launcher
+  Running as user 'drupaladmin'
+  -------------------
+  2024-01-23 21:11:10: Job ID 4.
+  2024-01-23 21:11:10: Calling: tripal_run_importer(6)
+  Running 'Taxonomy Loader' importer
+  NOTE: Loading of this file is performed using a database transaction. If it fails or is terminated prematurely then all insertions and updates are rolled back and will not be found in the database
 
   2711    Citrus sinensis
+
+
 
 Adding New Fields
 -----------------
 
-We have now imported many new properties about the Citrus sinensis organism from NCBI Taxonomy.  However, these properties won't show up on the page automatically.  We need to tell Drupal that our organism pages now have new property fields for display.   To do this, navigate to **Structure → Tripal Content Types** and in the row for the Organism content type, click the link titled managed fields.   Here we see a list the fields that associated with an Organism content type.  Click the link at the top of the page **Check for new fields**.  You will see that several new fields have been added.
+We have now imported many new properties about the Citrus sinensis organism from NCBI Taxonomy.  However, these properties won't show up on the page automatically.  We need to tell Drupal that our organism pages now have new property fields for display.   To do this, navigate to **Structure → Tripal Content Types** and in the row for the Organism content type, click the **Edit** link -> **Manage Fields**.  Here we see a list of fields that are associated with an *Organism* content type.  
+
+.. image:: organisms.check_new_fields1.png
+
+Click the link at the top of the page **Check for new fields**. You will see that several new fields have been added.
 
 .. image:: organisms.new_fields1.png
 
-Drupal now knows about these new fields!  But if we were to look at the Citrus sinensis page we would see that the new properties do not appear.  Despite that Drupal knows about the fields it has disabled their display.  To enable display of these fields click the **Manage Display** tab at the top right of the page.  Here all of the fields are organized into the structure that they will be displayed on the page.   Later in this tutorial a more formal description is provided about how you use this interface to change the way the page appears.  For now, we simply need to get the new fields to be shown.    Scroll to the bottom of the page and the new fields can be seen in the **Disabled** section.
+Drupal now knows about these new fields!  But if we were to look at the Citrus sinensis page we would see that the new properties do not appear.  Despite that Drupal knows about the fields it has disabled their display.  To enable display of these fields click the **Manage Display** tab at the top right of the page.  Here all of the fields are organized into the structure that they will be displayed on the page.   Later in this tutorial a more formal description is provided about how you use this interface to change the way the page appears.  For now, we simply need to get the new fields to be shown.  Scroll to the bottom of the page and the new fields can be seen in the **Disabled** section.
 
 .. image:: organisms.new_fields2.png
 

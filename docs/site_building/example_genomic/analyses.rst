@@ -13,6 +13,7 @@ To create an analysis for loading our genomic data, navigate to the Add Tripal C
 The analysis creation page will appear:
 
 .. image:: analyses.1.png
+.. image:: analyses.2.png
 
 Here you can provide the necessary details to help others understand the source of your data. For this tutorial, enter the following:
 
@@ -32,4 +33,5 @@ Here you can provide the necessary details to help others understand the source 
 
 After saving, you should have the following analysis page:
 
-.. image:: analyses.2.png
+.. image:: analyses.3.png
+.. image:: analyses.4.png

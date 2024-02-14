@@ -1,17 +1,17 @@
 Organisms
 =========
 
-Before loading our data we must first have an organism to which the data will be associated. Chado v1.3 does not come preloaded with any organisms (although previous version of Chado do). For this tutorial we will import genomic data for Citrus sinesis (sweet orange), so we must first create the organism.
+Before we can load our data we must first have an organism to which the data will be associated. Chado v1.3 does not come preloaded with any organisms (although previous version of Chado do). For this tutorial we will import genomic data for Citrus sinesis (sweet orange), so we must first create the organism.
 
 Creating an Organism Page
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We can add the organism using the **Add Tripal Content** link in the top administrative menu or from **Content** -> **Add Tripal Content**. The Add Tripal Content page has several content types already available, including the Organism content type.
+We can add the organism using the **Add Tripal Content** link in the top administrative menu or from **Content** -> **Add Tripal Content**. The Add Tripal Content page has several content types already available, including the **Organism** content type.
 
 
 .. note::
 
- Drupal provides its own content types such as Article and Basic Page. These content types are referred to as nodes in Drupal speak. You can add these content types via the Add Content page. Tripal v4 derived content types are separated from these Drupal content types. While 
+ Drupal provides its own content types such as **Article** and **Basic Page**. These content types are referred to as **nodes** in Drupal speak. You can add these content types via the **Add Content** page. Tripal v4 derived content types are separated from these Drupal content types.
 
 .. figure:: add_tripal_content.png
 
@@ -33,13 +33,15 @@ Leave all remaining fields empty and save the page. You should now have an organ
 
 .. note::
 
+  Documentation for **Publication** and **Database Reference Annotations** that appear in the **Organism** creation page will be added when the functionality is available in Tv4.
+
+.. note::
+
   The layout of the organism page is provided by the **tripal_ds** module that was enabled during Tripal installation.  If you decided not to enable that module then your page will look quite different.
 
-This page has three primary sections.  A left sidebar that contains a search box and a **block** titled **Navigation**.  To the right of the sidebar is the content section.  Here the content is divided into two columns.  In the first column is a table of contents listing the "Table of Contents" of the page.  Currently this list simply contains the **Summary**. The second column contains all of the content about the organism.  Clicking the links in the table of contents causes each section to slide to the top of the page for viewing while all other content slides downward.  Users need not scroll the entire page to see all content.  The close link (X) at the top right of each section allows the user to remove sections they may not want to see and which clutter their view.
+.. note::
 
-There is more information about an organism that does not appear on this page.   By default, Tripal will not show fields that have no data.  However, if you prefer, you can change this behavior by configuring the content type to not hide empty fields.  You can find this option by navigating to **Structure > Tripal Content Types**, and click on the **edit** link for the content type. You will find the option to toggle this behavior there.
-
-If you do not like this layout you can change it!  One of the benefits for using Drupal is the ability to customize the entire look and feel of your site.  Tripal v3 along with Drupal allow you to reorganize this (and any) page however you like.  This default layout is provided by the **tripal_ds** module to help simplify the process of laying out a page.  If you decided not to enable the **tripal_ds** module then your page will require manual layout. Later in this tutorial instructions to reorganize and re-theme the Tripal content pages are provided.  No programming is required to do this.
+  Additional information from Tv3 documentation has not been verified in Tv4.
 
 Load data from NCBI Taxonomy
 ----------------------------
@@ -51,62 +53,69 @@ Click the checkbox beside the 'Import taxonomy for existing species' and click I
 
 ::
 
-  drush trp-run-jobs --username=administrator --root=$DRUPAL_HOME
+  drush trp-run-jobs --username=administrator --root=/var/www/drupal/web
 
 If Tripal is running from a docker container named $cntr_name,
 
 ::
 
-  docker exec -it $cntr_name drush trp-run-jobs --username=drupaladmin
+  docker exec -it $cntr_name drush trp-run-jobs --username=drupaladmin --root=/var/www/drupal/web
 
 
 You will see the following output:
 
 ::
 
-  2024-01-23 21:11:10
+  024-02-14 18:58:58
   Tripal Job Launcher
   Running as user 'drupaladmin'
   -------------------
-  2024-01-23 21:11:10: Job ID 4.
-  2024-01-23 21:11:10: Calling: tripal_run_importer(6)
+  2024-02-14 18:58:58: Job ID 2.
+  2024-02-14 18:58:58: Calling: tripal_run_importer(5)
   Running 'Taxonomy Loader' importer
   NOTE: Loading of this file is performed using a database transaction. If it fails or is terminated prematurely then all insertions and updates are rolled back and will not be found in the database
-
-  2711    Citrus sinensis
+  Initializing Tree...
+  Insert phylotree: Created phylotree with phylotree_id: <em class="placeholder">1</em>
+  Import phylotree summary: <em class="placeholder">0</em> nodes were successfully associated to content, <em class="placeholder">0</em> nodes could not be associated
+  Rebuilding Tree...
+  Percent complete: 0%. Memory: 34,690,376 bytes.
+  Updating Existing...
+  Percent complete: 100.00 %. Memory: 34,722,768 bytes.
+  Percent complete: 100.00 %. Memory: 34,723,296 bytes.
+  Import phylotree: Associated <em class="placeholder">Citrus sinensis</em> to organism_id: <em class="placeholder">1</em>
+  Import phylotree summary: <em class="placeholder">1</em> nodes were successfully associated to content, <em class="placeholder">0</em> nodes could not be associated
+  Done.
 
 
 
 Adding New Fields
 -----------------
 
-We have now imported many new properties about the Citrus sinensis organism from NCBI Taxonomy.  However, these properties won't show up on the page automatically.  We need to tell Drupal that our organism pages now have new property fields for display.   To do this, navigate to **Structure → Tripal Content Types** and in the row for the Organism content type, click the **Edit** link -> **Manage Fields**.  Here we see a list of fields that are associated with an *Organism* content type.  
+We have now imported many new properties about the Citrus sinensis organism from NCBI Taxonomy.  However, these properties won't show up on the page automatically.  We need to tell Drupal that our organism pages now have new property fields for display.   
+To do this, navigate to **Structure → Tripal Content Type** and in the row for the Organism content type, click Drop Down arrow and mouse over on **Manage Fields**. Here we see a list of fields that are associated with an Organism content type. 
 
 .. image:: organisms.check_new_fields1.png
 
-Click the link at the top of the page **Check for new fields**. You will see that several new fields have been added.
+Click the link at the top of the page **+ Check for new fields**. 
 
-.. image:: organisms.new_fields1.png
+.. note::
 
-Drupal now knows about these new fields!  But if we were to look at the Citrus sinensis page we would see that the new properties do not appear.  Despite that Drupal knows about the fields it has disabled their display.  To enable display of these fields click the **Manage Display** tab at the top right of the page.  Here all of the fields are organized into the structure that they will be displayed on the page.   Later in this tutorial a more formal description is provided about how you use this interface to change the way the page appears.  For now, we simply need to get the new fields to be shown.  Scroll to the bottom of the page and the new fields can be seen in the **Disabled** section.
+  This functionality is not yet available in Tv4. Documentation  will be added when it is available.
 
-.. image:: organisms.new_fields2.png
+Drupal now knows about these new fields! But if we were to look at the Citrus sinensis page we would see that the new properties do not appear. Despite that Drupal knows about the fields it has disabled their display. To enable display of these fields click the **Manage Display** tab at the top right of the page. Here all of the fields are organized into the structure that they will be displayed on the page. Later in this tutorial a more formal description is provided about how you use this interface to change the way the page appears. For now, we simply need to get the new fields to be shown. Scroll to the bottom of the page and the new fields can be seen in the Disabled section.
 
 
-We can move these new fields out of the Disabled section by clicking on the cross-hair icons to the left of the name and dragging the field into a section above.   Drag these fields into the **Summary** section underneath the **Summary Table**.  Notice in the screenshot below that the fields that were once in the **Disabled** section are now in the **Summary Table** section.  Click the **Save** button at the bottom to make all changes final.
+.. image:: organisms.new_fields_manage_display.png
 
-.. image:: organisms.new_fields3.png
 
+We can move these newly created fields out of the Disabled section by clicking on the cross-hair icons to the left of the name and dragging the field into a section above.   Drag these fields into the **Summary** section underneath the **Summary Table**.  Notice in the screenshot below that the fields that were once in the **Disabled** section are now in the **Summary Table** section.  Click the **Save** button at the bottom to make all changes final.
 
 Now, if we return to the organism page we will see these new properties were added to the page inside of the Summary Table.
-
-.. image:: organisms.updated_page1.png
 
 Further Customizations
 ----------------------
 
 You may not like this arrangement of fields.  You may prefer to place these extra fields inside of a new **pane** rather than inside of the **Summary pane**.  Perhaps a pane named Additional Details.  You can rearrange the order of these fields and create new panes, as desired by following the more details instructions on the `Configure Page Display page <../configuring_page_display>`_ of this tutorial.  For example, the following shows these fields organized into a new pane named **Additional Details** which is separate from the **Summary** Pane.  Note the table of contents sidebar now lists the **Summary** and **Additional Details** links.  When clicked, the pane selected by the user migrates to the top of the page
-
 
 Additional Resources:
 

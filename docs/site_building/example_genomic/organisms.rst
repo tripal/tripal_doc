@@ -78,6 +78,16 @@ You will see the following output:
   Import phylotree summary: <em class="placeholder">1</em> nodes were successfully associated to content, <em class="placeholder">0</em> nodes could not be associated
   Done.
 
+Now, Click on **Tripal Content -> + Publish Tripal Content -> Content Type -> Organism**
+Run the jobs as mentioned earlier followed by :
+
+::
+
+ docker exec -it $cntr_name drush cr
+
+to clear the drush cache. Now clicking on **Tripal Content -> Organism=Citrus ** will show Taxonomy Reference Annotation of NCBI 2711 associated with Citrus sinensis. Editing of this organism also shows it.
+
+
 
 Adding New Fields
 -----------------
@@ -95,7 +105,7 @@ Click the link at the top of the page **+ Check for new fields**.
 
 .. note::
 
-  This functionality is not yet available in Tv4. Documentation  will be added when it is available.
+  The **Check for new fields** functionality has not yet been implemented for Tripal 4. Documentation  will be added when it is available.
 
 Drupal now knows about these new fields! But if we were to look at the Citrus sinensis page we would see that the new properties do not appear. Despite that Drupal knows about the fields it has disabled their display. To enable display of these fields click the **Manage Display** tab at the top right of the page. Here all of the fields are organized into the structure that they will be displayed on the page. Later in this tutorial a more formal description is provided about how you use this interface to change the way the page appears. For now, we simply need to get the new fields to be shown. Scroll to the bottom of the page and the new fields can be seen in the Disabled section.
 

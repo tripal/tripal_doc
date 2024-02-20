@@ -20,6 +20,30 @@ If Tripal is running from a docker container named $cntr_name, run:
 
   docker exec -it $cntr_name drush trp-run-jobs --username=drupaladmin --root=/var/www/drupal/web
 
+You will see the following output:
+
+::
+
+  2024-02-14 21:34:50
+  Tripal Job Launcher
+  Running as user 'drupaladmin'
+  -------------------
+  2024-02-14 21:34:50: Job ID 1.
+  2024-02-14 21:34:50: Calling: import_tripalentitytype_collection(Array)
+  [notice] Creating Tripal Content Types from: Genomic Content Types (Chado)
+  [notice] Content type, "Gene", created.
+  [notice] Content type, "mRNA", created.
+  [notice] Content type, "Phylogenetic Tree", created.
+  [notice] Content type, "Physical Map", created.
+  [notice] Content type, "DNA Library", created.
+  [notice] Content type, "Genome Assembly", created.
+  [notice] Content type, "Genome Annotation", created.
+  [notice] Content type, "Genome Project", created.
+  [notice] Attaching fields to Tripal content types from: Chado Fields for Genomic Content Types
+  :::
+  :::
+  :::
+
 
 Now,  **Structure -> Tripal Content Types** show Tripal Contents with Genomic Category, that include Gene and other content required for the Example Genomic site.
 

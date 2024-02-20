@@ -31,7 +31,7 @@ Here you can provide the necessary details to help others understand the source 
 
 .. note::
 
-  Documentation for **Publication**, **Project** and **Database Reference Annotations** that appear in the **Analysis** page will be added when the functionality is available in Tv4.
+  Features **Publication**, **Project** and **Database Reference Annotations** have not yet been implemented for Tripal v4, documentation will be added once this feature is available.
 
 After saving, you should have the following analysis page:
 

@@ -33,15 +33,7 @@ Leave all remaining fields empty and save the page. You should now have an organ
 
 .. note::
 
-  Documentation for **Publication** and **Database Reference Annotations** that appear in the **Organism** creation page will be added when the functionality is available in Tv4.
-
-.. note::
-
   The layout of the organism page is provided by the **tripal_ds** module that was enabled during Tripal installation.  If you decided not to enable that module then your page will look quite different.
-
-.. note::
-
-  Additional information from Tv3 documentation has not been verified in Tv4.
 
 Load data from NCBI Taxonomy
 ----------------------------
@@ -87,9 +79,12 @@ You will see the following output:
   Done.
 
 
-
 Adding New Fields
 -----------------
+
+.. note::
+  This feature has not yet been implemented for Tripal v4, documentation will be added once this feature is available    
+
 
 We have now imported many new properties about the Citrus sinensis organism from NCBI Taxonomy.  However, these properties won't show up on the page automatically.  We need to tell Drupal that our organism pages now have new property fields for display.   
 To do this, navigate to **Structure → Tripal Content Type** and in the row for the Organism content type, click Drop Down arrow and mouse over on **Manage Fields**. Here we see a list of fields that are associated with an Organism content type. 
@@ -121,3 +116,6 @@ Additional Resources:
 
  `Tripal 3 reference for creating organism <https://tripal.readthedocs.io/en/latest/user_guide/example_genomics/organisms.html>`_
 
+.. note::
+
+  **Database Reference Annotations** that appear in the **Organism** creation page have not yet been implemented for Tripal v4, documentation will be added once this feature is available.    

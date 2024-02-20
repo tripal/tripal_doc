@@ -1,5 +1,5 @@
-Genomes and Genes
-=================
+Example Genomic-focused Site
+============================
 
 Loading Feature Data
 --------------------
@@ -18,7 +18,7 @@ Loading a GFF3 File
 The gene features (e.g. gene, mRNA, 5_prime_UTRs, CDS 3_prime_UTRS) are stored in the GFF3 file downloaded in the previous step. We will load this GFF3 file and consequently load our gene features into the database. Navigate to **Tripal → Data Loaders → Chado GFF3 File  Loader**.
 
 .. image:: genomes_genes.1.png
-.. image:: genomes_genes.2.png
+.. image:: genomes_genes.2.png¸¸¸
 
 Enter the following:
 

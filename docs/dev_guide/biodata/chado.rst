@@ -1,6 +1,6 @@
 
 GMOD Chado Schema Integration
-=============================
+=================================
 
 .. _GMOD: http://gmod.org/wiki/Main_Page
 

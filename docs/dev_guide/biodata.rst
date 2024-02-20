@@ -15,3 +15,4 @@ That said, there are still situations in which you may want to support additiona
    biodata/tripaldbx
    biodata/chado
    biodata/bulkPgSchemaInstall
+   biodata/importers

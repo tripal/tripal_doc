@@ -7,15 +7,35 @@ To document how to create a new importer, we will describe use of the ``TripalIm
 .. note::
   Prior to starting your data loader you should plan how the data will be imported into Chado. Chado is a flexible database schema and it may be challenging at times to decide in to which tables data should be placed.  It is recommended to reach out to the Chado community to solicit advice. Doing so will allow you to share your loader will other Tripal users more easily!
 
+
+About Drupal Plugins
+--------------------
+The Tripal importers use the `Drupal Plugin API <https://www.drupal.org/docs/drupal-apis/plugin-api/plugin-api-overview>`_. The plugin infrastructure of Drupal allows a module to provide new functtionality the builds off of a common interface (such as Tripal's importer interface).
+
+
 Create a Custom Module
 ----------------------
 To create your own importer, you first need to have a custom extension module in which the loader will be provided.  If you do not know how to create a module, see the section titled :doc:`../module_dev` for further direction. For this document we will describe creation of a new importer in a fake module named ``tripal_example_importer``.
 
+
+
 Create the Plugin File
 ----------------------
-To define a new class that extends ``TripalImporter``, you should create a new class file in the ``src/Plugin/TripalImporter/`` directory of your module. You may need to create the ``src/Plugin/TripalImporter`` directory. For the example described here, we will create a new ``TripalImporter`` plugin named ``ExampleImporter``. We must name the file the same as the class (with a .php extension) and place the file here: ``tripal_example_importer\src\Plugin\TripalImporter\ExampleImporter.inc``.  
 
-The Tripal Chado module provides a base class named ``ChadoImporterBase`` that all importers for Chado should use. Initally our importer plugin class is as follows:
+To define a new class that extends ``TripalImporter``, you should create the directory ``src/Plugin/TripalImporter/`` in your module. For the example here, we will create a new ``TripalImporter`` plugin named ``ExampleImporter``. We must name the file the same as the class (with a .php extension) and place the file in the ``TripalImporter`` directory we just created: ``tripal_example_importer\src\Plugin\TripalImporter\ExampleImporter.inc``.    Placing the importer class file in the ``src/Plugin/TripalImporter`` directory is all you need for Tripal to find it. Tripal will automatically place a link for your importer on the Drupal site at **admin > Tripal> Data Loaders**.
+
+Step 1: Importer Plugin Class File
+----------------------------------
+
+To create your importer, you will extend the ``ChadoImporterBase`` class which has several abstract functions that you must implement including:
+
+- form
+- formSubmit
+- formValidate
+- run
+- postRun
+
+Our example empty class looks like the following:
 
 .. code-block:: php
 
@@ -23,161 +43,159 @@ The Tripal Chado module provides a base class named ``ChadoImporterBase`` that a
   namespace Drupal\tripal_example_importer\Plugin\TripalImporter;
 
   use Drupal\tripal_chado\TripalImporter\ChadoImporterBase;
-  use Drupal\Core\Ajax\AjaxResponse;
-  use Drupal\Core\Ajax\InvokeCommand;
-  use Drupal\Core\Ajax\ReplaceCommand;
 
   class ExampleImporter extends ChadoImporterBase {
 
   
     /**
-     * @see TripalImporter::form()
+     * @see ChadoImporterBase::form()
      */
     public function form($form, &$form_state) {
 
+      // Always call the parent form.
+      $form = parent::form($form, $form_state);
+
+      return $form;
     }
 
     /**
-     * @see TripalImporter::formSubmit()
+     * @see ChadoImporterBase::formSubmit()
      */
-    public function formSubmit($form, &$form_state){
+    public function formSubmit($form, &$form_state) {
     
     }
 
     /**
-     * @see TripalImporter::formValidate()
+     * @see ChadoImporterBase::formValidate()
      */
 
-    public function formValidate($form, &$form_state){
+    public function formValidate($form, &$form_state) {
     
     }
 
     /**
-     * @see TripalImporter::run()
+     * @see ChadoImporterBase::run()
      */
-    public function run(){
+    public function run() {
     
     }
 
     /**
-     * @see TripalImporter::postRun()
+     * @see ChadoImporterBase::postRun()
      */
-    public function postRun(){
+    public function postRun() {
     
-    }
-
-    /**
-     * @see TripalImporter::addAnalysis()
-     */
-    public function addAnalysis($form, &$form_state) {
-
     }
   }
 
-There is no need to include the importer via a ``require_once`` statement in your module file. Placing it in the ``/includes/TripalImporter/`` directory of your module is all you need for Tripal to find it. Tripal will automatically place a link for your importer at ``admin -> Tripal -> Data Loaders``.
-
-.. note::
-
-  If after creation of your importer file, Tripal does not show a link for it in the Data Loaders page, check that you have named your class file correctly and it is in the path described above. Sometimes a clear cache is necessary (``drush cc all``).
-
-
-Static Variables
+Class Annotations
 -----------------
-The next step in creation of your importer is setting the static member variables. Open the ``TripalImporter`` class file that comes with Tripal and found here ``tripal/includes/TripalImporter.inc``. Copy the  ``public static`` member variables at the top of the class into your own class. For your importer, override any of the ``public static`` variables that need to be different from the default.
-
-.. note::
-
-  For the sake of simplicity in this document, many of the default settings are not changed, and therefore, not all are included.
-
-Our ``ExampleImporter`` class now appears as follows:
+All Drupal Plugins require an `Annotation section <https://www.drupal.org/docs/drupal-apis/plugin-api/annotations-based-plugins>`_ that appears as a PHP comment just above the Class definition. The annotation section provdies some basic settings that the TripalImporter plugin requires.  As a quick example here is the Annotation section for the GFF3 importer. The GFF3 importer is provided by the Tripal Genome module and imports features defined in a GFF3 file into Chado.
 
 .. code-block:: php
 
+  /**
+  *  GFF3 Importer implementation of the ChadoImporterBase.
+  *
+  *  @TripalImporter(
+  *    id = "chado_fasta_loader",
+  *    label = @Translation("Chado FASTA File Loader"),
+  *    description = @Translation("Import a FASTA file into Chado"),
+  *    file_types = {"fasta","txt","fa","aa","pep","nuc","faa","fna"},
+  *    upload_description = @Translation("Please provide a plain text file following the <a target='_blank' href='https://en.wikipedia.org/wiki/FASTA_format'>FASTA format specification</a>."),
+  *    upload_title = @Translation("FASTA File"),
+  *    use_analysis = True,
+  *    require_analysis = True,
+  *    use_button = True,
+  *    button_text = @Translation("Import FASTA file"),
+  *    file_upload = True,
+  *    file_remote = True,
+  *    file_local = True,
+  *    file_required = True,
+  *    submit_disabled = False
+  *  )
+  */
+  class GFF3Importer extends ChadoImporterBase {
+
+As you can see in the code above, the annotation section consists of multiple settings in key/value pairs.  The meaning of each settings is as follows:
+
+- ``id``: A unique machine readable plugin ID for the loader. It must only contain alphanumeric characters and the underscore. It should be lowercase.  
+- ``label``: the human readable name (or label) for this importer. It is wrapped in a ``@Translation()`` function which will allow Drupal to provide translations for it.  This label is shown to the user in the list of available data importers.
+- ``description``: A short description for the site user that briefly indicates what this loader is for. It too is wrapped in a ``@Translation()``  function.  This description is shown to the user for the loader.
+- ``file_types``: A list of file extensions that the importer will allow to be uploaded. If a file does not have an extension in the list then it cannot be uploaded by the importer.
+- ``upload_title``:  Provides the title that should appear above the upload button.  This helps the user understand what type of file is expected.
+- ``upload_description``: Provides the information for the user related to the file upload. You can provide additional instructions or help text.
+- ``use_analysis``:  To support FAIR data principles, we should ensure that provenance of data is available. Chado provides the ``analysis`` table to link data to an analysis.  The analysis record provides the details for how the data in the file was created or obtained. Set this to ``False`` if the loader should not require an analysis when loading. if ``use_analysis`` is set to ``True`` then the user will be presented with a form element to select an analysis and this analysis will be available to you for your importer.
+- ``require_analysis``:  If the ``use_analysis`` value is set then this value indicates if the analysis should be required. If ``True`` it will be required, otherwise it will be optional.
+- ``button_text``: The text that should appear on the button at the bottom of the importer form.
+- ``use_button``: Indicates whether a submit button should be present. This should only be ``False`` in situations were you need multiple buttons or greater control over the submit process (e.g., multi-page forms).
+- ``submit_disabled``: Indicates whether the submit button should be disabled when the form appears. The form can then be programmatically enabled via AJAX once certain criteria is set.
+- ``file_upload``: Indicates if the loader should provide a form element for uploading a file.
+- ``file_remote``: Indicates if the loader should provide a form element for specifying the URL of a remote file.
+- ``file_local``: Indicates if the loader should provide a form element for specifying the path available to the web server where the file is located.
+- ``file_required``:  Indicates if the file must be provided. 
+
+For our ``ExampleImporter`` class we will set the annotations accordingly:
+
+.. code-block:: php
 
   /**
-   * @see TripalImporter
-   */
-   class ExampleImporter extends TripalImporter {
-
-    /**
-     * The name of this loader.  This name will be presented to the site
-     * user.
-     */
-    public static $name = 'Example TST File Importer';
-
-    /**
-     * The machine name for this loader. This name will be used to construct
-     * the URL for the loader.
-     */
-    public static $machine_name = 'tripal_tst_loader';
-
-    /**
-     * A brief description for this loader.  This description will be
-     * presented to the site user.
-     */
-    public static $description = 'Loads TST files';
-
-    /**
-     * An array containing the extensions of allowed file types.
-     */
-    public static $file_types = ['txt', 'tst', 'csv'];
-
-    /**
-     * Provides information to the user about the file upload.  Typically this
-     * may include a description of the file types allowed.
-     */
-    public static $upload_description = 'TST is a fictional format.  Its a 2-column, CSV file.  The columns should be of the form featurename, and text';
-
-    /**
-     * Indicates the methods that the file uploader will support.
-     */
-    public static $methods = [
-      // Allow the user to upload a file to the server.
-      'file_upload' => TRUE,
-      // Allow the user to provide the path on the Tripal server for the file.
-      'file_local' => TRUE,
-      // Allow the user to provide a remote URL for the file.
-      'file_remote' => TRUE,
-    ];
-  }
+    *  TST Importer implementation of the ChadoImporterBase.
+    *
+    *  @TripalImporter(
+    *    id = "tripal_tst_loader",
+    *    label = @Translation("Example TST File Importer"),
+    *    description = @Translation("Loads TST files"),
+    *    file_types = {"txt", "tst", "csv"},
+    *    upload_description = @Translation("TST is a fictional format.  Its a 2-column, CSV file.  The columns should be of the form featurename, and text"),
+    *    upload_title = @Translation("TST File"),
+    *    use_analysis = True,
+    *    require_analysis = True,
+    *    use_button = True,
+    *    button_text = @Translation("Import TST file"),
+    *    file_upload = True,
+    *    file_remote = True,
+    *    file_local = True,
+    *    file_required = True,
+    *    submit_disabled = False
+    *  )
+    */
+    class ExampleImporter extends ChadoImporterBase {
 
 .. warning::
 
-  The variables that are ``private static`` **should not** be copied and should not be changed. Only copy and change the ``public static`` member variables.
+  You must use double quotes when specifying strings in the Annotations.
 
-
-Now that we've given our importer a name and description, it will show up at ``/admin/tripal/loaders``:
+Now that we have created the plugin and set it's annotations it should appear in the list of Tripal Importers at **admin > Tripal > Data Loaders** after we clear the Drupal cache (``drush cr``). 
 
 .. image:: ./custom_data_loader.0.png
 
+.. note::
 
-Form Components
------------------
+  If your importer does not show in the list of data loaders, check the Drupal recent logs at **admin > Manage > Reports > Recent log messages** .
 
-By default, the ``TripalImporter`` class will provide the necessary upload widgets to allow a user to upload files for import.  The static variables we set in the previous step dictate how that uploader appears to the user.  However, for this example, our importer needs additional information from the user before data can be loaded.  We need to provide additional form widgets.
+Using the annotation settings specified for our example importer, the importer form will automatically provide a **File Upload** field set, and an **Analysis** selector.  The **File Upload** section lets users choose to upload a file, provide a server path to a file already on the web server or a specify a remote path for files located via a downloadable link on the web.  The **Analysis** selector is important because it allows the user to specify an analysis that describes how the data file was created. It will look like the following screenshot:
 
-Typically, to create forms, Drupal provides form hooks: ``form``, ``form_validate``, ``form_submit``. The **TripalImporter** wraps these for us as class functions named ``form``, ``formValidate`` and ``formSubmit``.  We can override these class functions to provide additional widgets to the form.
+.. image:: custom_data_loader.1.png
+
+Customizing the Form
+--------------------
+
+Most likely you will want to customize the importer form. For our example TST file importer we want to read the file, split it into feature and values, and insert properties into the ``featureprop`` table of Chado. That table requires a controlled vocabulary term ID for the ``type_id`` column of the table. Therefore, we want to customize the importer form to request a controlled vocabulary term. To customize the form we can use three functions:
+
+- ``form()``:  Allows you to add additional form elements to the form.
+- ``formValidate()``:  Provides a mechanism by which you can validate the form elements you added.
+- ``formSubmit()``: Allows you to perform some preprocessing prior to submission of the form. Typically this function does not need to be implemented--only if you want to do preprocessing before submission.
 
 .. note::
 
-  Typically we only need to implement the ``form`` and ``formValidate`` functions. The ``formSubmit`` does not need to be modified.
-
-.. note::
-
-  If you are not familiar with form creation in Drupal you may want to find a Drupal reference book that provides step-by-step instructions.  Additionally, you can explore the `API documentation for form construction for Drupal 7 <https://api.drupal.org/api/drupal/developer%21topics%21forms_api_reference.html/7.x>`_.  Here, this example expects you are comfortable with form construction in Drupal.
+  If you are not familiar with form creation in Drupal you may want to find a Drupal reference book that provides step-by-step instructions.  Additionally, you can explore the `API documentation for form construction for Drupal 10 <https://www.drupal.org/docs/drupal-apis/form-api>`_.  
 
 
-The form function
-^^^^^^^^^^^^^^^^^
-To provide custom widgets for our importer we need to implement the ``form`` function.  However, let's review the current form provided by the TripalImporter for us already.  Using the static variables settings specified above the form automatically provides a **File Upload** field set, and an **Analysis** selector.  The **File Upload** area lets users choose to upload a file, provide a **Server path** to a file already on the web server or a **Remote path** for files located via a downloadable link on the web.  The **Analysis** selector is important because it allows the user to specify an analysis that describes how the data file was created.
+The form() function
+^^^^^^^^^^^^^^^^^^^
 
-.. image:: ./custom_data_loader.1.oob_file_interface.png
-
-.. image:: ./custom_data_loader.2.oob_analysis_select.png
-
-For our example TST file importer these upload options are sufficient.  However, for our data import we want the user provide a CV term.  We want our importer to read the file, split it into feature and values, and insert properties into the ``featureprop`` table of Chado using the the CV term as the ``type_id`` for the table.
-
-To add a widget that allows the user to provide a CV term, we must implement the ``form`` function and include code using Drupal's Form API that will add the widget.
+We can use the ``form()`` function to add an element to request a CV term.
 
 .. code-block:: php
   :name: ExampleImporter::form

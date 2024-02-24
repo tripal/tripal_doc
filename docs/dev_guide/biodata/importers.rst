@@ -116,7 +116,7 @@ Notice in the ``form()`` function there is a call to the ``parent::form()``:
       return $form;
     }
 
-Without calling the ``parent::form() `` function your importer's form may not properly work.  This is required.
+Without calling the ``parent::form()`` function your importer's form may not properly work.  This is required.
 
 Step 4: Add Class Annotations
 -----------------------------
@@ -260,63 +260,59 @@ Reloading the importer, the form now has an autocomplete text box for selecting 
 
 
 The formValidate() function
-^^^^^^^^^^^^^^^^^^^^^^^^^
-The ``formValidate()`` function is responsible for verifying that the user supplied values from the form submission are valid.  To warn the user of inappropriate values, the Drupal API function, ``form_set_error()`` is used. It provides an error message, highlights in red the widget containing the bad value, and prevents the form from being submitted--allowing the user to make corrections. In our example code, we will check that the user selected a CV term from the ``pick_cvterm`` widget.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The ``formValidate()`` function is responsible for verifying that the user supplied values are valid.  This function receives two arguments: ``$form`` and ``$form_validate``.  The ``$form`` object contains the fully built form.  The ``$form_validate`` argument contains the object that represents the user submitted state of the form. To warn the user of inappropriate values, the ``$form_state->setErrorByName()`` function is used. It provides an error message, highlights in red the widget containing the bad value, and prevents the form from being submitted--allowing the user to make corrections. In our example code, we will check that the user selected a CV term from the ``pick_cvterm`` widget.
 
 
 .. code-block:: php
 
   public function formValidate($form, &$form_state) {
 
-    // Always call the TripalImporter (i.e. parent) formValidate as it provides
-    // some important feature needed to make the form work properly.
-    parent::formValidate($form, $form_state);
+    // Get the values submitted by the user.
+    $form_state_values = $form_state->getValues();
 
-    // Get the chosen CV term form the form state and if there is no value
-    // set warn the user.
-    $chosen_cvterm = $form_state['values']['pick_cvterm'];
-    if ($chosen_cvterm == 0) {
-      form_set_error('pick_cvterm', 'Please choose a CVterm.');
+    // The pick_cvterm element is required and Drupal will handle that
+    // check for us, so we only need to make sure the user let the user selected
+    // a term from the autocomplete with the accession in parentheses.
+    $term = $form_state_values['pick_cvterm'];
+
+    if (!preg_match('/\(.+?:.+?\)/', $term)) {
+      $form_state->setErrorByName('pick_cvterm',
+        t('Please choose a property type from the list that appears while typing. '
+          . 'It must include the controlled vocabulary term accession'));
     }
   }
 
-The implementation above looks for the ``pick_cvterm`` element of the ``$form_state`` and ensures the user selected something.  This is a simple example. An implementation for a more complex loader with a variety of widgets will require more validation checks.
+The implementation above gets the ``pick_cvterm`` element from the ``$form_state`` object. The PHP ``preg_match`` function uses a regular expression to make sure the term selected by the user has the format provided by the autocomplete (e.g., `comment (rdfs:comment)`). It checks to make sure the term accession is present in parentheses. For your importer, use this function to check as many form elements as you add to the importer.
 
-.. note::
-
-  If our importer followed best practices, it would not need a validator at all.  The cvterm select box in the form could be defined as below.  Note the ``'#required' => True`` line: this would handle the validation for us.  For this tutorial, however, we implement the validation ourselves to demonstrate the function.
-
-  .. code-block:: php
-
-    // Provide the Drupal Form API array for a select box.
-    $form['pick_cvterm'] =  [
-      '#title' => 'CVterm',
-      '#description' => 'Please pick a CVterm.  The loaded TST file will associate the values with this term as a feature property.',
-      '#type' => 'select',
-      '#default_value' => '0',
-      '#options' => $options,
-      '#empty_option' => '--please select an option--'
-      '#required' => True
-    ];
+The formSubmit() function
+^^^^^^^^^^^^^^^^^^^^^^^^^
+If you need to perform any steps prior to running the importer you can use the ``formSubmit()`` function.  Suppose we wanted to add to our form the ability for a user to add new terms that do not already exist in the database.  We would create the form elements in the ``form()`` function, make sure we have validation checks in the ``formValidate()`` and then we could insert the new term into the database prior to job submission in the ``formSubmit()`` function.  Most likely you will not need to use this function. For most existing importers provided by Tripal this function is not used.
 
 
-When an importer form is submitted and passes all validation checks, a job is automatically added to the **Tripal Job** system. The ``TripalImporter`` parent class does this for us! The **Tripal Job** system is meant to allow long-running jobs to execute behind-the-scenes on a regular time schedule.  As jobs are added they are executed in order.  Therefore, if a user submits a job using the importer's form then the **Tripal Job** system will automatically run the job the next time it is scheduled to run or it can be launched manually by the site administrator.
+Step 7:  Write Importing Code
+-----------------------------
+When an importer form is submitted and passes all validation checks, a job is automatically added to the :doc:`../../admin_guide/jobs`  system. The ``TripalImporter`` parent class does this for us! The :doc:`../../admin_guide/jobs` system is meant to allow long-running jobs to execute behind-the-scenes on a regular time schedule.  As jobs are added they are executed in order.  Therefore, if a user submits a job using the importer's form then the :doc:`../../admin_guide/jobs`  system will automatically run the job the next time it is scheduled to run or it can be launched manually by the site administrator.
 
+When the **Tripal Job** system executes an importer job it will call three different functions:
 
-Importer Execution
-------------------
-The ``form`` and ``formValidate`` functions allow our Importer to receive an input file and additional values needed for import of the data.  To execute loading a file the ``TripalImporter`` provides several additional overridable functions:  ``run``, ``preRun`` and ``postRun``.  When the importer is executed, the ``preRun`` function is called first. It allows the importer to perform setup prior to full execution.  The ``run`` function is where the full execution occurs and the ``postRun`` function is used to perform "cleanup" prior to completion. For our ``ExampleImporter`` class we only need to implement the ``run`` function.  We have no need to perform any setup or cleanup outside of the typical run.
+- ``run()``: contains the code that performs the import of the file.
+- ``preRun()``: contains code to be executed prior to the the ``run()`` function.
+- ``postRun()``: contains code to be executed after executiong of the ``run()` function.
 
-The run function
-^^^^^^^^^^^^^^^^
-The ``run`` function is called automatically when Tripal runs the importer. For our ``ExampleImporter``, the run function should collect the values provided by the user, read and parse the input file and load the data into Chado. The first step, is to retrieve the user provided values and file details. The inline comments in the code below provide instructions for retrieving these details.
+These functions were added to our class as "stubs" in Step 3 above and now we discuss each of these.
+
+The preRun() function
+^^^^^^^^^^^^^^^^^^^^^
+The ``preRun()`` function is called automatically by Tripal and should contain code that must be executed prior to running hte importer.  This function provide any setup that is needed prior to importing the file.  In the case of our example importer, we will not need to use the ``preRun()`` function so it will remain empty.
+
+The run() function
+^^^^^^^^^^^^^^^^^^
+The ``run()`` function is called automatically when Tripal runs the importer. For our ``ExampleImporter``, the run function should read and parse the input file and load the data into Chado. The first step, is to retrieve the user provided values from the form and the file details. The inline comments in the code below provide instructions for retrieving these details.
 
 
 .. code-block:: php
 
-    /**
-     * @see TripalImporter::run()
-     */
     public function run() {
 
       // All values provided by the user in the Importer's form widgets are
@@ -333,8 +329,11 @@ The ``run`` function is called automatically when Tripal runs the importer. For 
       // provided as an argument.
       $analysis_id = $arguments['analysis_id'];
 
-      // Any of the widgets on our form are also available as an argument.
-      $cvterm_id = $arguments['pick_cvterm'];
+      // Convert the cvterm text provided by the user submitted form
+      // to the actual cvterm ID from chado.
+      $cvterm = $arguments['pick_cvterm'];
+      $cv_autocomplete = new ChadoCVTermAutocompleteController();
+      $cvterm_id = $cv_autocomplete->getCVtermId($cvterm);
 
       // Now that we have our file path, analysis_id and CV term we can load
       // the file.  We'll do so by creating a new function in our class
@@ -342,176 +341,53 @@ The ``run`` function is called automatically when Tripal runs the importer. For 
       $this->loadMyFile($analysis_id, $file_path, $cvterm_id);
     }
 
-.. note::
+In the example code above the ``loadMyFile()`` function is a function we add to our importer class that completes the loading of the file.  We do not show the code of that function here, but it will be responsible for reading in the file provided by the ``$file_path`` variable and import the feature properties into Chado. 
 
-  We do not need to validate in the ``run`` function that all of the necessary values in the arguments array are valid.  Remember, this was done by the ``formValidate`` function when the user submitted the form.  Therefore, we can trust that all of the necessary values we need for the import are correct.  That is of course provided our ``formValidate`` function sufficiently checks the user input.
+Logging 
+^^^^^^^
+During execution of our importer it is often useful to inform the user of progress, status and issues encountered. All **TripalImporter** plugins have several built-in objects and functions that support logging and reporting of progress.  For logging, each importer has access to a **TripalLogger** accessible as ``$this->logger`` which uses the `Drupal Logging API <https://www.drupal.org/docs/8/api/logging-api/overview>`_.   There are several functions that you can use with the logger than can report errors, warnings, notices or debugging information.  A quick list of these are:
 
-Importing the File
-^^^^^^^^^^^^^^^^^^
-To keep the ``run`` function small, we will implement a new function named ``loadMyFile`` that will perform parsing and import of the file into Chado. As seen in the code above, the ``loadMyFile`` function is called in the ``run`` function.
+- ``$this->logger->emergency($message)``
+- ``$this->logger->alert($message)``
+- ``$this->logger->critical($message)``
+- ``$this->logger->error($message)``
+- ``$this->logger->warning($message)``
+- ``$this->logger->notice($message)``
+- ``$this->logger->info($message)``
+- ``$this->logger->debug($message)``
 
-Initially, lets get a feel for how the importer will work.  Lets just print out the values provided to our importer:
-
-
-.. code-block:: php
-
-  public function loadMyFile($analysis_id, $file_path, $cvterm){
-    var_dump(["this is running!", $analysis_id, $file_path, $cvterm]);
-  }
-
-To test our importer navigate to ``admin > Tripal > Data Importers`` and click the link for our TFT importer. Fill out the form and press submit.  If there are no validation errors, we'll receive notice that our job was submitted and given a command to execute the job manually. For example:
-
-..
-
-  drush trp-run-jobs --username=admin --root=/var/www/html
-
-
-If we execute our importer we should see the following output:
-
-
-.. code-block:: bash
-
-    Calling: tripal_run_importer(146)
-
-    Running 'Example TST File Importer' importer
-    NOTE: Loading of file is performed using a database transaction.
-    If it fails or is terminated prematurely then all insertions and
-    updates are rolled back and will not be found in the database
-
-    array(4) {
-      [0]=>
-      string(16) "This is running!"
-      [1]=>
-      string(3) "147"
-      [2]=>
-      string(3) "695"
-      [3]=>
-      string(72) "/Users/chet/UTK/tripal/sites/default/files/tripal/users/1/expression.tsv"
-    }
-
-    Done.
-
-    Remapping Chado Controlled vocabularies to Tripal Terms...
-
-
-As you can see, running the job executes our run script, and we have all the variables we need to load the data.  All we need to do now is write the code!
-
-To import data into Chado we will use the Tripal API. After splitting each line of the input file into a genomic feature and its property, we will use the ``chado_select_record`` to match the feature's name with a record in the ``feature`` table of Chado, and the ``chado_insert_property`` to add the property value.
-
+For each of the functions above, the ``$message`` argument should contain the text that is reported. The following is an example code from the GFF3 loader where logging is used to report progress of each step:
 
 .. code-block:: php
 
-  public function loadMyFile($analysis_id, $file_path, $cvterm_id){
-
-    // We want to provide a progress report to the end-user so that they:
-    // 1) Recognize that the loader is not hung if running a large file, but is
-    //    executing
-    // 2) Provides some indication for how long the file will take to load.
-    //
-    // Here we'll get the size of the file and tell the TripalImporter how
-    // many "items" we have to process (in this case bytes of the file).
-    $filesize = filesize($file_path);
-    $this->setTotalItems($filesize);
-    $this->setItemsHandled(0);
-
-    // Loop through each line of file.  We use the fgets function so as not
-    // to load the entire file into memory but rather to iterate over each
-    // line separately.
-    $bytes_read = 0;
-    $in_fh = fopen($file_path, "r");
-    while ($line = fgets($in_fh)) {
+  $this->logger->notice("Step  1 of 27: Caching GFF3 file...");
   
-      // Calculate how many bytes we have read from the file and let the
-      // importer know how many have been processed so it can provide a
-      // progress indicator.
-      $bytes_read += drupal_strlen($line);
-      $this->setItemsHandled($bytes_read);
-
-      // Remove any trailing white-space from the line.
-      $line = trim($line);
-
-      // Split line on a comma into an array.  The feature name appears in the
-      // first "column" of data and the property in the second.
-      $cols = explode(",", $line);
-      $feature_name = $cols[0];
-      $this_value = $cols[1];
-
-      // Our file has a header with the name 'Feature name' expected as the
-      // title for the first column. If we see this ignore it.
-      if ($feature_name == 'Feature name'){
-         continue;
-      }
-
-      // Using the name of the feature from the file, see if we can find a
-      // record in the feature table of Chado that matches.  Note: in reality
-      // the feature table of Chado has a unique constraint on the uniquename,
-      // organism_id and type_id columns of the feature table.  So, to ensure
-      // we find a single record ideally we should include the organism_id and
-      // type_id in our filter and that would require more widgets on our form!
-      // For simplicity, we will just search on the uniquename and hope we
-      // find unique features.
-      $match = ['uniquename' => $feature_name];
-      $results = chado_select_record('feature', ['feature_id'], $match);
-
-      // The chado_select_record function always returns an array of matches. If
-      // we found no matches then this feature doesn't exist and we'll skip
-      // this line of the file.  But, log this issue so the user knows about it.
-      if (count($results) == 0) {
-        $this->logMessage('The feature, !feature, does not exist in the database',
-          ['!feature' => $feature_name], TRIPAL_WARNING);
-        continue;
-      }
-
-      // If we failed to find a unique feature then we should warn the user
-      // but keep on going.
-      if (count($results) == 0) {
-        $this->logMessage('The feature, !feature, exists multiple times. ' .
-          'Cannot add a property', ['!feature' => $feature_name], TRIPAL_WARNING);
-        continue;
-      }
-
-      // If we've made it this far then we have a feature and we can do the
-      // insert.
-      $feature = $results[0];
-      $record = [
-        'table' => 'feature',
-        'id' => $feature->feature_id
-      ];
-      $property = [
-        'type_id' => $cvterm_id,
-        'value' => $this_value,
-      ];
-      $options = ['update_if_present' => TRUE];
-      chado_insert_property($record, $property, $options);
-    }
-  }
-
-Logging and Progress
---------------------
-During execution of our importer it is often useful to inform the user of progress, status and issues encountered.  There are several functions to assist with this. These include the ``logMessage``,  ``setTotalItems`` and ``setItemsHandled`` functions.  All three of these functions were used in the sample code above of the ``loadMyFile`` function.  Here, we provide a bit more detail.
-
-The logMessage function
-^^^^^^^^^^^^^^^^^^^^^^^
-The ``logMessage`` function is meant to allow the importer to provide status messages to the user while the importer is running.  The function takes three arguments:
-
-1) a message string.
-2) an array of substitution values.
-3) a message status.
-
-The message string contains the message for the user.  You will notice that no variables are included in the string but rather tokens are used as placeholders for variables.  This is a security feature provided by Drupal.  Consider these lines from the code above:
-
-.. code-block:: php
-
-  $this->logMessage('The feature, !feature, does not exist in the database',
-    ['!feature' => $feature_name], TRIPAL_WARNING);
-
-Notice that ``!feature`` is used in the message string as a placeholder for the feature name. The mapping of ``!feature`` to the actually feature name is provided in the array provided as the second argument.  The third argument supports several message types including ``TRIPAL_NOTICE``, ``TRIPAL_WARNING`` and ``TRIPAL_ERROR``.  The message status indicates a severity level for the message.  By default if no message type is provided the message is of type ``TRIPAL_NOTICE``.
-
-Any time the ``logMessage`` function is used the message is stored in the job log, and a site admin can review these logs by clicking on the job in the ``admin > Tripal > Tripal Jobs`` page.
 
 .. note::
 
-  You should avoid using ``print`` or ``print_r`` statements in a loader to provide messages to the end-user while loading the file.  Always use the ``logMessage`` function to ensure all messages are sent to the job's log.
+  Do not use ``print`` or ``print_r`` statements as a way to inform the user of warnings, errors or progress. 
+
+
+Throwing errors
+^^^^^^^^^^^^^^^
+The **TripalImporter** plugins can throw errors if needed.  Tripal will catch the error, perform appropriate logging and recover gracefully.  An example of throwing an error from the GFF3 loader:
+
+.. code-block:: php
+
+    throw new \Exception(t('Cannot find landmark feature type \'%landmark_type\'.',
+         ['%landmark_type' => $this->default_landmark_type]));
+
+After an error is caught by Tripal, all database changes will be rolled back and any changes made to the database during the process of running the importer will no longer exist. 
+
+Reporting Progress
+^^^^^^^^^^^^^^^^^^
+For progress reporting, each importer can utilze two different functions:
+
+- ``$this->setTotalItems()``: Indicates the total number of items (or steps) that must be processed for the laoder to complete.
+- ``$this->setItemsHandled()``: Reports the total number of items that have been handled.
+
+
+
 
 The setTotalItems and setItemsHandled functions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -1,41 +1,54 @@
 Creating a Chado Data Importer
 ==============================
-Often we want to simplify import of data into Chado by provide a user interface by which a site developer can easily select a file, provide values for a few settings and click a button to load a file. Examples of existing loaders compatible with Tripal include the FASTA and GFF loaders that come with the Tripal Genome module.  These loaders allow users to import data into Chado that are in FASTA or GFF format.  If you would like to support loading of a file type you can create a new loader by implementing your own ``TripalImporter`` plugin and writing the code to insert or update the data into Chado.  The ``TripalImporter`` plugin provides many conveniences. For example, it provides an input form that automatically handles files uploads, it performs job submission, logging, and provides progress updates during execution. Adding a ``TripalImporter`` to your module allows means anyone who installs your module can use your new loader!
+Often we want to provide a user interface by which a site developer can easily import data into Chado. Examples of existing loaders compatible with Tripal include the FASTA and GFF3 loaders that come with the Tripal Genome module.  These loaders allow users to import data into Chado that are in `FASTA <https://en.wikipedia.org/wiki/FASTA_format>`_ or `GFF3 format <https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md>`_.  
 
-To document how to create a new importer, we will describe use of the ``TripalImporter`` class within the context of a new simple importer called the ``ExampleImporter``. This importer will read in a comma-separated file containing genomic features and their properties (a fictional "Test Format" file).  The loader will split each line into feature and property values, and then insert each property into the ``featureprop`` table of Chado using a controlled vocabulary term (supplied by the user) as the ``type_id`` for the property.
+If you would like to create a new data importer for Chado you will need to create your own **TripalImporter** plugin.  The Tripal importers use the `Drupal Plugin API <https://www.drupal.org/docs/drupal-apis/plugin-api/plugin-api-overview>`_. The plugin infrastructure of Drupal allows a module to provide new functionality that builds off of a common interface. For importing data this interface is provided by the ``TripalImporterInterface`` class.   The **TripalImporter** plugin provides many conveniences. For example, it provides an input form that automatically handles files uploads, it performs job submission, logging, and provides progress updates during execution. Adding a **TripalImporter** plugin to your module will allow anyone who installs your module to also use your new loader!
+
+Here, we will show how to create a **TripalImporter** plugin by building a simple importer called the **ExampleImporter**. This importer reads a comma-separated file containing genomic features and their properties (a fictional "Test Format" file).  The loader will split each line into feature and property values, and then insert each property into the ``featureprop`` table of Chado using a controlled vocabulary term (supplied by the user) as the ``type_id`` for the property.
 
 .. note::
   Prior to starting your data loader you should plan how the data will be imported into Chado. Chado is a flexible database schema and it may be challenging at times to decide in to which tables data should be placed.  It is recommended to reach out to the Chado community to solicit advice. Doing so will allow you to share your loader will other Tripal users more easily!
 
 
-About Drupal Plugins
---------------------
-The Tripal importers use the `Drupal Plugin API <https://www.drupal.org/docs/drupal-apis/plugin-api/plugin-api-overview>`_. The plugin infrastructure of Drupal allows a module to provide new functtionality the builds off of a common interface (such as Tripal's importer interface).
+Step 1: Create Your Module
+--------------------------
+To create your an importer, you first need to have a Drupal module in which the loader will be provided.  If you do not know how to create a module, see the section titled :doc:`../module_dev` for further direction. For this document we will describe creation of an importer in a fake module named ``tripal_example_importer``.
+
+Step 2: Create the Importer Class File
+--------------------------------------
+To define a new ``TripalImporter`` plugin, you should first create the directory ``src/Plugin/TripalImporter/`` in your module. For the example here, we will create a new plugin named ``ExampleImporter``. We must name the file the same as the class (with a ``.php`` extension) and place the file in the ``src/Plugin/TripalImporter/`` directory we just created. For example: ``tripal_example_importer\src\Plugin\TripalImporter\ExampleImporter.inc``.    Placing the importer class file in the ``src/Plugin/TripalImporter`` directory is all you need for Tripal to find it. Tripal will automatically place a link for your importer on the Drupal site at **admin > Tripal > Data Loaders**.
+
+Step 3: Stub the Class File
+---------------------------
+
+In the Class file created in the previous step we will write our **TripalImporter** plugin. First, we must set the namespace for this class. It should look similar to the path where the file is stored (but without the ``src`` directory):
+
+.. code-block:: php
+
+  <?php
+  namespace Drupal\tripal_example_importer\Plugin\TripalImporter;
+
+Next, an importer that is meant to load data into Chado should extend the  ``ChadoImporterBase`` class. 
+
+.. code-block:: php
+
+  <?php
+  namespace Drupal\tripal_example_importer\Plugin\TripalImporter;
+
+  use Drupal\tripal_chado\TripalImporter\ChadoImporterBase;
+
+  class ExampleImporter extends ChadoImporterBase {
 
 
-Create a Custom Module
-----------------------
-To create your own importer, you first need to have a custom extension module in which the loader will be provided.  If you do not know how to create a module, see the section titled :doc:`../module_dev` for further direction. For this document we will describe creation of a new importer in a fake module named ``tripal_example_importer``.
+All **TripalImporter** plugins uss the ``TripalImporterInterface`` which requires that several unctions are included in your plugin. These functions are:
 
+- ``form()``
+- ``formSubmit()``
+- ``formValidate()``
+- ``run()``
+- ``postRun()``
 
-
-Create the Plugin File
-----------------------
-
-To define a new class that extends ``TripalImporter``, you should create the directory ``src/Plugin/TripalImporter/`` in your module. For the example here, we will create a new ``TripalImporter`` plugin named ``ExampleImporter``. We must name the file the same as the class (with a .php extension) and place the file in the ``TripalImporter`` directory we just created: ``tripal_example_importer\src\Plugin\TripalImporter\ExampleImporter.inc``.    Placing the importer class file in the ``src/Plugin/TripalImporter`` directory is all you need for Tripal to find it. Tripal will automatically place a link for your importer on the Drupal site at **admin > Tripal> Data Loaders**.
-
-Step 1: Importer Plugin Class File
-----------------------------------
-
-To create your importer, you will extend the ``ChadoImporterBase`` class which has several abstract functions that you must implement including:
-
-- form
-- formSubmit
-- formValidate
-- run
-- postRun
-
-Our example empty class looks like the following:
+We will discuss each fucntion later but for now, we will create "stubs" for each of these functions in our class. For our example empty class it should look like the following:
 
 .. code-block:: php
 
@@ -88,9 +101,26 @@ Our example empty class looks like the following:
     }
   }
 
-Class Annotations
------------------
-All Drupal Plugins require an `Annotation section <https://www.drupal.org/docs/drupal-apis/plugin-api/annotations-based-plugins>`_ that appears as a PHP comment just above the Class definition. The annotation section provdies some basic settings that the TripalImporter plugin requires.  As a quick example here is the Annotation section for the GFF3 importer. The GFF3 importer is provided by the Tripal Genome module and imports features defined in a GFF3 file into Chado.
+Notice in the ``form()`` function there is a call to the ``parent::form()``:
+
+.. code-block:: php
+
+    /**
+     * @see ChadoImporterBase::form()
+     */
+    public function form($form, &$form_state) {
+
+      // Always call the parent form.
+      $form = parent::form($form, $form_state);
+
+      return $form;
+    }
+
+Without calling the ``parent::form() `` function your importer's form may not properly work.  This is required.
+
+Step 4: Add Class Annotations
+-----------------------------
+All Drupal plugins require an `Annotation section <https://www.drupal.org/docs/drupal-apis/plugin-api/annotations-based-plugins>`_ that appears as a PHP comment just above the Class definition. The annotation section provides settings that the **TripalImporter** plugin requires.  As a quick example here is the Annotation section for the GFF3 importer. The GFF3 importer is provided by the Tripal Genome module and imports features defined in a GFF3 file into Chado.
 
 .. code-block:: php
 
@@ -117,7 +147,7 @@ All Drupal Plugins require an `Annotation section <https://www.drupal.org/docs/d
   */
   class GFF3Importer extends ChadoImporterBase {
 
-As you can see in the code above, the annotation section consists of multiple settings in key/value pairs.  The meaning of each settings is as follows:
+In the code above, the annotation section consists of multiple settings in key/value pairs.  The meaning of each settings is as follows:
 
 - ``id``: A unique machine readable plugin ID for the loader. It must only contain alphanumeric characters and the underscore. It should be lowercase.  
 - ``label``: the human readable name (or label) for this importer. It is wrapped in a ``@Translation()`` function which will allow Drupal to provide translations for it.  This label is shown to the user in the list of available data importers.
@@ -166,6 +196,8 @@ For our ``ExampleImporter`` class we will set the annotations accordingly:
 
   You must use double quotes when specifying strings in the Annotations.
 
+Step 5: Check Availability
+--------------------------
 Now that we have created the plugin and set it's annotations it should appear in the list of Tripal Importers at **admin > Tripal > Data Loaders** after we clear the Drupal cache (``drush cr``). 
 
 .. image:: ./custom_data_loader.0.png
@@ -174,14 +206,14 @@ Now that we have created the plugin and set it's annotations it should appear in
 
   If your importer does not show in the list of data loaders, check the Drupal recent logs at **admin > Manage > Reports > Recent log messages** .
 
-Using the annotation settings specified for our example importer, the importer form will automatically provide a **File Upload** field set, and an **Analysis** selector.  The **File Upload** section lets users choose to upload a file, provide a server path to a file already on the web server or a specify a remote path for files located via a downloadable link on the web.  The **Analysis** selector is important because it allows the user to specify an analysis that describes how the data file was created. It will look like the following screenshot:
+Using the annotation settings we provided, the importer form will automatically provide a **File Upload** field set, and an **Analysis** selector.  The **File Upload** section lets users choose to upload a file, provide a server path to a file already on the web server or a specify a remote path for files located via a downloadable link on the web.  The **Analysis** selector is important because it allows the user to specify an analysis that describes how the data file was created. It will look like the following screenshot:
 
 .. image:: custom_data_loader.1.png
 
-Customizing the Form
---------------------
+Step 6: Customize the Form
+--------------------------
 
-Most likely you will want to customize the importer form. For our example TST file importer we want to read the file, split it into feature and values, and insert properties into the ``featureprop`` table of Chado. That table requires a controlled vocabulary term ID for the ``type_id`` column of the table. Therefore, we want to customize the importer form to request a controlled vocabulary term. To customize the form we can use three functions:
+Most likely, you will want to add elements the importer form. For our example TST file importer we want to split the file to retrieve feature and their properties, and then insert properties into the ``featureprop`` table of Chado. That table requires a controlled vocabulary term ID for the ``type_id`` column of the table. Therefore, we want to customize the importer form to request a controlled vocabulary term. To customize the form we can use three functions:
 
 - ``form()``:  Allows you to add additional form elements to the form.
 - ``formValidate()``:  Provides a mechanism by which you can validate the form elements you added.
@@ -195,65 +227,41 @@ Most likely you will want to customize the importer form. For our example TST fi
 The form() function
 ^^^^^^^^^^^^^^^^^^^
 
-We can use the ``form()`` function to add an element to request a CV term.
+We can use the ``form()`` function to add the element to request the property CV term. To help, Tripal provides a handy service for searching for a controlled vocabulary term, we can use this as part of a text box with an autocomplete.  The following code shows the addition of a new ``textfield`` form element with a ``#autocomplete_route_name`` setting that tells the form to use Tripal's CV search service to support autocompletion as the user types.
 
 .. code-block:: php
   :name: ExampleImporter::form
 
-
   public function form($form, &$form_state) {
 
+    // Always call the parent form.
+    $form = parent::form($form, $form_state);
 
-    // For our example loader let's assume that there is a small list of
-    // vocabulary terms that are appropriate as properties for the genomics
-    // features. Therefore, we will provide an array of sequence ontology terms
-    // the user can select from.
-    $terms = [
-      ['id' => 'SO:0000235'],
-      ['id' => 'SO:0000238'],
-      ['id' => 'SO:0000248']
+    // Add an element to the form to allow a user to pick
+    // a controlled vocabulary term.
+    $form['pick_cvterm'] = [
+      '#title' => t('Property Type'),
+      '#type' => 'textfield',
+      '#required' => TRUE,
+      '#description' => t("Specify the controlled vocabulary term for "
+        . "properties that will be added to genomic features in the input file."),
+      '#autocomplete_route_name' => 'tripal_chado.cvterm_autocomplete',
+      '#autocomplete_route_parameters' => ['count' => 5, 'cv_id' => 0],
     ];
 
-    // Construct the options for the select drop down.
-    $options = [];
-    // Iterate through the terms array and get the term id and name using
-    // appropriate Tripal API functions.
-    foreach ($terms as $term){
-      $term_object = chado_get_cvterm($term);
-      $id = $term_object->cvterm_id;
-      $options[$id] = $term_object->name;
-    }
-
-    // Provide the Drupal Form API array for a select box.
-    $form['pick_cvterm'] =  [
-      '#title' => 'CVterm',
-      '#description' => 'Please pick a CVterm.  The loaded TST file will associate the values with this term as a feature property.',
-      '#type' => 'select',
-      '#default_value' => '0',
-      '#options' => $options,
-      '#empty_option' => '--please select an option--'
-    ];
-
-    // The form function must always return our form array.
     return $form;
   }
 
-Our form now has a select box!
+The ``#autocomplete_route_parameters`` setting takes an array of two arguments: ``count`` and ``cv_id``.  The ``count`` argument specifies the maximum number of matching CV terms that will be shown as the user types.  The ``cv_id`` in the example is set to zero, indicating that there are no restrictions on which vocabulary the terms can come from. If you wanted to restrict the user to only selecting terms from a specific vocabulary then you would set the ``cv_id`` to the vocabulary ID from Chado.
 
-.. image:: ./custom_data_loader.3.cvterm_select.png
+Reloading the importer, the form now has an autocomplete text box for selecting a CV term.
 
-
-Using AJAX in forms
-"""""""""""""""""""
-
-.. note::
-
-  This section is not yet available. For now, check out the Drupal AJAX guide https://api.drupal.org/api/drupal/includes%21ajax.inc/group/ajax/7.x
+.. image:: custom_data_loader.2.png
 
 
-The formValidate function
+The formValidate() function
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-The ``formValidate`` function is responsible for verifying that the user supplied values from the form submission are valid.  To warn the user of inappropriate values, the Drupal API function, ``form_set_error()`` is used. It provides an error message, highlights in red the widget containing the bad value, and prevents the form from being submitted--allowing the user to make corrections. In our example code, we will check that the user selected a CV term from the ``pick_cvterm`` widget.
+The ``formValidate()`` function is responsible for verifying that the user supplied values from the form submission are valid.  To warn the user of inappropriate values, the Drupal API function, ``form_set_error()`` is used. It provides an error message, highlights in red the widget containing the bad value, and prevents the form from being submitted--allowing the user to make corrections. In our example code, we will check that the user selected a CV term from the ``pick_cvterm`` widget.
 
 
 .. code-block:: php

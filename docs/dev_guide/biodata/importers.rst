@@ -296,8 +296,8 @@ When an importer form is submitted and passes all validation checks, a job is au
 
 When the **Tripal Job** system executes an importer job it will call three different functions:
 
-- ``run()``: contains the code that performs the import of the file.
 - ``preRun()``: contains code to be executed prior to the the ``run()`` function.
+- ``run()``: contains the code that performs the import of the file.
 - ``postRun()``: contains code to be executed after executiong of the ``run()` function.
 
 These functions were added to our class as "stubs" in Step 3 above and now we discuss each of these.
@@ -363,9 +363,9 @@ For each of the functions above, the ``$message`` argument should contain the te
   $this->logger->notice("Step  1 of 27: Caching GFF3 file...");
   
 
-.. note::
+.. warning::
 
-  Do not use ``print`` or ``print_r`` statements as a way to inform the user of warnings, errors or progress. 
+  Do not use ``print`` or ``print_r`` statements as a way to inform the user of warnings, errors or progress. These will not be logged and may interfere with functional testing.
 
 
 Throwing errors
@@ -381,73 +381,167 @@ After an error is caught by Tripal, all database changes will be rolled back and
 
 Reporting Progress
 ^^^^^^^^^^^^^^^^^^
-For progress reporting, each importer can utilze two different functions:
+For progress reporting, **TripalImporter** plugins can utilize two different functions:
 
-- ``$this->setTotalItems()``: Indicates the total number of items (or steps) that must be processed for the laoder to complete.
+- ``$this->setTotalItems()``: Indicates the total number of items (or steps) that must be processed for the importer to complete.
 - ``$this->setItemsHandled()``: Reports the total number of items that have been handled.
 
-
-
-
-The setTotalItems and setItemsHandled functions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The ``TripalImporter`` class is capable of providing progress updates to the end-user while the importer job is running. This is useful as it gives the end-user a sense for how long the job will take. As shown in the sample code above for the ``loadMyFile`` function, The first step is to tell the ``TripalImporter`` how many items need processing.  An **item** is an arbitrary term indicating some measure of countable "units" that will be processed by our importer.
-
-In the code above we consider a byte as an item, and when all bytes from a file are read we are done loading that file.  Therefore the ``setTotalItems`` function is used to tell the importer how many bytes we need to process.  As we read each line, we count the number of bytes read and provide that number to the ``setItemsHandled`` function.  The ``TripalImporter`` class will automatically calculate progress and print a message to the end-user indicating the percent complete, and some additional details such as the total amount of memory consumed during the loading.
-
-.. note::
-
-  All importers are different and the "item" need not be the number of bytes in the file.  However, if you want to provide progress reports you must identify an "item" and the total number of items there are for processing.
-
-Testing Importers
-------------------
-Unit Testing is a critically important component of any software project. You should always strive to write tests for your software.  Tripal provides unit testing using the ``phpunit`` testing framework. The Tripal Test Suite provides a strategy for adding tests for your new Importer.  It will automatically set up and bootstrap Drupal and Tripal for your testing environment, as well as provide database transactions for your tests, and factories to quickly generate data.  We will use the Tripal Test Suite to provide unit testing for our ``ExampleImporter``.
-
-.. note::
-  Before continuing, please install and configure Tripal Test Suite.
-
-  For instructions on how to install, configure, and run Tripal Test Suite, `please see the Tripal Test Suite documentation. <https://tripaltestsuite.readthedocs.io/en/latest/>`_
-
-
-Example file
-^^^^^^^^^^^^
-When developing tests, consider including a small example file as this is good practice both to ensure that your loader works as intended, and for new developers to easily see the expected file format.  For our ``ExampleImporter``, we'll include the following sample file and store it in this directory of our module:  ``tests/data/example.txt``.
-
-.. csv-table:: Example input file
-  :header: "Feature name", "CVterm value"
-
-  "test_gene_1", "blue"
-  "test_gene_2", "red"
-
-
-Loading the Importer
-^^^^^^^^^^^^^^^^^^^^
-Testing your loader requires a few setup steps.  First, TripalImporters are not explicitly loaded in your module (note that we never use ``include_once()`` or ``require_once`` in the ``.module`` file).  Normally Tripal finds the importer automatically, but for unit testing we must include it to our test class explicitly.  Second, we must initialize an instance of our importer class. Afterwards we can perform any tests to ensure our loader executed properly.  The following function provides an example for setup of the loader for testing:
+An **item** is an arbitrary term indicating some countable "units" that will be processed by our importer.  This can be lines in a file, bytes in a file, or steps that an importer performs.  To initialize the progress, first set the number of items handled to zero:
 
 .. code-block:: php
 
-  private function run_loader(){
+    $this->setItemsHandled(0);
 
-    // Load our importer into scope.
-    module_load_include('inc', 'tripal_example_importer', 'includes/TripalImporter/ExampleImporter');
+Next indicate how many items you plan to process:
 
-    // Create an array of arguments we'll use for testing our importer.
-    $run_args = [
-      'analysis_id' => $some_analysis_id,
-      'cvterm' => $some_cvterm_id
-    ];
-    $file = ['file_local' => __DIR__ . '/../data/exampleFile.txt'];
+.. code-block:: php
 
-    // Create a new instance of our importer.
-    $importer = new \ExampleImporter();
-    $importer->create($run_args, $file);
+    $this->setTotalItems($num_items);
 
-    // Before we run our loader we must let the TripalImporter prepare the
-    // files for us.
-    $importer->prepareFiles();
-    $importer->run();
+Then, as you process each item in the loader you can rerun the ``setItemsHandled()`` function and update the number of items that have been handled.
+
+Step 8: Write Functional Tests
+------------------------------
+Functional testing is a critically important component of any software project. You should always strive to write tests for your software to ensure that the software performs as expected and bugs are less likely to enter the code.  Drupal provides `automated testing <https://www.drupal.org/docs/develop/automated-testing>`_ by integrated the ``phpunit`` testing framework. We can create functional tests by utilizing this infrastructure provided by Drupal.
+
+Create the Testing Class
+^^^^^^^^^^^^^^^^^^^^^^^^
+Tests for **TripalImporters** are Class files that should be placed in the ``tests/src/Kernel/Plugin/TripalImporter`` folder of your module and the file should have the same name as the importer class with a "Test" suffix. For our example importer it would be found in this location ``tripal_example_importer\tests\src\Kernel\Plugin\TripalImporter\ExampleImporterTest.inc``.
+
+The testing class should have the same name as the file and should extend the ``ChadoTestKernelBase``. The following example code shows the empty starter class for our ``ExampleImporterTest`` class:
+
+.. code-block:: php
+
+  namespace Drupal\Tests\tripal_chado\Kernel\Plugin\TripalImporter;
+
+  use Drupal\Core\Url;
+  use Drupal\Tests\tripal_chado\Kernel\ChadoTestKernelBase;
+
+  /**
+  * Tests the functionality of the ExampleImporter Importer.
+  *
+  */
+  class ExampleImporterTest extends ChadoTestKernelBase {
+
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function setUp(): void {
+      parent::setUp();
+    }
+    
+    /**
+     * Tests the importer form.
+     */
+    public function testImporterForm() {
+      
+    }
+
+    /**
+     * Tests the run function.
+     */
+    public function testRun() {
+    }
   }
 
-.. note::
+During automated testing, a new temporary instance of Drupal is created. Drupal will run each test class and for each test class, the ``setUp()`` function will be run first. Afterwards, all of the functions that have the prefix ``test`` will be executed.  
 
-  We highly recommend you make use of database transactions in your tests, especially when running loaders.  Simply add ``use DBTransaction;`` at the start of your test class.  Please see the `Tripal Test Suite documentation for more information <https://tripaltestsuite.readthedocs.io/en/latest/>`_.
+
+The setUp() function
+^^^^^^^^^^^^^^^^^^^^
+The ``setup()`` function allows you to prepare the test Drupal site so that it is ready for the tests that follow.  The following code provides a common set of steps that all **TripalImporters** should use to setup the class for testing:
+
+.. code-block:: php
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+
+    // Always call the parent::setUp function.
+    parent::setUp();
+
+    // Ensure we see all logging in tests.
+    \Drupal::state()->set('is_a_test_environment', TRUE);
+
+		// Open a connection to Chado. This will ensure we have a properly 
+    // prepared Chado database.
+		$this->connection = $this->getTestSchema(ChadoTestKernelBase::PREPARE_TEST_CHADO);
+
+    // Ensure we can access file_managed related functionality from Drupal.
+    // ... users need access to system.action config?
+    $this->installConfig('system');
+    // ... managed files are associated with a user.
+    $this->installEntitySchema('user');
+    // ... Finally the file module + tables itself.
+    $this->installEntitySchema('file');
+    $this->installSchema('file', ['file_usage']);
+  }
+
+In the ``setUp()`` function above, we first allow the parent class to perform its setup functions. Then we ensure the logger messages are set to be captured for testing, Chado is property initialized and the test supports managed files.
+
+The testImporterForm() function
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+For our first, test, we will write code to ensure that the user interface form is working as intended. Here we will test that all of the form elements that out importer added to the form are working as expected. You do not need to write tests for the file uploader nor for the analysis selection element.  The testing of these elements will happen by the parent classes.  Here we only need to test our additions to the form.  
+
+To perform tests, the ``ChadoTestKernelBase`` class automatically provides a set of `PHPUnit assertion functions <https://docs.phpunit.de/en/9.6/assertions.html>`_.  For example, to test a boolean variable is ``True`` you would use the `assertTrue() <https://docs.phpunit.de/en/9.6/assertions.html#asserttrue>`_ function in the following way:
+
+.. code-block:: php
+
+  $this->assertTrue($my_boolean_var, "The variable is not a boolean.");
+
+
+Note that the assertion functions are available in your test class a member function (via ``$this->assertTrue()``).  All assertion functions are available in this way. For our example importer we only need to test the property cvterm element.  T
+
+For our example importer, the following code shows how we can test the form:
+
+.. code-block:: php
+
+  /**
+   * Tests the importer form.
+   */
+  public function testImporterForm() {
+
+    // Store the plugin ID and label for easy access later.
+		$plugin_id = 'tripal_tst_loader';
+    $importer_label = 'Loads TST files';
+
+    // Build the form using the Drupal form builder.
+    $form = \Drupal::formBuilder()->getForm('Drupal\tripal\Form\TripalImporterForm',$plugin_id);
+
+    // Ensure we are able to build the form.
+    $this->assertIsArray($form, 
+      "We expect the form builder to return a form but it did not.");
+    $this->assertEquals('tripal_admin_form_tripalimporter', $form['#form_id'], 
+      "We did not get the form id we expected.");
+
+    // Now that we have provided a plugin_id, we expect it to have a title matching our importer label.
+    $this->assertArrayHasKey('#title', $form, 
+      "The form should have a title set.");
+    $this->assertEquals($importer_label, $form['#title'], 
+      "The title should match the label annotated for our plugin.");
+    
+    // The plugin_id stored in a value form element.
+    $this->assertArrayHasKey('importer_plugin_id', $form, 
+      "The form should have an element to save the plugin_id.");
+    $this->assertEquals($plugin_id, $form['importer_plugin_id']['#value'], 
+      "The importer_plugin_id[#value] should be set to our plugin_id.");
+    
+    // The form has a submit button.
+    $this->assertArrayHasKey('button', $form, 
+      "The form should have a submit button since we indicated a specific importer.");
+
+    // Make sure the importer requires an analysis.
+    $this->assertArrayHasKey('analysis_id', $form, 
+      "The from should not include analysis element, yet one exists.");
+
+    // We should also have our importer-specific form elements added to the form!
+    $this->assertArrayHasKey('pick_cvterm', $form,
+      "The form should include an the 'pick_cvterm' form element.");
+
+	}
+
+.. error:: 
+
+    The documentation about testing is not yet complete.  More information is needed to describe how to test form submission, the ``run()``, ``preRun()`` and ``postRun()``

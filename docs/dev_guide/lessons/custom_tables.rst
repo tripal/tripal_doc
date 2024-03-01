@@ -79,15 +79,15 @@ The code above will create an instance of a ``ChadoCustomTable`` object but it d
 
 In the code above, the ``$schema`` variable contains the Schema API array defined above. Calling ``setTableSchema()`` will automatically create the table in the Chado schema and return ``TRUE`` on success.  If there are any errors in the structure of the ``$schema`` array or any problems creating the table, messages will be logged to Drupal, the attempt will fail and the function will return ``FALSE``.
 
-Hiding a Custom Table
+Locking a Custom Table
 ---------------------
-Tripal provides to the site developers an interface by which they can add custom tables. Site developers can see custom tables in the interface which allows them to delete them, rename them or alter them.  If you are adding a custom table for use by your extension module and you do not want the site developers to alter it in any way, you can hide the table from the developers.  Non custom Chado tables are not available for alteration and custom tables that are necessary for the functioning of a module should not be either.
+Tripal provides to the site developers an interface by which they can add custom tables. Site developers can see custom tables in the interface which allows them to delete them, rename them or alter them.  If you are adding a custom table for use by your extension module and you do not want the site developers to alter it in any way, you can lock the table.  Non-custom Chado tables are not available for alteration and custom tables that are necessary for the functioning of a module should not be either.
 
-After creation of your custom table, you can hide the table from the site developers by calling the ``setHidden()`` function on the ``ChadoCustomTable`` object and passing ``TRUE`` as the only argument.
+After creation of your custom table, you can lock the table from the site developers by calling the ``setLocked()`` function on the ``ChadoCustomTable`` object and passing ``TRUE`` as the only argument.
 
 .. code-block:: php
 
-    $custom_table->setHidden(TRUE);
+    $custom_table->setLocked(TRUE);
 
 The Table ID
 ------------

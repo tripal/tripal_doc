@@ -1,7 +1,7 @@
 Module File Structure
 ========================
 
-All Tripal extension modules require a module folder and a ``.info.yml`` file. With just these two items the module will display in Drupal 8's Extend administration page or can be activated directly with drush.
+All Tripal extension modules require a module folder and a ``.info.yml`` file. With just these two items the module will display in Drupal 10's Extend administration page or can be activated directly with drush.
 
 Choosing a module name
 -------------------------
@@ -19,7 +19,7 @@ It is also a good idea to ensure your module name encompasses the full functiona
 Prepare a module skeleton
 ---------------------------
 
-Start by creating a folder for your module in the modules directory of your Tripal site. This folder should use the machine name you choose above and includes all the files describing the functionality of your module. `Read more regarding this containing folder <https://www.drupal.org/docs/8/creating-custom-modules/naming-and-placing-your-drupal-8-module#s-create-a-folder-for-your-module>`_
+Start by creating a folder for your module in the modules directory of your Tripal site. This folder should use the machine name you choose above and includes all the files describing the functionality of your module. `Read more regarding this containing folder <https://www.drupal.org/docs/develop/creating-modules/naming-and-placing-your-drupal-module#s-create-a-folder-for-your-module>`_
 
 Next we let Drupal know about our module by describing it in an ``.info.yml`` file. The structure of this file is quite simple but descriptive:
 
@@ -30,14 +30,14 @@ Next we let Drupal know about our module by describing it in an ``.info.yml`` fi
   package: Custom
 
   type: module
-  core: 8.x
+  core: 10.x
 
   dependencies:
    - tripal
 
 Not only does this file let Drupal know about your module so you can enable it in your Tripal site but it also provides information to the site administrator. There are additional keys for this file; the ones above are the most common. `Read more on the Drupal info.yml file <https://www.drupal.org/node/2000204>`_
 
-Once you have added an ``.info.yml`` file, you can navigate to your Drupal site in the browser, go to “Extend” in the administration toolbar at the top. Your module will now appear in this list and checking the checkbox enables it! If this doesn’t happen, `read some great debugging tips here <https://www.drupal.org/docs/8/creating-custom-modules/let-drupal-8-know-about-your-module-with-an-infoyml-file#debugging>`_.
+Once you have added an ``.info.yml`` file, you can navigate to your Drupal site in the browser, go to “Extend” in the administration toolbar at the top. Your module will now appear in this list and checking the checkbox enables it! If this doesn’t happen, `read some great debugging tips here <https://www.drupal.org/docs/develop/creating-modules/let-drupal-know-about-your-module-with-an-infoyml-file#debugging>`_.
 
 Directory Structure
 ---------------------

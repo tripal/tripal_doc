@@ -29,7 +29,7 @@ Testing an unmerged pull request
 
     .. code::
 
-      sudo docker build --tag=tripaldocker:testing-9999 --build-arg drupalversion="10.1.x-dev" --build-arg postgresqlversion="16" --file tripaldocker/Dockerfile-php8.3 ./
+      sudo docker build --tag=tripaldocker:testing-9999 --build-arg drupalversion="10.2.x-dev" --build-arg postgresqlversion="16" --file tripaldocker/Dockerfile-php8.3 ./
 
 6. We will now create a running docker container from this image, and map the web port to a value available on the test system.
 

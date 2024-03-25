@@ -16,3 +16,4 @@ That said, there are still situations in which you may want to support additiona
    biodata/chado
    biodata/bulkPgSchemaInstall
    biodata/custom_tables
+   biodata/importers

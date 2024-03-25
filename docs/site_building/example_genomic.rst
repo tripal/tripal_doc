@@ -1,9 +1,9 @@
-Example Genomic Site Setup 
+Example Genomic Site Setup
 ============================
 
-The following tutorial will walk you through creating content and loading genomic data. This is a good introduction to Tripal v4.x Content Types and the new Administrative User Interface regardless of whether you intend to store genomic data in your particular Tripal v4 site. This demonstration uses three extension modules: Tripal Analysis Blast, Tripal Analysis KEGG, and Tripal Analysis InterPro.
+The following tutorial will walk you through creating content and loading genomic data. This is a good introduction to Tripal 4 Content Types and the new Administrative User Interface regardless of whether you intend to store genomic data in your particular Tripal 4 site.
 
-Freshly installed Tripal 4 has only Generic content types activated. It is necessary to add *Genomic* content types to setup a site containing Gene and related content. This is done by **Structure** -> **Tripal Content Types** -> + **Import type Collection** -> Check **Genomic Content Types (Chado)** and clicking on **Import**  
+When you first install Tripal, you do not yet have any content types created. This is to provide you with flexibility to only add the content types you need for your data. You will want to add *Genomic* content types to setup a site containing Gene and related content. This is done by navigating to **Admin > Tripal > Page Structure** and then clicking "Import type Collection". You want to select **Genomic Content Types (Chado)** and click on **Import**
 
 .. image:: example_genomic/import_tripal_collection.png
 
@@ -45,22 +45,14 @@ You will see the following output:
   :::
 
 
-Now,  **Structure -> Tripal Content Types** show Tripal Contents with Genomic Category, that include Gene and other content required for the Example Genomic site.
-
-.. note::
-
-  As a rule, extension modules are not documented in the Tripal User’s Guide. You can find documentation for extension modules ( **Tripal** -> **Extensions** ) that enhance Tripal functionality on the Extension Modules page. However, to provide a functioning demonstration the three analysis extension modules are described here.
-
+Now, when you go to **Admin > Tripal > Page Structure** you will see a Genomic Category that includes Gene and other content required for the Example Genomic site.
 
 .. toctree::
    :maxdepth: 1
    :caption: Table of Contents
-   :glob:
 
-   ./example_genomic/organisms
-   ./example_genomic/analyses
-   ./example_genomic/cross_references
-   ./example_genomic/controlled_vocabs
-   ./example_genomic/genomes_and_genes
-   ./example_genomic/importing_publications 
-   ./example_genomic/functional_annotations
+   example_genomic/organisms
+   example_genomic/analyses
+   example_genomic/cross_references
+   example_genomic/controlled_vocabs
+   example_genomic/genomes_and_genes

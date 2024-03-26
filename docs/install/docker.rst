@@ -8,18 +8,18 @@ Software Stack
 
 Currently we have the following installed:
  - Debian Bullseye(11)
- - PHP 8.2.12 with extensions needed for Drupal (Memory limit 1028M)
+ - PHP 8.2.17 with extensions needed for Drupal (Memory limit 1028M)
  - Apache 2.4.56
- - PostgreSQL 13.11 (Debian 13.11-0+deb11u1)
- - Composer 2.6.5
- - Drush 12.4.2
- - Drupal 10.1.x-dev downloaded using composer (or as specified by drupalversion argument).
+ - PostgreSQL 16.2 (Debian 16.2-1.pgdg110+2)
+ - Composer 2.7.2
+ - Drush 12.5.1.0
+ - Drupal 10.2.5-dev downloaded using composer (or as specified by drupalversion argument).
  - Xdebug 3.2.1
 
 Quickstart
 ----------
 
-1. Run the image in the background mapping it's web server to your port 9000.
+1. Run the image in the background mapping its web server to your port 9000.
 
     a) Stand-alone container for testing or demonstration.
 
@@ -65,7 +65,7 @@ Usage
 
    .. code::
 
-     docker exec -it t4 psql --user docker sitedb
+    docker exec -it t4 psql --user docker sitedb
 
  - Run Drush to generate code for your module!
 

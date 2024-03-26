@@ -122,6 +122,8 @@ I would get the following output:
 
   OK (1 test, 6 assertions)
 
+You may find it helpful to include the `--testdox --verbose` parameters to `phpunit` when testing to obtain more verbose output.
+
 Defining the field instances to be tested
 ------------------------------------------
 

@@ -4,8 +4,8 @@ Requirements
 
 - Drupal (see supported versions below)
 - Drupal core modules: Search, Path, Views, and Field.
-- PostgreSQL 10+
-- PHP 8 (tested with 8.0 + 8.1)
+- PostgreSQL 12+
+- PHP 8 (tested with 8.1, 8.2, 8.3)
 - Apache 2+
 - Composer 2+
 - UNIX/Linux

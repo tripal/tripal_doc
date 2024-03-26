@@ -18,7 +18,7 @@ If you are using the docker distributed with this module, then you can run tests
 Tripal-focused Testing
 ------------------------
 
-The following automated testing documentation and tutorials are focused on testing Tripal-specific functionality within Tripal Core and Extension modules. If there is a topic you would like covered that is not yet documented, please add an issue on our github!
+The following automated testing documentation and tutorials are focused on testing Tripal-specific functionality within Tripal Core and Extension modules. If there is a topic you would like covered that is not yet documented, please add an issue on our github at https://github.com/tripal/tripal_doc/issues!
 
 .. toctree::
    :maxdepth: 2

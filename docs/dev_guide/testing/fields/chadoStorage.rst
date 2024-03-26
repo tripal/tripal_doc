@@ -145,7 +145,7 @@ Field instances for testing are defined in a specific YAML format:
           action: [action]
           [additional key/value pairs associated with the action]
 
-This YAML is stored in it's own file in the same directory. In this case that would be `tripal/tripal Github repository: tripal_chado/tests/src/Kernel/Plugin/ChadoStorage/ChadoContactDefault-FieldDefinitions.yml file <https://github.com/tripal/tripal/blob/4.x/tripal_chado/tests/src/Kernel/Plugin/ChadoStorage/ChadoContactDefault-FieldDefinitions.yml>`_ and this file was referred to in the setup function of the test template.
+This YAML is stored in its own file in the same directory. In this case that would be `tripal/tripal Github repository: tripal_chado/tests/src/Kernel/Plugin/ChadoStorage/ChadoContactDefault-FieldDefinitions.yml file <https://github.com/tripal/tripal/blob/4.x/tripal_chado/tests/src/Kernel/Plugin/ChadoStorage/ChadoContactDefault-FieldDefinitions.yml>`_ and this file was referred to in the setup function of the test template.
 
 Methods provided by ChadoStorageTestTrait
 -------------------------------------------

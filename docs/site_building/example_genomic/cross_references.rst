@@ -1,12 +1,10 @@
-Cross References
-================
+Setup Cross References to external sites
+=========================================
 
 .. note::
-  This feature has not yet been implemented for Tripal v4, documentation will be added once this feature is available    
-    
-For our gene pages and mRNA pages we want to link back to JGI where we obtained the genes. Therefore, we want to add a database reference for JGI. To add a new external databases, navigate to **Tripal → Data Loaders →  Chado Databases** and click the link titled **Add a Database**. The resulting page provides fields for adding a new database:
+  This feature has not yet been implemented for Tripal v4, documentation will be added once this feature is available
 
-.. image:: cross_refs.1.png
+For our gene pages and mRNA pages we want to link back to JGI where we obtained the genes. Therefore, we want to add a database reference for JGI. To add a new external databases, navigate to **Tripal → Data Loaders →  Chado Databases** and click the link titled **Add a Database**. The resulting page provides fields for adding a new database:
 
 Enter the following values for the fields:
 

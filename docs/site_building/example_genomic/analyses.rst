@@ -1,5 +1,5 @@
-Analyses
-========
+Create a Genome Assembly Page
+===============================
 
 For this tutorial we will later import a set of genes, and their associated mRNA, CDS, UTRs, etc. Tripal's Chado loader for importing genomic data requires that an analysis be associated with all imported features. This has several advantages, including:
 

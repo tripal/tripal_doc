@@ -1,8 +1,6 @@
-Example Genomic-focused Site
-============================
+Import a Genome Assembly + Annotation
+======================================
 
-Loading Feature Data
---------------------
 Now that we have our organism and whole genome analysis ready, we can begin loading genomic data. For this tutorial only a single gene from sweet orange will be loaded into the databsae. This is to ensure we can move through the tutorial rather quickly. The following datasets will be used for this tutorial:
 
 - `Citrus sinensis-orange1.1g015632m.g.gff3 <http://tripal.info/sites/default/files/Citrus_sinensis-orange1.1g015632m.g.gff3>`_
@@ -18,7 +16,7 @@ Loading a GFF3 File
 The gene features (e.g. gene, mRNA, 5_prime_UTRs, CDS 3_prime_UTRS) are stored in the GFF3 file downloaded in the previous step. We will load this GFF3 file and consequently load our gene features into the database. Navigate to **Tripal → Data Loaders → Chado GFF3 File  Loader**.
 
 .. image:: genomes_genes.1.png
-.. image:: genomes_genes.2.png¸¸¸
+.. image:: genomes_genes.2.png
 
 Enter the following:
 
@@ -63,7 +61,7 @@ You should see output similar to the following:
   NOTE: Loading of this file is performed using a database transaction. If it fails or is terminated prematurely then all insertions and updates are rolled back and will not be found in the database
   Opening //var/www/drupal/web/sites/default/files/tripal/users/1/Citrus_sinensis-orange1.1g015632m.g.gff3
   Opening temporary cache file: /tmp/TripalGFF3Import_1Zt2hI
-  Step  1 of 27: Caching GFF3 file...                                
+  Step  1 of 27: Caching GFF3 file...
   Percent complete: 1.20 %. Memory: 33,996,128 bytes.
   Percent complete: 3.06 %. Memory: 34,003,168 bytes.
   :::
@@ -176,12 +174,12 @@ Now the scaffold sequence and mRNA sequences are loaded!
   It is not required to load the mRNA sequences as those can be derived from their alignments with the scaffold sequence. However, in Chado the **feature** table has a **residues** column. Therefore, it is best practice to load the sequence when possible.
 
 .. note::
-  Features written below have not yet been implemented for Tripal v4, documentation will be updated once they are available    
+  Features written below have not yet been implemented for Tripal v4, documentation will be updated once they are available
 
 Creating Gene Pages
 -------------------
 
-Now that we've loaded our feature data, we must publish them. This is different than when we manually created our Organism and Analysis pages.  Using the GFF and FASTA loaders we imported our data into Chado, but currently there are no published pages for this data that we loaded.  To publish these genomic features, navigating to **Structure → Tripal Content Type** and click the link titled **Publish Chado Content**.  
+Now that we've loaded our feature data, we must publish them. This is different than when we manually created our Organism and Analysis pages.  Using the GFF and FASTA loaders we imported our data into Chado, but currently there are no published pages for this data that we loaded.  To publish these genomic features, navigating to **Structure → Tripal Content Type** and click the link titled **Publish Chado Content**.
 
 Here we can specify the types of content to publish. For our site we want to offer both gene and mRNA pages (these types were present in our GFF file). First, to create pages for genes select 'Gene' from the dropdown.  A new Filter section is present and when opened appears as follows.
 
@@ -241,7 +239,7 @@ Customizing Transcripts on Gene Pages
 -------------------------------------
 By default the gene pages provided by Tripal will have a link in the sidebar table of contents named **Transcripts** and when clicked a table appears that lists all of the transcripts (or mRNA) that belong to the gene.  The user can click to view more information about each published transcript.
 
-Sometimes however, more than just a listing of transcripts is desired on a gene page.  You can customize the information that is presented about each transcript by navigating to the gene content type at  **Structure → Tripal Content Types** and clicking **mange fields** in the **Gene** row.  This page allows you to customize the way fields are displayed on the gene page.  Scroll down the page to the **Transcript** row and click the **edit** button.  
+Sometimes however, more than just a listing of transcripts is desired on a gene page.  You can customize the information that is presented about each transcript by navigating to the gene content type at  **Structure → Tripal Content Types** and clicking **mange fields** in the **Gene** row.  This page allows you to customize the way fields are displayed on the gene page.  Scroll down the page to the **Transcript** row and click the **edit** button.
 
 Open the field set titled **Transcript (mRNA) Field Selection** to view a table that lists all of the available fields for a transcript.
 

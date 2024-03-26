@@ -1,13 +1,10 @@
-Organisms
-=========
+
+Create an Organism Page
+=========================
 
 Before we can load our data we must first have an organism to which the data will be associated. Chado v1.3 does not come preloaded with any organisms (although previous version of Chado do). For this tutorial we will import genomic data for Citrus sinesis (sweet orange), so we must first create the organism.
 
-Creating an Organism Page
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
 We can add the organism using the **Add Tripal Content** link in the top administrative menu or from **Content** -> **Add Tripal Content**. The Add Tripal Content page has several content types already available, including the **Organism** content type.
-
 
 .. note::
 
@@ -94,15 +91,15 @@ Adding New Fields
 -----------------
 
 .. note::
-  This feature has not yet been implemented for Tripal v4, documentation will be added once this feature is available    
+  This feature has not yet been implemented for Tripal v4, documentation will be added once this feature is available
 
 
-We have now imported many new properties about the Citrus sinensis organism from NCBI Taxonomy.  However, these properties won't show up on the page automatically.  We need to tell Drupal that our organism pages now have new property fields for display.   
-To do this, navigate to **Structure → Tripal Content Type** and in the row for the Organism content type, click Drop Down arrow and mouse over on **Manage Fields**. Here we see a list of fields that are associated with an Organism content type. 
+We have now imported many new properties about the Citrus sinensis organism from NCBI Taxonomy.  However, these properties won't show up on the page automatically.  We need to tell Drupal that our organism pages now have new property fields for display.
+To do this, navigate to **Structure → Tripal Content Type** and in the row for the Organism content type, click Drop Down arrow and mouse over on **Manage Fields**. Here we see a list of fields that are associated with an Organism content type.
 
 .. image:: organisms.check_new_fields1.png
 
-Click the link at the top of the page **+ Check for new fields**. 
+Click the link at the top of the page **+ Check for new fields**.
 
 .. note::
 
@@ -129,4 +126,4 @@ Additional Resources:
 
 .. note::
 
-  **Database Reference Annotations** that appear in the **Organism** creation page have not yet been implemented for Tripal v4, documentation will be added once this feature is available.    
+  **Database Reference Annotations** that appear in the **Organism** creation page have not yet been implemented for Tripal v4, documentation will be added once this feature is available.

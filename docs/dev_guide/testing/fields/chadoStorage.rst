@@ -129,7 +129,7 @@ Defining the field instances to be tested
 
 When a field is attached to a specific content type it is called a field instance. When testing fields, we work primarily with a number of test field instances focused on specific content types.
 
-In this example, the field we are testing relates contacts to many other Tripal content. While most content types have the same style linking table to the contact table, the arraydesign table has a different format. As such, the decision was made to test one random content type (i.e. study) and the arraydesign content type to capture both linking table variations. This is why in the following field instance definitions, you will see two instances: testContactFieldStudy and testContactFieldArrayDesign. The names do not matter so you might as well be desciptive of their purpose. Just ensure they do not contain spaces or special characters.
+In this example, the field we are testing relates contacts to many other Tripal content types. While most content types have the same style linking table to the contact table, the arraydesign table has a different format. As such, the decision was made to test one random content type (i.e. study) and the arraydesign content type to capture both linking table variations. This is why in the following field instance definitions, you will see two instances: testContactFieldStudy and testContactFieldArrayDesign. The names do not matter so you might as well be descriptive of their purpose. Just ensure they do not contain spaces or special characters.
 
 Field instances for testing are defined in a specific YAML format:
 

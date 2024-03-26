@@ -8,7 +8,7 @@ For fields there are three main components to test:
 2. That the field classes match what is expected by the API and return the appropritate values.
 3. That the edit form and page display perform as expected when rendered.
 
-The first two lend themselves really well to kernel testing which is much faster than functional testing as creates a more focused and streamlined test environment. However, that also means it is not a fully functioning Drupal site but rather only makes specific functionality available. However, the third testing goal needs to interact with a rendered Tripal Content page and thus a functional test is required.
+The first two lend themselves really well to kernel testing which is much faster than functional testing as creates a more focused and streamlined test environment. That said, kernel tests are not run with a fully functioning Drupal site but rather only specific functionality indicated by the test setUp is available. However, the third testing goal needs to interact with a rendered Tripal Content page and thus a functional test is required.
 
 For more information on how to test each of the above goals, see the following tutorials:
 

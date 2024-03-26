@@ -10,8 +10,8 @@ When verbal communication is necessary to work out a details, designers can meet
 - Zoom or Slack:  currently anyone working with the design team can create impromptu scheduled meetings. These only last as long or as often as the designers need. Reach out to those working on a particular item if you are interested in participating.
 
 
-Design Documentation
---------------------
+Design Documentation Standards
+--------------------------------
 Organization
 ^^^^^^^^^^^^
 All documentation for Tripal v4 design can be found either throughout the Developers Guide or in  :doc:`../pending`.

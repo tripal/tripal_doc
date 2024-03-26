@@ -13,6 +13,26 @@ See: https://rackerlabs.github.io/docs-rackspace/tools/rtd-tables.html
 }
 
 /**
+ * Todo directive.
+ Note: We've taken over `.. hint::` to indicate todo notes in the documentation.
+ */
+.rst-content .hint .admonition-title::before {
+  content: "\f14a";
+}
+.rst-content .hint .admonition-title {
+  background: #e3e3e8;
+  color: #adadba;
+}
+.rst-content .hint {
+  background: #f5f5fa;
+  color: #8b8b99;
+}
+.rst-content .hint a {
+  color: #74748c;
+  text-decoration: underline;
+}
+
+/**
  * Buttons on Extension Module pages.
  */
 #administrative .section p:last-child a,

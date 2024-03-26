@@ -1,5 +1,5 @@
-Design Summary
-================
+Entity/Field Design Summary
+============================
 
 .. note::
 

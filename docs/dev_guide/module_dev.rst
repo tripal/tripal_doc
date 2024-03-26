@@ -2,7 +2,7 @@
 Custom Module Development
 ============================
 
-`Tripal <https://tripal.info>`_ is an extension of the `Drupal Content Management System <https://www.drupal.org/>`_. Drupal 8 is written in PHP, very object oriented and uses technology standards such as `Composer <https://getcomposer.org/>`_, `Symphony <https://symfony.com/>`_, `YAML <https://yaml.org/>`_ and `Twig <https://twig.symfony.com/>`_. This documentation is meant to act as an orientation to Tripal development in Drupal 8 and will link to additional Drupal-specific tutorials for specific topics.
+`Tripal <https://tripal.info>`_ is an extension of the `Drupal Content Management System <https://www.drupal.org/>`_. Drupal 10 is written in PHP, is very object oriented and uses technology standards such as `Composer <https://getcomposer.org/>`_, `Symphony <https://symfony.com/>`_, `YAML <https://yaml.org/>`_ and `Twig <https://twig.symfony.com/>`_. This documentation is meant to act as an orientation to Tripal development in Drupal 10 and will link to additional Drupal-specific tutorials for specific topics.
 
 .. toctree::
    :maxdepth: 2

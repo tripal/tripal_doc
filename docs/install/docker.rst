@@ -79,6 +79,15 @@ Usage
 
     docker exec t4 drush cr
 
+ - Get version information:
+
+   .. code::
+
+    docker exec t4 drush status
+    docker exec t4 php -v
+    docker exec t4 psql --version
+    docker exec t4 apache2 -v
+
  - Run Composer to upgrade Drupal
 
    .. code::

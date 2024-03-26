@@ -13,7 +13,7 @@ If you are using the docker distributed with this module, then you can run tests
 
 .. code:: bash
 
-  docker exec --workdir=/var/www/drupal9/web/modules/contrib/tripal tripal phpunit
+  docker exec --workdir=/var/www/drupal/web/modules/contrib/tripal tripal phpunit
 
 Tripal-focused Testing
 ------------------------

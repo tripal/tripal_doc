@@ -148,7 +148,7 @@ This YAML is stored in it's own file in the same directory. In this case that wo
 Methods provided by ChadoStorageTestTrait
 -------------------------------------------
 
-The following methods are provided by the test trait and can be used to make testing these functionality a lot easier:
+The following methods are provided by the test trait and can be used to make testing the functionality a lot easier:
 
 - `$this->chadoStorageTestInsertValues($insert_values)`: attempts to insert the values in the parameter for the specific field.
 - `$retrieved_values = $this->chadoStorageTestLoadValues($load_values)`: attempts to load the remaining values specified by the few keys provided as parameters. ChadoStorage is given the values of all properties with drupal_store being TRUE by Drupal itself so those keys are passed in here when testing. The retrieved values are StoragePropertyValue objects so you need to use `getValue()` on them to retrieve the value loaded.

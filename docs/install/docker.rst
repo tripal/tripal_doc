@@ -97,7 +97,7 @@ Usage
 Detailed Setup for Core Development
 ------------------------------------
 
-If you want to contribut to Tripal development, you will likely want to create a create a branch to work on and create a Docker using this branch, or on another contributor's branch. For instructions on how to do this, see the section [link](#creating-a-docker-for-testing)
+If you want to contribute to Tripal development, you will likely want to create a branch to work on and create a Docker using this branch, or on another contributor's branch. For instructions on how to do this, see the section :ref:`Creating a docker for testing`
 
 Troubleshooting
 ---------------

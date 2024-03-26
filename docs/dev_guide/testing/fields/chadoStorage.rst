@@ -97,7 +97,7 @@ Now we will run our specific test in order to confirm that it is setup properly:
   docker exec --workdir=/var/www/drupal9/web/modules/contrib/YOURMODULE \
     CONTAINERNAME phpunit tests/src/Kernel/Plugin/ChadoStorage/FIELDNAMETest.php
 
-This will only run the tests in the test file we just setup. If you see errors regarding missing classes, then check that you have the `use` statements for those classes. If no test is found the make sure the class name matches the filename, the classname ends in `Test` and the method name starts with `test`.
+This will only run the tests in the test file we just setup. If you see errors regarding missing classes, then check that you have the `use` statements for those classes. If no test is found then make sure the class name matches the filename, the classname ends in `Test`, and the method name starts with `test`.
 
 I am going to walk you through creating a test for the ChadoContactDefault field
 in this tutorial so all future code will show that case. You can see the finished test we are creating in the `tripal/tripal Github repository: tripal_chado/tests/src/Kernel/Plugin/ChadoStorage/ChadoContactDefaultTest.php file <https://github.com/tripal/tripal/blob/4.x/tripal_chado/tests/src/Kernel/Plugin/ChadoStorage/ChadoContactDefaultTest.php>`_.

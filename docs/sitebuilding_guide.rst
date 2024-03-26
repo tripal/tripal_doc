@@ -8,3 +8,4 @@ Building your Site
 
    site_building/anatomy_of_content
    site_building/create_content_type
+   site_building/example_genomic

@@ -28,9 +28,12 @@ The following automated testing documentation and tutorials are focused on testi
 Additional Resources
 ----------------------
 
- - `Official Drupal 8: Testing Documentation <https://www.drupal.org/docs/testing>`_
- - `Official Drupal 8: PHPUnit file structure, namespace, and required metadata <https://www.drupal.org/docs/testing/phpunit-in-drupal/phpunit-file-structure-namespace-and-required-metadata>`_
- - `Official Drupal 8: Running PHPUnit Tests <https://www.drupal.org/docs/testing/phpunit-in-drupal/running-phpunit-tests>`_
- - `Official Drupal 8: PHPUnit Browser test tutorial <https://www.drupal.org/docs/testing/phpunit-in-drupal/phpunit-browser-test-tutorial>`_
+ - `Official Drupal: Testing Documentation <https://www.drupal.org/docs/testing>`_
+ - `Official Drupal: PHPUnit file structure, namespace, and required metadata <https://www.drupal.org/docs/testing/phpunit-in-drupal/phpunit-file-structure-namespace-and-required-metadata>`_
+ - `Official Drupal: Running PHPUnit Tests <https://www.drupal.org/docs/testing/phpunit-in-drupal/running-phpunit-tests>`_
+ - `Official Drupal: PHPUnit Browser test tutorial <https://www.drupal.org/docs/testing/phpunit-in-drupal/phpunit-browser-test-tutorial>`_
+ - `Official Drupal: PHPUnit JavaScript test writing tutorial <https://www.drupal.org/docs/automated-testing/phpunit-in-drupal/phpunit-javascript-test-writing-tutorial>`_
+ - `Drupal 8, 9, 10 Functional and Unit Testing (Automation Testing) <https://gurinderpal.medium.com/drupal-8-9-10-functional-and-unit-testing-462993c3ce14>`_
+ - `Writing Automated Tests in Drupal 8, Part 4: Kernel tests <https://deninet.com/blog/2019/02/10/writing-automated-tests-drupal-8-part-4-kernel-tests>`_
+ - `Writing Automated Tests in Drupal 8, Part 3: Unit tests <https://deninet.com/blog/2019/01/27/writing-automated-tests-drupal-8-part-3-unit-tests>`_
  - `Drupal 8: Writing Your First Unit Test With PHPUnit <https://www.axelerant.com/resources/team-blog/drupal-8-writing-your-first-unit-test-with-phpunit>`_
- - `Writing Simple (PHPUnit) Tests for Your D8 module <https://www.mediacurrent.com/blog/writing-simple-phpunit-tests-your-d8-module/>`_

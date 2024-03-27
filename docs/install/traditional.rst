@@ -35,6 +35,10 @@ Install Prerequisites
 
    At this point, you should be able to open a browser on your installation system and view the Apache2 Default Page at http://localhost
 
+    .. image:: traditional.prereq.apache.jpg
+        :width: 318
+        :alt: Installation successful, Apache2 Default Page.
+
 4. Install Composer
 
       .. code-block:: shell
@@ -95,7 +99,7 @@ Install Drupal
       
       The ``web`` directory is the actual webroot for Drupal. This should be the directory that is served by your webserver. **The two composer files and the** ``vendor`` **directory should not be publicly accessible.**
 
-2. Install Drush and other required modules as well, also with composer, ensuring that you are within your new ``tripal4`` directory:
+2. Install Drush and other required modules, also with composer, ensuring that you are within your new ``tripal4`` directory:
 
     .. code-block:: shell
 
@@ -111,7 +115,7 @@ Install Drupal
       cd /var/www/tripal4/web/modules/
       git clone https://github.com/tripal/tripal.git
 
-4. Drupal may complain about permissions on certain files, as well as generating a configuration file from the template provided by Drupal. The files in question must be readable and writable by the webserver's user. If you're using Apache, this is typically ``www-data`` and for Nginx, it is commonly ``nginx``. Read more about Drupal's requirements here: `Administering a Drupal site - security in Drupal <https://www.drupal.org/docs/administering-a-drupal-site/security-in-drupal/securing-file-permissions-and-ownership>`__, or run the following commands to satisfy them:
+4. Drupal may complain about permissions on certain files, as well as generating a configuration file from the template provided by Drupal. The files in question must be readable and writable by the webserver's user, as well as yourself. If you're using Apache, this is typically ``www-data`` and for Nginx, it is commonly ``nginx``. Read more about Drupal's requirements here: `Administering a Drupal site - security in Drupal <https://www.drupal.org/docs/administering-a-drupal-site/security-in-drupal/securing-file-permissions-and-ownership>`__, or run the following commands to satisfy them:
 
     .. code-block:: shell
 
@@ -127,7 +131,7 @@ Install Drupal
       # Set permissions, assuming www-data is your web user (Apache). If
       # necessary, you can determine the username as follows:
       apachectl -S | grep User
-      User: name="www-data" id=33 not_used
+      # example output is  User: name="www-data" id=33 not_used
 
       # With that user name `www-data` or whatever it may be, change ownership as follows:
       sudo chown www-data:$USER sites/default/files
@@ -149,10 +153,10 @@ Install Drupal
 
       sudo systemctl restart apache2
 
-6. Navigate to your new site in your browser: ``<siteaddress.com>/tripal4/core/install.php`` and follow the instructions for setting up a Drupal site. The firs page you should appear similar to this:
+6. Navigate to your new site in your browser: ``<siteaddress.com>/tripal4/core/install.php`` and follow the instructions for setting up a Drupal site. The first page you should appear similar to this:
     
     .. image:: traditional.1.language.jpg
-        :width: 600
+        :width: 500
         :alt: Drupal Installation, Step 1, Language.
 
     Select your preferred language and continue.
@@ -189,7 +193,7 @@ Install Drupal
 12. You should then see a screen similar to this.
 
     .. image:: traditional.7.installed.jpg
-        :width: 600
+        :width: 400
         :alt: Drupal Installation, Step 7, Congratulations you installed Drupal.
 
 Install Tripal
@@ -206,6 +210,8 @@ Install Tripal
     .. image:: traditional.enable-tripal.2.jpg
         :width: 600
         :alt: Also install Field Group and Field Group Table.
+
+   If successful you will see:
 
     .. image:: traditional.enable-tripal.3.jpg
         :width: 600
@@ -229,11 +235,10 @@ The site is not quite ready to use yet! The Chado schema must be installed and t
       :width: 600
       :alt: Install Chado, optionally provide custom schema name.
 
-2. Click "Install Chado 1.3". You will be prompted to use Drush to trigger the installation of Chado. This must be done on the command line, in the same location where Drupal is installed.
+2. Click "Install Chado 1.3". You will be prompted to use Drush to trigger the installation of Chado. This must be done on the command line:
 
     .. code-block:: shell
 
-      cd /var/www/tripal4/web/
       /var/www/tripal4/vendor/bin/drush trp-run-jobs --username=drupaladmin --root=/var/www/tripal4/web
 
 3. Once Chado is installed, the site must be further prepared. Navigate to **Tripal → Data Storage → Chado → Prepare Chado**
@@ -246,7 +251,6 @@ The site is not quite ready to use yet! The Chado schema must be installed and t
 
     .. code-block:: shell
 
-      cd /var/www/tripal4/web/
       /var/www/tripal4/vendor/bin/drush trp-run-jobs --username=drupaladmin --root=/var/www/tripal4/web
 
 Congratulations, you now have a freshly installed Tripal 4 site with Chado as the storage back end. The next step is :doc:`Building your Site <../sitebuilding_guide>`

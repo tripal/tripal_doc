@@ -68,7 +68,7 @@ Install Drupal
 
 1. Install Drupal using Composer. Composer is now the recommended way to install and manage Drupal, extension modules, and other dependencies. Detailed information can be found on Drupal's documentation: `Using composer to install Drupal and manage dependencies <https://www.drupal.org/docs/develop/using-composer/using-composer-to-install-drupal-and-manage-dependencies>`__.
 
-    a. Navigate to your webserver's root directory and prepare a directory. You may not have permission to create the directory here, so set it up first using sudo
+    A. Navigate to your webserver's root directory and prepare a directory. You may not have permission to create the directory here, so set it up first using sudo
 
       .. code-block:: shell
 
@@ -76,7 +76,7 @@ Install Drupal
         sudo mkdir tripal4
         sudo chown $USER:$USER tripal4
     
-    b. Run the composer command to install a fresh copy of Drupal 10 into the ``tripal4`` directory:
+    B. Run the composer command to install a fresh copy of Drupal 10 into the ``tripal4`` directory:
     
       .. code-block:: shell
       
@@ -106,16 +106,7 @@ Install Drupal
       cd /var/www/tripal4/
       composer require drush/drush drupal/field_group drupal/field_group_table
 
-3. Clone the Tripal repository in your ``web/modules`` directory.
-
-    Note: Within the ``modules`` directory, you may create your own custom directory to store other extension modules.
-    
-    .. code-block:: shell
-      
-      cd /var/www/tripal4/web/modules/
-      git clone https://github.com/tripal/tripal.git
-
-4. Drupal may complain about permissions on certain files, as well as generating a configuration file from the template provided by Drupal. The files in question must be readable and writable by the webserver's user, as well as yourself. If you're using Apache, this is typically ``www-data`` and for Nginx, it is commonly ``nginx``. Read more about Drupal's requirements here: `Administering a Drupal site - security in Drupal <https://www.drupal.org/docs/administering-a-drupal-site/security-in-drupal/securing-file-permissions-and-ownership>`__, or run the following commands to satisfy them:
+3. Drupal may complain about permissions on certain files, as well as generating a configuration file from the template provided by Drupal. The files in question must be readable and writable by the webserver's user, as well as yourself. If you're using Apache, this is typically ``www-data`` and for Nginx, it is commonly ``nginx``. Read more about Drupal's requirements here: `Administering a Drupal site - security in Drupal <https://www.drupal.org/docs/administering-a-drupal-site/security-in-drupal/securing-file-permissions-and-ownership>`__, or run the following commands to satisfy them:
 
     .. code-block:: shell
 
@@ -129,15 +120,15 @@ Install Drupal
       cp sites/default/default.settings.php sites/default/settings.php
 
       # Set permissions, assuming www-data is your web user (Apache). If
-      # necessary, you can determine the username as follows:
+      # necessary, you can determine the Apache username as follows:
       apachectl -S | grep User
       # example output is  User: name="www-data" id=33 not_used
 
-      # With that user name `www-data` or whatever it may be, change ownership as follows:
+      # Using the user name `www-data` or whatever it may be, change ownership as follows:
       sudo chown www-data:$USER sites/default/files
       sudo chown www-data:$USER sites/default/settings.php
 
-5. Configure Apache to allow access to our install location ``/var/www/tripal4`` so that it will show up as ``http://localhost:/tripal4``. Use your preferred editor and, with sudo, edit ``/etc/apache2/sites-available/000-default.conf`` and make the following additions somewhere inside the ``<VirtualHost *:80>`` section.
+4. Configure Apache to allow access to our install location ``/var/www/tripal4`` so that it will show up as ``http://localhost:/tripal4``. Use your preferred editor and, with sudo, edit ``/etc/apache2/sites-available/000-default.conf`` and make the following additions somewhere inside the ``<VirtualHost *:80>`` section.
 
     .. code::
 
@@ -153,7 +144,7 @@ Install Drupal
 
       sudo systemctl restart apache2
 
-6. Navigate to your new site in your browser: ``<siteaddress.com>/tripal4/core/install.php`` and follow the instructions for setting up a Drupal site. The first page you should appear similar to this:
+5. Navigate to your new site in your browser: ``<siteaddress.com>/tripal4/core/install.php`` and follow the instructions for setting up a Drupal site. The first page you should appear similar to this:
     
     .. image:: traditional.1.language.jpg
         :width: 500
@@ -161,15 +152,15 @@ Install Drupal
 
     Select your preferred language and continue.
 
-7. For the installation profile select Standard, and continue.
+6. For the installation profile select **Standard**, and continue.
 
     .. image:: traditional.2.profile.jpg
         :width: 600
         :alt: Drupal Installation, Step 2, Profile.
 
-8. If all requirements are met, step 3 should be skipped automatically.
+7. If all requirements are met, step 3 should be skipped automatically.
 
-9. In step 4, you will be asked to provide credentials for a database user. Postgres is required for Chado, and therefore it is strongly recommended to use a Postgres database for Tripal.
+8. In step 4, you will be asked to provide credentials for a database user. Postgres is required for Chado, and therefore it is strongly recommended to use a Postgres database for Tripal.
     Detailed information on creating a Postgres database and user account can be found here: `Getting started - installing Drupal <https://www.drupal.org/docs/getting-started/installing-drupal/create-a-database#create-a-database-using-postgresql>`_.
     For the **Database name** you can use whatever you like. For example ``sitedb``.
     The **Database username** ``drupal`` and **Database password** must be the same as the ones you provided earlier in prerequisite step #5.
@@ -178,13 +169,13 @@ Install Drupal
         :width: 600
         :alt: Drupal Installation, Step 4, Database Configuration.
 
-10. For step 5, installation of Drupal should begin, with progress shown similar to this.
+9. For step 5, installation of Drupal should begin, with progress shown similar to this.
 
     .. image:: traditional.5.install.jpg
         :width: 600
         :alt: Drupal Installation, Step 5, Installing Drupal.
 
-11. For step 6, you will need to configure your site. An example is presented below, enter appropriate information for your site.
+10. For step 6, you will need to configure your site. An example is presented below, enter appropriate information for your site.
 
     .. image:: traditional.6.configure.jpg
         :width: 600
@@ -199,7 +190,41 @@ Install Drupal
 Install Tripal
 --------------
 
-1. Enable Tripal in your site using the Administration Toolbar: Manage > Extend
+1. We need to first add the Tripal module. There are two options, depending on how you will use your site. If you are installing a production site, or are just trying out Tripal, use method "**A**". If you are a developer you should use method "**B**".
+
+    A. **Production or testing installation.** To just use the most recent **stable** version of tripal install this way:
+
+        .. code-block:: shell
+
+          cd /var/www/tripal4/
+          composer require tripal/tripal
+
+      To install the most recent **development** version:
+
+        .. code-block:: shell
+
+          cd /var/www/tripal4/
+          composer require tripal/tripal:4.x-dev
+
+      To install a specific released version, find the tag in the `Tripal release page <https://github.com/tripal/tripal/releases>`_, and install it like this:
+
+        .. code-block:: shell
+
+          cd /var/www/tripal4/
+          composer require tripal/tripal:4.0-alpha2
+
+    B. **Developer installation.** Clone the Tripal repository in your ``web/modules`` directory.
+
+        Note: Within the ``modules`` directory, you may create your own custom directory to store other extension modules.
+    
+        .. code-block:: shell
+      
+          cd /var/www/tripal4/web/modules/
+          git clone https://github.com/tripal/tripal.git
+          # or if you have a GitHub account configured
+          git clone git@github.com:tripal/tripal.git
+
+2. Enable Tripal in your site using the Administration Toolbar: Manage > Extend
 
     .. image:: traditional.enable-tripal.1.jpg
         :width: 600
@@ -217,7 +242,7 @@ Install Tripal
         :width: 600
         :alt: 6 modules have been enabled: Tripal, Tripal BioDB Task API, Tripal Chado, Tripal Layout, Field Group, Field Group Table.
 
-9. Use Drush to rebuild the cache so that Tripal menu items appear correctly.
+3. Use Drush to rebuild the cache so that Tripal menu items appear correctly.
 
     .. code-block:: shell
 

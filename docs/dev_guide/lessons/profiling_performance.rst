@@ -63,4 +63,33 @@ There are usually browser extensions available that can trigger Xdebug. That sai
 
 For example, if you wanted to profile loading of the frontpage of your Tripal site, you would go to the following URL: http://localhost/?XDEBUG_TRIGGER.
 
-While the page is loading, XDebug is profiling the actions taken and saving the information it gleems to the /var/www/drupal/web/modules/contrib/tripal/tripaldocker/xdebug_output directory inside the docker.
+While the page is loading, XDebug is profiling the actions taken and saving the information it gleems to the /var/www/drupal/web/modules/contrib/tripal/tripaldocker/xdebug_output directory inside the docker. You can see these by looking inside that directory in the docker:
+
+.. code-block:: console
+
+  docker exec $containerName ls /var/www/drupal/web/modules/contrib/tripal/tripaldocker/xdebug_output
+
+Visualizing the output
+-----------------------
+
+Currently the results of your profiling are inside the docker container. However, we would like to bring them into your local directory to visualize them. The following commands will setup a directory to contain all the output files and then copy them from inside the container into your local directory. **Make sure you are in a directory that you want the files saved to. For example, your downloads directory.**
+
+.. code-block:: console
+
+  docker cp $containerName:'/var/www/drupal/web/modules/contrib/tripal/tripaldocker/xdebug_output' ./
+  ls xdebug_output
+
+For visualizing these files, we will use Webgrind. Since we already have docker installed, we are going to use another docker container to run webgrind. This way you don't need to install anything!
+
+.. code-block:: console
+
+  docker run --rm -v xdebug_output:/tmp -p 8081:80 jokkedk/webgrind:latest
+
+This will start the webgrind application and make it visible in your browser under port 8081. **Do not quit the open stream after running this command until you want to shut down webgrind!**
+
+Now, go to the following URL in your browser: http://localhost:8081. You should see a screen like the following:
+
+.. image:: ./profiling.webgrind.1.png
+
+
+Next, choose one of the webgrind files from the drop-down in the top right corner to visualize it and click update.

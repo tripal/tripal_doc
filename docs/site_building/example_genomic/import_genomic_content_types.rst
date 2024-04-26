@@ -1,13 +1,12 @@
 
-Setup Tripal Content Types
+Import Genomic Content Types
 ============================
 
-When you first install Tripal, you do not yet have any content types created. This is to provide you with flexibility to only add the content types you need for your data.
+As we saw in the `General Site tutorial </site_building/example_general/import_general_content_types.html>`_,  we need to import the content types for the site. For a site containing genome assemblies, genes and associated content, you will want to import the *Genomic* content type collections. This is done by navigating to **Admin > Tripal > Page Structure** and then clicking "Import type collection" button. You want to select **Genomic Content Types (Chado)** and click on **Import**
 
-For a site containing genome assemblies, genes and associated content, you will want to import the *Genomic* content type collections. This is done by navigating to **Admin > Tripal > Page Structure** and then clicking "Import type collection" button. You want to select **Genomic Content Types (Chado)** and click on **Import**
+.. note:: 
+  It is strongly recommended that you already have the **General Content Types (Chado)** installed. If this is not the case, you may select it now as well.
 
-.. note::
-  We expect in this tutorial that you already have the "General" content types for Tripal. If you don't have a number of content types already listed that say "General" in the first column when you go to the Page Structure listing then you will also want to select General in the following form.
 
 .. image:: import_tripal_collection.png
 

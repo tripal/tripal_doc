@@ -1,6 +1,6 @@
 
 Create an Organism Page
-=========================
+=======================
 
 Before we can load our data we must first have an organism to which the data will be associated. Chado v1.3 does not come preloaded with any organisms (although previous version of Chado do). For this tutorial we will import genomic data for Citrus sinesis (sweet orange), so we must first create the organism.
 

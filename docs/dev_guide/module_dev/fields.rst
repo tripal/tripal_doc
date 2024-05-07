@@ -260,17 +260,17 @@ field is used to provide the genus.
 
 Tripal provides some ready-to-use field classes for single-values.  These are:
 
-- **ChadoIntegerTypeItem**: for integer data.
-- **ChadoStringTypeItem**: for string data with a max length.
-- **ChadoTextTypeItem**: for string data with unlimited length.
-- **ChadoRealTypeItem**:  for real (floating point) numberic data.
-- **ChadoBoolTypeItem**: for boolean data.
-- **ChadoDateTimeTypeItem**:  for data/time data.
+- **ChadoIntegerTypeDefault**: for integer data.
+- **ChadoStringTypeDefault**: for string data with a max length.
+- **ChadoTextTypeDefault**: for string data with unlimited length.
+- **ChadoRealTypeDefault**:  for real (floating point) numeric data.
+- **ChadoBoolTypeDefault**: for boolean data.
+- **ChadoDateTimeTypeDefault**:  for data/time data.
 
 .. warning::
 
-  The alpha v1 version of Tripal v4 does not yet implement these fields:
-  `ChadoRealTypeItem`,  `ChadoBoolTypeItem`, `ChadoDateTimeTypeItem`
+  The alpha v2 version of Tripal v4 does not yet implement these fields:
+  `ChadoRealTypeDefault`, `ChadoDateTimeTypeDefault`
 
 If you need to add a single-value field for your custom module then you do not
 need to write your own field! You can use one of these existing field types.
@@ -287,7 +287,7 @@ a germplasm page must provide a field that allows the user to specify an organis
 for saving. It should also format the organism name for display.
 
 In practice, the `stock` table stores the numeric `organism_id` when saving
-a germplasm.  We could use a single-value `ChadoIntegerTypeItem` to allow the
+a germplasm.  We could use a single-value `ChadoIntegerTypeDefault` to allow the
 user to provide the numeric ID for the organism.  But, this is not practical.
 Users should not be required to use a look-up table of numeric organism IDs.
 
@@ -385,6 +385,12 @@ class example:
       $settings = $field_definition->getSetting('storage_plugin_settings');
       $base_table = $settings['base_table'];
 
+      // If we don't have a base table then we're not ready to specify the
+      // properties for this field.
+      if (!$base_table) {
+        return;
+      }
+
       // Determine the primary key of the base table.
       $chado = \Drupal::service('tripal_chado.database');
       $schema = $chado->schema();
@@ -393,11 +399,10 @@ class example:
 
       // Return the array of property types.
       return [
-        new ChadoIntStoragePropertyType($entity_type_id, self::$id,'record_id', [
+        new ChadoIntStoragePropertyType($entity_type_id, self::$id, 'record_id', [
           'action' => 'store_id',
           'drupal_store' => TRUE,
-          'chado_table' => $base_table,
-          'chado_column' => $base_pkey_col
+          'path' => $base_table . '.' . $base_pkey_col,
         ]),
       ];
     }
@@ -557,9 +562,9 @@ in the ``storage_plugin_settings`` array. But you are free to add any additional
 settings you would like to help manage your field, especially if those settings
 help the field define how it will interact with Chado.
 
-An example where a storage settings is needed is in the ``ChadoStringTypeItem`` field
-that gets used for any single-value string mapped to a Chado table column.  Here
-we must set the maximum length of the string. Here is the corresonding ``defaultStorageSettings``
+An example where a storage setting is needed is in the ``ChadoStringTypeDefault`` field
+that gets used for any single-value string mapped to a Chado table column of type ``character varying``.
+Here we must set the maximum length of the string. Here is the corresonding ``defaultStorageSettings``
 function from this field:
 
 .. code:: php
@@ -578,7 +583,7 @@ If a field needs input from the user to provide values for settings, then the
 `storageSettingsForm()` function can be implemented.  Add the form
 elements needed for the user to provide values.
 
-For example, the `ChadoStringTypeItem` field wants to allow the site admin to
+For example, the `ChadoStringTypeDefault` field wants to allow the site admin to
 set the maximum string length.
 
 .. code:: php
@@ -613,7 +618,7 @@ The site admin will be able to change the storage settings if they:
 .. note::
 
   Site admins can change storage settings for a field only before it is used.
-  Once the field is used to store data on a live entity, storage settings are
+  Once the field is used to store data on a live entity, storage settings become
   fixed.
 
 The fieldSettingsForm() Function
@@ -629,7 +634,7 @@ ensure that values provided to fields are appropriate. You can read more
 about defining validation contraints for fields
 `here <https://www.drupal.org/docs/drupal-apis/entity-api/entity-validation-api/defining-constraints-validations-on-entities-andor-fields>`_.
 
-For following code example, is from the `ChadoStringTypeItem` field. It wants
+For following code example, is from the `ChadoStringTypeDefault` field. It wants
 to ensure that that max length of the string is not exceeded.
 
 .. code:: php
@@ -672,6 +677,11 @@ In the code block below you can see the steps where the field settings are
 retrieved, and then used to create an array containing a single property.
 More about properties is described in the next section.
 
+Note that we return from this function early if we do not have a base table
+defined. This will happen during manual addition of a field through the GUI.
+One of the first steps during this process is to select the base table, so
+before that is selected, this function simply returns.
+
 .. code-block:: php
 
   public static function tripalTypes($field_definition) {
@@ -680,6 +690,12 @@ More about properties is described in the next section.
     // Get the settings for this field.
     $settings = $field_definition->getSetting('storage_plugin_settings');
     $base_table = $settings['base_table'];
+
+    // If we don't have a base table then we're not ready to specify the
+    // properties for this field.
+    if (!$base_table) {
+      return;
+    }
 
     // Determine the primary key of the base table.
     $chado = \Drupal::service('tripal_chado.database');
@@ -713,14 +729,16 @@ properties.  These are named after PostgreSQL column types:
 - **ChadoDateTimeStoragePropertyType**: a date/time property.
 - **ChadoIntStoragePropertyType**: an integer property.
 - **ChadoRealStoragePropertyType**: a floating point property.
-- **ChadoTextStoragePropertyType**: an unlimited string property.
+- **ChadoTextStoragePropertyType**: a string property with unlimited length.
 - **ChadoVarCharStoragePropertyType**: a string property with a maximum length.
 
-All of these classes can be instantiated with four arguments:
+All of these classes can be instantiated with the following arguments:
 
 - The entity type ID:  the unique ID for the entity type.
 - The field ID:  the unique ID of the field this property belongs to.
 - The property "key": a unique key for this property.
+- The property controlled vocabulary term: namespace and accession.
+- (For ChadoVarCharStoragePropertyType only): The maximum length of the string.
 - The property settings: an array of settings for this property. See the :ref:`Property Settings`
   section below for more information on how to specify the property settings array.
 
@@ -732,32 +750,41 @@ The :ref:`Property Types` section above indicated that each property type class
 has a fourth argument that provides settings for the property.  These settings
 are critical for describing how the property is managed by the ``ChadoStorage``
 backend. The settings are an associative array of key-value pairs that specify an
-"action" to perform for each property and corresponding helper information.  The
-following actions can be used:
+"action" to perform for each property and corresponding helper information.
+
+Several of the actions use a **path** specification, which is a sequence of join
+actions to reach the desired column in the desired table. For example if the base
+table for the record is `feature` and we want to retrieve the organism species,
+then the path would be: `feature.organism_id>organism.organism_id;species`.
+Separate multiple joins with a semicolon. For example to get the infraspecific
+type name of an organism: `feature.organism_id>organism.organism_id;organism.type_id>cvterm.cvterm_id;name`.
+If we want a column in the base table, then the path might be as simple as: `feature.feature_id`.
+
+The following actions can be used:
 
 - **store_id**: indicates that the value of this property will hold the
   record ID (or primary key ID) of the record in the base table of Chado. Common
-  base tables include: analysis, feature, stock, pub, organism. This action
-  uses the following key/value pairs:
+  base tables include: analysis, feature, stock, pub, organism. There will only
+  be a single store_id action in any given field. This action uses the following
+  key/value pairs:
 
-  - **chado_table**: (required) the name of the table that this property will
-    get stored in. This will always be the base table name (e.g. feature).
-  - **chado_column**: (required) the name of the column in the table where This
-    property value will get stored. This will always be the primary key of the
-    base table (e.g., feature_id).
+  - **path**: (required) this path specifies the primary key of the base table,
+    and is composed of the base table name, a period, and the primary key of
+    the base table (e.g., feature_id).
+  - **drupal_store**: (required) this setting should always be TRUE for this action.
 
 - **store_link**: indicates that the value of this property will hold the
-  value of a foreign key ID to the base table.  A property with this action
+  value of a foreign key ID to the base table. A property with this action
   is required for fields that provide ancillary information about a record
   but that information is not stored in a column of the base table, but instead
-  in a linked table.  Examples for such a situation would be
+  in a linked table. Examples for such a situation would be
   values from property table: e.g., analysisprop, featureprop, stockprop, etc.
   This action uses the following key/value pairs:
 
-  - **chado_table**: (required) the name of the linked table (e.g. analysisprop)
-  - **chado_column**: (required) the name of the foreign key column that
-    links to the base table (e.g. analysis_id)
-  - **drupal_store**: (requited) this setting should always be TRUE for this action.
+  - **path**: (required) this path specifies the primary key of the linking table,
+    and is composed of a join to the linking table's foreign key, for example
+    `$base_table . '.' . $base_pkey_col . '>' . $linker_table . '.' . $linker_fkey_col`.
+  - **drupal_store**: (required) this setting should always be TRUE for this action.
     This forces Tripal to store this value in the Drupal field tables. Without
     this, Tripal cannot link the fields in Drupal with a base record.
 
@@ -772,7 +799,7 @@ following actions can be used:
   - **chado_table**: (required) the name of the linked table (e.g. analysisprop)
   - **chado_column**: (required) the name of the primary key column that
     links to the base table (e.g. analysisprop_id)
-  - **drupal_store**: (requited) this setting should always be TRUE for this action.
+  - **drupal_store**: (required) this setting should always be TRUE for this action.
     This forces Tripal to store this value in the Drupal field tables. Without
     this, Tripal cannot link the fields in Drupal with a base record.
 
@@ -808,7 +835,10 @@ following actions can be used:
     `ChadoStorage` backend will generate, you can rename the `chado_column`
     with a different name.
 
-- **replace**:  indicates that the value of this property is a tokenized string
+- **read_value**: this is almost the same as join, but we will not be modifying the
+  value if we edit a content type, we just look up the existing value.
+
+- **replace**: indicates that the value of this property is a tokenized string
   and should be replaced with values from other properties.
 
   - **template**: (required) a string containing the value of the field. The
@@ -819,20 +849,34 @@ following actions can be used:
     following template string:
     "<i>[genus] [species]</i> [iftype] [ifname]".
 
-- **function**:  indicates that the value of this property will be set by a
-  callback function.
+- **function**: indicates that the value of this property will be set by a
+  callback function. You will need to pass the namespace for the
+  callback function, and the function name. Chado storage will generate a
+  context array that the function can access to calculate its value.
+  The callback function then returns a single value which becomes the value
+  for this property.
 
-    - *Currently not implemented in Alpha release v1*
 
 As an example, let's look at the ``tripalTypes()`` function of the field that
-allows an end-user to add an organism to content.  This code is found
-in the ``tripal_chado\src\Plugin\Field\FieldType\obi__organism.php`` file of
-Tripal:
+allows an end-user to add an organism to content.  This is a simplified version of the 
+code that is found in the
+``tripal_chado\src\Plugin\Field\FieldType\ChadoOrganismTypeDefault.php``
+file of Tripal:
 
 .. code:: php
 
   public static function tripalTypes($field_definition) {
     $entity_type_id = $field_definition->getTargetEntityTypeId();
+
+    // Get the settings for this field.
+    $settings = $field_definition->getSetting('storage_plugin_settings');
+    $base_table = $settings['base_table'];
+
+    // If we don't have a base table then we're not ready to specify the
+    // properties for this field.
+    if (!$base_table) {
+      return;
+    }
 
     // Get the length of the database fields so we don't go over the size limit.
     $chado = \Drupal::service('tripal_chado.database');
@@ -846,8 +890,6 @@ Tripal:
     $label_len = $genus_len + $species_len + $iftype_len + $ifname_len;
 
     // Get the base table columns needed for this field.
-    $settings = $field_definition->getSetting('storage_plugin_settings');
-    $base_table = $settings['base_table'];
     $base_schema_def = $schema->getTableDef($base_table, ['format' => 'Drupal']);
     $base_pkey_col = $base_schema_def['primary key'];
     $base_fk_col = array_keys($base_schema_def['foreign keys']['organism']['columns'])[0];
@@ -857,38 +899,38 @@ Tripal:
       new ChadoIntStoragePropertyType($entity_type_id, self::$id, 'record_id', [
         'action' => 'store_id',
         'drupal_store' => TRUE,
-        'chado_table' => $base_table,
-        'chado_column' => $base_pkey_col
+        'path' => $base_table . '.' . $base_pkey_col,
       ]),
       new ChadoIntStoragePropertyType($entity_type_id, self::$id, 'organism_id', [
         'action' => 'store',
-        'chado_table' => $base_table,
-        'chado_column' => $base_fk_col,
+        'drupal_store' => TRUE,
+        'path' => $base_table . '.' . $base_fk_col,
       ]),
       new ChadoVarCharStoragePropertyType($entity_type_id, self::$id, 'label', $label_len, [
         'action' => 'replace',
+        'drupal_store' => FALSE,
         'template' => "<i>[genus] [species]</i> [infraspecific_type] [infraspecific_name]",
       ]),
       new ChadoVarCharStoragePropertyType($entity_type_id, self::$id, 'genus', $genus_len, [
-        'action' => 'join',
-        'path' => $base_table . '.organism_id>organism.organism_id',
-        'chado_column' => 'genus'
+        'action' => 'read_value',
+        'drupal_store' => FALSE,
+        'path' => $base_table . '.organism_id>organism.organism_id;genus',
       ]),
       new ChadoVarCharStoragePropertyType($entity_type_id, self::$id, 'species', $species_len, [
-        'action' => 'join',
-        'path' => $base_table . '.organism_id>organism.organism_id',
-        'chado_column' => 'species'
+        'action' => 'read_value',
+        'drupal_store' => FALSE,
+        'path' => $base_table . '.organism_id>organism.organism_id;species',
       ]),
       new ChadoVarCharStoragePropertyType($entity_type_id, self::$id, 'infraspecific_name', $ifname_len, [
-        'action' => 'join',
-        'path' => $base_table . '.organism_id>organism.organism_id',
-        'chado_column' => 'infraspecific_name',
+        'action' => 'read_value',
+        'drupal_store' => FALSE,
+        'path' => $base_table . '.organism_id>organism.organism_id;infraspecific_name',
       ]),
-      new ChadoIntStoragePropertyType($entity_type_id, self::$id, 'infraspecific_type', [
-        'action' => 'join',
-        'path' => $base_table . '.organism_id>organism.organism_id;organism.type_id>cvterm.cvterm_id',
-        'chado_column' => 'name',
-        'as' => 'infraspecific_type_name'
+      new ChadoVarCharStoragePropertyType($entity_type_id, self::$id, 'infraspecific_type', [
+        'action' => 'read_value',
+        'drupal_store' => FALSE,
+        'path' => $base_table . '.organism_id>organism.organism_id;organism.type_id>cvterm.cvterm_id;name',
+        'as' => 'infraspecific_type'
       ])
     ];
   }

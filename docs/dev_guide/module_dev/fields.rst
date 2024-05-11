@@ -23,7 +23,7 @@ of data in biological databases such as Chado.
 
   Not every custom module will require fields. But if you need a new way
   to store and retrieve data, or if you need data to appear on an existing
-  Tripal content type then you will want to create a new field for your
+  Tripal content type, then you will want to create a new field for your
   custom module.
 
 Field Classes
@@ -31,13 +31,13 @@ Field Classes
 Anyone who wants to implement a new field in Drupal must implement three
 different classes:
 
-- `FieldItemBase <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Field%21FieldItemBase.php/class/FieldItemBase/9.4.x>`_:
+- `FieldItemBase <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Field%21FieldItemBase.php/class/FieldItemBase/>`_:
   the class that defines a new field. This class interacts directly with the
   data storage plugin to load and save the data managed by this field.
-- `WidgetBase <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Field%21WidgetBase.php/class/WidgetBase/9.4.x>`_:
+- `WidgetBase <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Field%21WidgetBase.php/class/WidgetBase/>`_:
   the class that defines the form elements (widgets) provided to the end-user
   to supply or change the data managed by this field.
-- `FormatterBase <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Field%21FormatterBase.php/class/FormatterBase/9.4.x>`_:
+- `FormatterBase <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Field%21FormatterBase.php/class/FormatterBase/>`_:
   the class that defines how the field is rendered on the page.
 
 These classes were extended by Tripal to provide additional
@@ -169,7 +169,7 @@ Default Drupal Behavior
 ````````````````````````
 By default, all built-in fields provided by Drupal store their data in the
 Drupal database.  This is provided by Drupal's
-`SqlContentEntityStorage <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Entity%21Sql%21SqlContentEntityStorage.php/class/SqlContentEntityStorage/9.4.x>`_
+`SqlContentEntityStorage <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Entity%21Sql%21SqlContentEntityStorage.php/class/SqlContentEntityStorage/>`_
 storage plugin. This storage plugin will create a database table for every field.
 For example, if you explore the Drupal database tables you will see the
 following for the body field attached to the node content type:

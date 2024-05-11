@@ -8,7 +8,7 @@ fields that are bundled with them.  For example, when adding a basic
 page (a default Drupal content type), the end-user is provided with form
 elements (or widgets) that allow the user to set the title and the body text
 for the page. The "Body" is a field.  When a basic page is
-viewed, the body is rendered on the page using formatters and
+viewed, the body is rendered on the page using formatters, and
 Drupal stores the values for the body in the database. Every
 field, therefore, provides three types of functionality: instructions
 for storage, widgets for allowing input, and formatters for rendering.
@@ -60,11 +60,13 @@ Custom module developers who wish to add new fields to Tripal whose data are
 stored in Chado should implement the following three classes for every new field:
 
 - **ChadoFieldItemBase**: extends the Tripal class `TripalFieldItemBase`
-  which extends the Drupal class `FiedlItemBase`. The `TripalFieldItemBase`
-  must be used for all fields attached to Tripal content types and the
+  which extends the Drupal class `FieldItemBase`. The `TripalFieldItemBase`
+  must be used for all fields attached to Tripal content types, and the
   `ChadoFieldItemBase` adds Chado-specific support.
-- **TripalWidgetBase**: a class that extends the Drupal class `WidgetBase`.
-- **TripalFormatterBase**: a class that extends the Drupal class `FormatterBase`.
+- **ChadoWidgetBase**: extends the Tripal class `TripalWidgetBase`
+  which extends the Drupal class `WidgetBase`.
+- **ChadoFormatterBase**: extends the Tripal class `TripalFormatterBase`
+  which extends the Drupal class `FormatterBase`.
 
 
 How to Write a New Field for Chado
@@ -73,8 +75,8 @@ How to Write a New Field for Chado
 Directory Setup
 ^^^^^^^^^^^^^^^^
 Drupal manages fields using its `Plugin API <https://www.drupal.org/docs/drupal-apis/plugin-api>`_.
-this means that as long as new field classes are placed in the correct directory
-and have the correct "annotations" in the class comments then Drupal will find them
+This means that as long as new field classes are placed in the correct directory
+and have the correct "annotations" in the class comments, then Drupal will find them
 and make the field available.  All new fields must be placed in the custom
 extension module inside of the `src/Plugin/Field` directory. There are three
 subdirectories, one each for the three elements of a field:
@@ -104,7 +106,10 @@ Note that the file name must match the class name.
 Naming convention
 ^^^^^^^^^^^^^^^^^
 
-The filename for your new field should adhere to the following schema. Please note the casing used. In addition, for fields that will be included in Tripal Core, note the 'Default' designation, any fields added by extension modules should **not** use 'Default':
+The filename for your new field should adhere to the following schema. Please
+note the casing used. In addition, for fields that will be included in Tripal
+Core, note the 'Default' designation, any fields added by extension modules
+should **not** use 'Default':
 
   .. table:: Tripal Core modules:
 
@@ -225,14 +230,14 @@ that allows a field to interact with a Chado database.
 
 The `ChadoStorage` backend extends the `SqlContentEntityStorage` and
 will create a table in the Drupal schema for every Tripal field that is
-added to a content type.  The table columns will have the same default columns.
-It will also have a set of additional columns for every property the field wants
-to manage.
+added to a content type.  The table columns will include the same default
+columns as a Drupal field, and will also include a set of additional columns
+for every property the field wants to manage.
 
-The `ChadoStorage` backend is different from the `SqlContentEntityStorage`
+The `ChadoStorage` backend is different from `SqlContentEntityStorage`
 in that it will not store the values of the properties in the table.  This is
 because those values need to be stored in Chado--we do not want to duplicate
-the data in the Drupal schema and the Chado schema.  The  `ChadoStorage`
+the data in the Drupal schema and the Chado schema.  The `ChadoStorage`
 backend is also different in that it requires a set of property settings that
 help it control how properties of a field are stored, edited and loaded from
 Chado. Instructions for working with properties and storing data in Chado are
@@ -287,7 +292,7 @@ a germplasm page must provide a field that allows the user to specify an organis
 for saving. It should also format the organism name for display.
 
 In practice, the `stock` table stores the numeric `organism_id` when saving
-a germplasm.  We could use a single-value `ChadoIntegerTypeDefault` to allow the
+a germplasm record.  We could use a single-value `ChadoIntegerTypeDefault` to allow the
 user to provide the numeric ID for the organism.  But, this is not practical.
 Users should not be required to use a look-up table of numeric organism IDs.
 
@@ -296,9 +301,9 @@ Instead what we need is:
 - A field that will store and load a numeric organism ID value that the
   user will never see.
 - A field that has access to the genus, species, infraspecific type,
-  infraspecific name, etc., of the organism.
+  infraspecific name, etc. of the organism.
 - A widget (form element) that allows the user to select an existing organism.
-- A formatter that prints the full scientific name of the organism.
+- A formatter that displays the full scientific name of the organism.
 
 
 Class Setup
@@ -451,7 +456,7 @@ classes you could import if needed.
 Annotation Section
 ````````````````````
 
-The annotation section in the class file is the in-line comments for the class.
+The annotation section in the class file is the set of in-line comments for the class.
 Note the @FieldType stanza in the comments. Drupal
 uses these annotations to recognize the new field. It provides information such
 as the field ID, label and description. It also indicates the default widget
@@ -473,7 +478,7 @@ and formatter class. This annotation is required.
 
 .. warning::
 
-   If the annotation section is not present, has misspellings or is not
+   If the annotation section is not present, has misspellings, or is not
    complete, the field will not be recognized by Drupal.
 
 

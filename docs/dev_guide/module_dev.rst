@@ -11,7 +11,7 @@ Custom Module Development
    module_dev/file_structure
    module_dev/routing
    module_dev/entities
-   module_dev/fields
+   module_dev/tripal_fields
    module_dev/forms
    module_dev/logging
    module_dev/views

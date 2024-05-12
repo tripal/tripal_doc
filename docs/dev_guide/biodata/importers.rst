@@ -298,7 +298,7 @@ When the **Tripal Job** system executes an importer job it will call three diffe
 
 - ``preRun()``: contains code to be executed prior to the the ``run()`` function.
 - ``run()``: contains the code that performs the import of the file.
-- ``postRun()``: contains code to be executed after executiong of the ``run()` function.
+- ``postRun()``: contains code to be executed after executiong of the ``run()`` function.
 
 These functions were added to our class as "stubs" in Step 3 above and now we discuss each of these.
 

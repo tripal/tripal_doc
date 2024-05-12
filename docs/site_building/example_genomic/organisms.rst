@@ -83,7 +83,7 @@ Run the jobs as mentioned earlier followed by :
  docker exec -it $cntr_name drush cr
 
 
-to clear the drush cache. Now, clicking on **Tripal Content -> Organism=Citrus ** will show Taxonomy Reference Annotation of NCBI 2711 associated with Citrus sinensis. Editing of this organism also shows it.
+to clear the drush cache. Now, clicking on **Tripal Content -> Organism=Citrus** will show Taxonomy Reference Annotation of NCBI 2711 associated with Citrus sinensis. Editing of this organism also shows it.
 
 
 

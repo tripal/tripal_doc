@@ -1,11 +1,13 @@
 
 Field Types
-============
+=============
 
-Implementing a ChadoFieldItemType Class
+Implementing a ChadoFieldItemBase Class
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 When creating a new Tripal field, the first class that must be created is the
-"type" class. This must extend the `ChadoFieldItemBase` class.
+"Type" class. This class extends the `ChadoFieldItemBase` class.
+This "Type" class will specify the columns of one or more Chado tables that
+the field needs to display its content.
 
 Single-Value Fields
 `````````````````````
@@ -13,7 +15,7 @@ A single-value field is the simplest Chado field.  This is a field that manages
 a data value from a single column in a single Chado table.  For example,
 the `genus` column of the `organism` table of Chado stores the genus of an
 organism.  For the organism pages provided by Tripal, a single-value
-field is used to provide the genus.
+field could be used to provide the genus.
 
 Tripal provides some ready-to-use field classes for single-values.  These are:
 
@@ -40,7 +42,7 @@ A complex field is one that manages multiple properties (or multiple values) wit
 of a complex field is one that stores/loads the organism of a germplasm content type.
 Within Chado, a record in the `stock` table is used to store germplasm data. The
 `stock` table has a foreign key constraint with the `organism` table. Therefore,
-a germplasm page must provide a field that allows the user to specify an organism
+a germplasm page will usually include a field that allows the user to specify an organism
 for saving. It should also format the organism name for display.
 
 In practice, the `stock` table stores the numeric `organism_id` when saving
@@ -54,16 +56,18 @@ Instead what we need is:
   user will never see.
 - A field that has access to the genus, species, infraspecific type,
   infraspecific name, etc. of the organism.
-- A widget (form element) that allows the user to select an existing organism.
-- A formatter that displays the full scientific name of the organism.
+- A widget (form element) that allows the user to select an existing
+  organism when adding or editing a `stock` record.
+- A formatter that displays the full scientific name of the organism, and
+  might include other information such as the organism's common name.
 
 
-Class Setup
-`````````````
-To create a new field, we will extend the `ChadoFieldItemBase`.  For a new
-field named `MyField` we would create a new file in our module here:
-`src/Plugin/Field/FieldType/MyfieldType.php`.  The following is an empty
-class example:
+Type Class Setup
+``````````````````
+To create a new field, we will extend the `ChadoFieldItemBase` class.
+For a new field named `MyField` we would create a new file in our module here:
+`src/Plugin/Field/FieldType/MyfieldType.php`
+The following is a simple class example:
 
 .. code-block:: php
 
@@ -81,7 +85,7 @@ class example:
    * Plugin implementation of Tripal string field type.
    *
    * @FieldType(
-   *   id = "MyField",
+   *   id = "my_field",
    *   label = @Translation("MyField Field"),
    *   description = @Translation("An example field"),
    *   default_widget = "MyFieldWidget",
@@ -90,7 +94,7 @@ class example:
    */
   class MyField extends ChadoFieldItemBase {
 
-    public static $id = "MyField";
+    public static $id = "my_field";
 
     /**
      * {@inheritdoc}
@@ -167,8 +171,8 @@ class example:
 
 Below is a line-by-line explanation of each section of the code snippet above.
 
-Namespace and Use Statements
-``````````````````````````````
+Type Namespace and Use Statements
+```````````````````````````````````
 
 The following should always be present and specifies the namespace for this
 field.
@@ -205,8 +209,8 @@ classes you could import if needed.
   use Drupal\tripal_chado\TripalStorage\ChadoTextStoragePropertyType;
 
 
-Annotation Section
-````````````````````
+Type Annotation Section
+`````````````````````````
 
 The annotation section in the class file is the set of in-line comments for the class.
 Note the @FieldType stanza in the comments. Drupal
@@ -234,8 +238,8 @@ and formatter class. This annotation is required.
    complete, the field will not be recognized by Drupal.
 
 
-Class Definition
-``````````````````
+Type Class Definition
+```````````````````````
 
 Next, the class definition line must extend the `ChadoFieldItemBase` class. You
 must name your class the same as the filename in which it is contained (minus
@@ -593,7 +597,7 @@ The following actions can be used:
     with a different name.
 
 - **read_value**: this is almost the same as join, but there will be no modification
-  to the value if we edit a content type, only look up an existing value.
+  to the value if we edit a content type, we only look up an existing value.
 
 - **replace**: indicates that the value of this property is a tokenized string
   and should be replaced with values from other properties.
@@ -752,6 +756,12 @@ join on the base table to get information such as the genus, species,
 and infraspecific type, but these are read-only, the values stored in Chado will
 not be modified by this field.  Lastly, we have a property with the action ``replace``
 that uses a tokenized string to create the full scientific name for the organism.
+
+.. note::
+
+  A good way to learn about fields is to look at examples of fields in the Tripal
+  core codebase. Specifically, look in the
+  `tripal_chado/src/Plugin/Field/FieldType` directory.
 
 The next section :ref:`Field Formatters` will describe how to create a formatter
 for this new field.

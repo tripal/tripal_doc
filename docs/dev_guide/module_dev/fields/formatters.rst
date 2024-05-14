@@ -124,7 +124,6 @@ formatter to handle a list of multiple items.
 
   use Drupal\Core\Field\FieldItemListInterface;
 
-
 Formatter Annotation Section
 ``````````````````````````````
 The annotation section in the class file is the set of in-line comments for the class.
@@ -177,10 +176,10 @@ the `.php` extension).
     Drupal.
 
 The defaultSettings() Function
-`````````````````````````````````````
+````````````````````````````````
 This is an optional function. If your field requires some additional settings
 for content display. An example might be how many decimal places to display
-for a real numner. This example does not add any settings.
+for a real number. This example does not add any settings.
 
 .. code-block:: php
 
@@ -190,7 +189,7 @@ for a real numner. This example does not add any settings.
   }
 
 The viewElements() Function
-````````````````````````````
+`````````````````````````````
 
 The `viewElements()` function is used to retrieve one or more property types
 managed by this field, and prepare them for display. Our example will just display
@@ -199,6 +198,7 @@ one, meaning multiple values may be present, so the values can be made into a
 list or a table as appropriate.
 
 In the example code block below you can see the steps where the property values
+are retrieved from the ``$items`` array..
 
 .. code-block:: php
 
@@ -213,22 +213,25 @@ In the example code block below you can see the steps where the property values
           'scientific_name' => $item->get('organism_scientific_name')->getString(),
         ];
 
-Then for each retrieved item, we convert the returned value into a render array
+Then for each retrieved item, we convert the returned value into a
+`render array <https://www.drupal.org/docs/drupal-apis/render-api/render-arrays>`_
 item using the `tripal.tripal_entity.lookup` service. When possible, the item
 includes a link to the corresponding organism entity page, and if not, then
-plain markup is generated. Either way, it is then added to the array of values to display.
+plain markup is generated. Either way, it is then added to the array 
+``$list`` of values to display.
 
 .. code-block:: php
 
         // Create a clickable link to the corresponding entity when one exists.
-        $renderable_item = $lookup_manager->getRenderableItem($values['scientific_name'], $values['entity_id']);
-
+        $renderable_item = $lookup_manager->getRenderableItem($values['scientific_name'],
+                                                              $values['entity_id']);
         $list[$delta] = $renderable_item;
       }
 
-The last step is to populate the `$elements` array. If there is only one value, as will be the case for this 
-example, it becomes the only value in the array. When multiple values are present, however, we can present them 
-as a list. Alternatively, you might want to display them in a table format.
+The last step is to populate the ``$elements`` array. If there is only one value,
+as will be the case for this example, it becomes the only value in the array.
+However, when multiple values are present, we can present them as a list.
+Alternatively, you might want to display them in a table format.
 For an example of a table formatter, see the `ChadoSequenceCoordinatesFormatterTable` formatter.
 
 .. code-block:: php
@@ -251,11 +254,13 @@ For an example of a table formatter, see the `ChadoSequenceCoordinatesFormatterT
       return $elements;
     }
 
+This completes your field formatter!
+
+The next section :ref:`Field Widgets` will describe how to create a widget
+for this new field to allow editing content.
+
 .. note::
 
   A good way to learn about fields is to look at examples of fields in the Tripal
   core codebase. Specifically, look in the
   `tripal_chado/src/Plugin/Field/FieldFormatter` directory.
-
-The next section :ref:`Field Widgets` will describe how to create a widget
-for this new field to allow editing content.

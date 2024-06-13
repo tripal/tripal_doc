@@ -89,8 +89,8 @@ The following is a simple class example:
 
 Below is a line-by-line explanation of each section of the code snippet above.
 
-Formatter Namespace and Use Statements
-````````````````````````````````````````
+Widgets Namespace and Use Statements
+``````````````````````````````````````
 
 The following should always be present and specifies the namespace for this
 field.

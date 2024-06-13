@@ -296,7 +296,7 @@ When an importer form is submitted and passes all validation checks, a job is au
 
 When the **Tripal Job** system executes an importer job it will call three different functions:
 
-- ``preRun()``: contains code to be executed prior to the the ``run()`` function.
+- ``preRun()``: contains code to be executed prior to the ``run()`` function.
 - ``run()``: contains the code that performs the import of the file.
 - ``postRun()``: contains code to be executed after executiong of the ``run()`` function.
 

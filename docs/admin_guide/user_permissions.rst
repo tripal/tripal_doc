@@ -11,7 +11,7 @@ User Permissions
 
 *Permissions* : A group of actions (example - import a GFF3 file, view/edit content and change configuration). Permissions are defined by the modules that provide the actions.
 
-*Roles* : Permissions are grouped into roles, each of which can be defined and then permissions are granted. Exaample roles are Curators or Data Submittors.
+*Roles* : Permissions are grouped into roles, each of which can be defined and then permissions are granted. Example roles are Curators or Data Submitters.
 
 Users and permissions allow you to give certain groups for example, researchers access to private data. Roles can help you setup groups of collaborators so you can assign the permission to the group 
 as a whole which makes it easier if any one member leaves or joins the group.
@@ -173,7 +173,7 @@ https://www.drupal.org/project/permissions_by_term.
 
 An example use-case in Tripal is Sub-editors working on a research publication. Collecting content together in a taxonomy term allows you to manage that content as a sub site and assign its own administrator. This is useful where you might need someone to produce lots of different types of content but only want them to be able to add it to a specific area of the website that is working on the publication.
 
-Sub-communities within a membership organisation. The topics a membership organisation may cover can be very broad and individual members may only be interested in seeing content from a sub-selection of the areas it covers. The sub-community may have their own executive members who can contribute to the research topic or approve new members to their sub-community.
+Sub-communities within a membership organization. The topics a membership organization may cover can be very broad and individual members may only be interested in seeing content from a sub-selection of the areas it covers. The sub-community may have their own executive members who can contribute to the research topic or approve new members to their sub-community.
 
 
 Additional Resources:

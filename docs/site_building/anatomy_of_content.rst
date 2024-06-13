@@ -34,7 +34,7 @@ This is a working list of content types that are currently built-in to Tripal. S
 * Germplasm
    * Breeding Cross
    * Germplasm Accession
-   * Germplasm Vareity
+   * Germplasm Variety
    * Recombinant Inbred Line
 * Genomic
    * DNA Library
@@ -56,7 +56,7 @@ This is a working list of content types that are currently built-in to Tripal. S
 Fields
 ------
 
-Each content type is composed of a number of datapoints, in Tripal these are **Fields**. By default, Tripal uses the Chado database schema to store data, and each field is linked to a specific table and column in Chado.
+Each content type is composed of a number of data points, in Tripal these are **Fields**. By default, Tripal uses the Chado database schema to store data, and each field is linked to a specific table and column in Chado.
 
 For example, the Organism content type comes by default with the following fields, and each one represents a property from Chado's definition of an organism:
 
@@ -64,7 +64,7 @@ For example, the Organism content type comes by default with the following field
 +--------------------+------------------------------+
 |Field Name          |Chado "organism" table column |
 +====================+==============================+
-|Abbreviation        |abreviation                   |
+|Abbreviation        |abbreviation                  |
 +--------------------+------------------------------+
 |Common Name         |common_name                   |
 +--------------------+------------------------------+
@@ -84,7 +84,7 @@ Just like with Content Types, each field must also have its own Controlled Vocab
 +--------------------+------------------------------+--------------------------------------------------------------------------------------+
 |Field Name          |Chado "organism" table column |PUMPKIN                                                                               |
 +====================+==============================+======================================================================================+
-|Abbreviation        |abreviation                   |local:abbreviation                                                                    |
+|Abbreviation        |abbreviation                  |local:abbreviation                                                                    |
 +--------------------+------------------------------+--------------------------------------------------------------------------------------+
 |Common Name         |common_name                   |`NCBITaxon:common_name <http://purl.obolibrary.org/obo/ncbitaxon#common_name>`_       |
 +--------------------+------------------------------+--------------------------------------------------------------------------------------+

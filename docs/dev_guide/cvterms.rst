@@ -2,7 +2,7 @@
 Controlled Vocabularies (CVs)
 ==============================
 
-Controlled vocabularies are simply a collection of agreed upon names (knowns as terms) for items of interest. Within biology this may mean we have a controlled vocabulary describing the parts of a gene or the types of germplasm. And ontology is a specialized type of controlled vocabulary with additional structure including relationships between terms (i.e. the sequence ontology).
+Controlled vocabularies are simply a collection of agreed upon names (known as terms) for items of interest. Within biology this may mean we have a controlled vocabulary describing the parts of a gene or the types of germplasm. And ontology is a specialized type of controlled vocabulary with additional structure including relationships between terms (i.e. the sequence ontology).
 
 Tripal and Chado both use controlled vocabulary terms extensively to categorize data and metadata. The use of controlled vocabulary terms also allows both Tripal and Chado to be extremely flexible while also remaining very descriptive with rich metadata.
 

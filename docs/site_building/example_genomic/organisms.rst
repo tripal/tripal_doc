@@ -2,7 +2,7 @@
 Create an Organism Page
 =========================
 
-Before we can load our data we must first have an organism to which the data will be associated. Chado v1.3 does not come preloaded with any organisms (although previous version of Chado do). For this tutorial we will import genomic data for Citrus sinesis (sweet orange), so we must first create the organism.
+Before we can load our data we must first have an organism to which the data will be associated. Chado v1.3 does not come preloaded with any organisms (although previous version of Chado do). For this tutorial we will import genomic data for *Citrus sinensis* (sweet orange), so we must first create the organism.
 
 We can add the organism using the **Add Tripal Content** link in the top administrative menu or from **Content** -> **Add Tripal Content**. The Add Tripal Content page has several content types already available, including the **Organism** content type.
 
@@ -22,7 +22,7 @@ To add a new organism click the **Organism** link and a form will appear with mu
   "Species", "sinensis"
   "Abbreviation", "C\. sinensis"
   "Common name", "Sweet orange"
-  "Description",	"Sweet orange is the No.1 citrus production in the world, accounting for about 70% of the total. Brazil, Flordia (USA), and China are the three largest sweet orange producers. Sweet orange fruits have very tight peel and are classified into the hard-to-peel group. They are often used for juice processing, rather than fresh consumption. Valencia, Navel, Blood, Acidless, and other subtypes are bud mutants of common sweet orange varieties. Sweet orange is considered as an introgression of a natural hybrid of mandarin and pummelo; some estimates shows more mandarin genomic background than pummelo. The genome size is estimated at 380Mb across 9 haploid chromosomes."
+  "Description",	"Sweet orange is the No.1 citrus production in the world, accounting for about 70% of the total. Brazil, Florida (USA), and China are the three largest sweet orange producers. Sweet orange fruits have very tight peel and are classified into the hard-to-peel group. They are often used for juice processing, rather than fresh consumption. Valencia, Navel, Blood, Acidless, and other subtypes are bud mutants of common sweet orange varieties. Sweet orange is considered as an introgression of a natural hybrid of mandarin and pummelo; some estimates shows more mandarin genomic background than pummelo. The genome size is estimated at 380Mb across 9 haploid chromosomes."
 
 Leave all remaining fields empty and save the page. You should now have an organism page that appears as follows:
 
@@ -34,7 +34,7 @@ Leave all remaining fields empty and save the page. You should now have an organ
 
 Load data from NCBI Taxonomy
 ----------------------------
-Tripal makes it easy to import additional information about any organisms within a Tripal site from the `NCBI Taxonomy database <https://www.ncbi.nlm.nih.gov/taxonomy>`_.  The importer will only import data for species that you currently have in the Tripal database.  The taxonomic names must match those in the NCBI Taxonomy database.  Currently, we only have a single organism (Citrus sinensis) and we will import additional properties for this organism from NCBI but we can return later to import data for new organisms we may add later.  To import additional organism details, navigate to **Tripal → Data Loaders → Taxonomy Loader**.  The following page appears:
+Tripal makes it easy to import additional information about any organisms within a Tripal site from the `NCBI Taxonomy database <https://www.ncbi.nlm.nih.gov/taxonomy>`_.  The importer will only import data for species that you currently have in the Tripal database.  The taxonomic names must match those in the NCBI Taxonomy database.  Currently, we only have a single organism (*Citrus sinensis*) and we will import additional properties for this organism from NCBI but we can return later to import data for new organisms we may add later.  To import additional organism details, navigate to **Tripal → Data Loaders → Taxonomy Loader**.  The following page appears:
 
 .. image:: organisms.taxonomy_loader.png
 
@@ -94,7 +94,7 @@ Adding New Fields
   This feature has not yet been implemented for Tripal v4, documentation will be added once this feature is available
 
 
-We have now imported many new properties about the Citrus sinensis organism from NCBI Taxonomy.  However, these properties won't show up on the page automatically.  We need to tell Drupal that our organism pages now have new property fields for display.
+We have now imported many new properties about the *Citrus sinensis* organism from NCBI Taxonomy.  However, these properties won't show up on the page automatically.  We need to tell Drupal that our organism pages now have new property fields for display.
 To do this, navigate to **Structure → Tripal Content Type** and in the row for the Organism content type, click Drop Down arrow and mouse over on **Manage Fields**. Here we see a list of fields that are associated with an Organism content type.
 
 .. image:: organisms.check_new_fields1.png
@@ -105,7 +105,7 @@ Click the link at the top of the page **+ Check for new fields**.
 
   The **Check for new fields** functionality has not yet been implemented for Tripal 4. Documentation  will be added when it is available.
 
-Drupal now knows about these new fields! But if we were to look at the Citrus sinensis page we would see that the new properties do not appear. Despite that Drupal knows about the fields it has disabled their display. To enable display of these fields click the **Manage Display** tab at the top right of the page. Here all of the fields are organized into the structure that they will be displayed on the page. Later in this tutorial a more formal description is provided about how you use this interface to change the way the page appears. For now, we simply need to get the new fields to be shown. Scroll to the bottom of the page and the new fields can be seen in the Disabled section.
+Drupal now knows about these new fields! But if we were to look at the *Citrus sinensis* page we would see that the new properties do not appear. Despite that Drupal knows about the fields it has disabled their display. To enable display of these fields click the **Manage Display** tab at the top right of the page. Here all of the fields are organized into the structure that they will be displayed on the page. Later in this tutorial a more formal description is provided about how you use this interface to change the way the page appears. For now, we simply need to get the new fields to be shown. Scroll to the bottom of the page and the new fields can be seen in the Disabled section.
 
 
 .. image:: organisms.new_fields_manage_display.png

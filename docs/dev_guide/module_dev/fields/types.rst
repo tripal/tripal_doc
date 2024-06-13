@@ -384,7 +384,7 @@ The site admin will be able to change the storage settings if they:
 
 The fieldSettingsForm() Function
 ``````````````````````````````````
-The `fieldSettingsForm()` functions in the same was as the `storageSettingsForm()`
+The `fieldSettingsForm()` functions in the same way as the `storageSettingsForm()`
 function but for the field settings.
 
 

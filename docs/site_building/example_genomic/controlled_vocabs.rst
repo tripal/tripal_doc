@@ -1,7 +1,7 @@
 Import the Gene Ontology
 =========================
 
-Before we proceed with setup of our example genomics site we will want to load the Gene Ontology.  This is because we will be loading a whole genome, genes and transcripts with annotations.  These annotations include Gene Ontology terms.  To load the Gene Ontolgoy, navigate to **Tripal → Data Loaders → OBO Vocabulary Loader**. You will see the following page:
+Before we proceed with setup of our example genomics site we will want to load the Gene Ontology.  This is because we will be loading a whole genome, genes and transcripts with annotations.  These annotations include Gene Ontology terms.  To load the Gene Ontology, navigate to **Tripal → Data Loaders → OBO Vocabulary Loader**. You will see the following page:
 
 .. image:: controlled_vocabs.1.png
 

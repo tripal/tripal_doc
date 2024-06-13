@@ -1,7 +1,7 @@
 Import a Genome Assembly + Annotation
 ======================================
 
-Now that we have our organism and whole genome analysis ready, we can begin loading genomic data. For this tutorial only a single gene from sweet orange will be loaded into the databsae. This is to ensure we can move through the tutorial rather quickly. The following datasets will be used for this tutorial:
+Now that we have our organism and whole genome analysis ready, we can begin loading genomic data. For this tutorial only a single gene from sweet orange will be loaded into the database. This is to ensure we can move through the tutorial rather quickly. The following datasets will be used for this tutorial:
 
 - `Citrus sinensis-orange1.1g015632m.g.gff3 <http://tripal.info/sites/default/files/Citrus_sinensis-orange1.1g015632m.g.gff3>`_
 - `Citrus sinensis-scaffold00001.fasta <http://tripal.info/sites/default/files/Citrus_sinensis-scaffold00001.fasta>`_
@@ -157,7 +157,7 @@ Here we have more information than just the feature name. We have a unique Phyto
   "External Database", "Phytozome"
   "Regular expression for the accession", "^.*PAC:(\d+).*$"
 
-Remember, we have the name **Phytozome** in our **External Database** drop down because we manually added it as a database cross reference earlier in the turorial.  After adding the values above, click the **Import FASTA file** button, and manually run the submitted job:
+Remember, we have the name **Phytozome** in our **External Database** drop down because we manually added it as a database cross reference earlier in the tutorial.  After adding the values above, click the **Import FASTA file** button, and manually run the submitted job:
 
 ::
 
@@ -183,7 +183,7 @@ Now that we've loaded our feature data, we must publish them. This is different 
 
 Here we can specify the types of content to publish. For our site we want to offer both gene and mRNA pages (these types were present in our GFF file). First, to create pages for genes select 'Gene' from the dropdown.  A new Filter section is present and when opened appears as follows.
 
-The **Filters** section allows you to provide filters to limit what you want to publish.  For example, if you only want to publish genes for a single organism you can select that organism in the Organism drop down list.  We only have one organism in our site, but for the sake of experience, add a filter to publish only genes for Citrus sinesis by selecting it from the Organism drop down.  Scroll to the bottom a click the Publish button.  A new job is added to the job queue.  Manually run the job:
+The **Filters** section allows you to provide filters to limit what you want to publish.  For example, if you only want to publish genes for a single organism you can select that organism in the Organism drop down list.  We only have one organism in our site, but for the sake of experience, add a filter to publish only genes for *Citrus sinensis* by selecting it from the Organism drop down.  Scroll to the bottom a click the Publish button.  A new job is added to the job queue.  Manually run the job:
 
 ::
 
@@ -202,7 +202,7 @@ You should see output similar to the following:
   If the load fails or is terminated prematurely then the entire set of
   is rolled back with no changes to the database
 
-  Succesfully published 1 Gene record(s).
+  Successfully published 1 Gene record(s).
 
 Here we see that 1 gene was successfully published. This is because the GFF file we used previously to import the genes only had one gene present.
 
@@ -219,7 +219,7 @@ Now, repeat the steps above to publish the mRNA content type.  You should see th
   If the load fails or is terminated prematurely then the entire set of
   is rolled back with no changes to the database
 
-  Succesfully published 9 mRNA record(s).
+  Successfully published 9 mRNA record(s).
 
 .. note::
 
@@ -243,7 +243,7 @@ Sometimes however, more than just a listing of transcripts is desired on a gene 
 
 Open the field set titled **Transcript (mRNA) Field Selection** to view a table that lists all of the available fields for a transcript.
 
-On this page you can check the boxes next to the field that you want to show for a transcript on the gene page.  For this example, we will select the fields **Name**, **Identifier**, **Resource Type**, **Anotations**, and **Sequences** (they may not be in this order on your own site). You can control the order in which fields will be shown by dragging them using the crosshairs icon next to each one.  Scroll to the bottom of the page and click the **Save Settings** button.
+On this page you can check the boxes next to the field that you want to show for a transcript on the gene page.  For this example, we will select the fields **Name**, **Identifier**, **Resource Type**, **Annotations**, and **Sequences** (they may not be in this order on your own site). You can control the order in which fields will be shown by dragging them using the crosshairs icon next to each one.  Scroll to the bottom of the page and click the **Save Settings** button.
 
 Next return to the gene page, reload it, and click on the **Transcripts** link. Now you are provided a select box with the transcript names. When a transcript is selected, the pane below will populate with the fields that you selected when editing in the Transcript field.
 

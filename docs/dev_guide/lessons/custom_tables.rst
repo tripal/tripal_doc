@@ -8,7 +8,7 @@ This lesson describes how to programmatically create and manage :doc:`../biodata
 
 Creating a Custom Table
 -----------------------
-To create a new custom table, you must first define the table schema which will include the table columns, constraints, default values, and indexes.  This design must then be written using the the Drupal `Schema API <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Database%21database.api.php/group/schemaapi/10>`_, which is a PHP associative array with key/value pairs that specify the components of the table.  The following provides an example table schema array for a custom ``library_stock`` table that is intended to link records in the ``stock`` table of Chado with records in the ``library`` table of Chado:
+To create a new custom table, you must first define the table schema which will include the table columns, constraints, default values, and indexes.  This design must then be written using the Drupal `Schema API <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Database%21database.api.php/group/schemaapi/10>`_, which is a PHP associative array with key/value pairs that specify the components of the table.  The following provides an example table schema array for a custom ``library_stock`` table that is intended to link records in the ``stock`` table of Chado with records in the ``library`` table of Chado:
 
 .. code-block:: php
 

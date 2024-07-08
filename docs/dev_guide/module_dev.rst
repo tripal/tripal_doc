@@ -13,6 +13,7 @@ Custom Module Development
    module_dev/entities
    module_dev/tripal_fields
    module_dev/forms
+   module_dev/jobs
    module_dev/logging
    module_dev/views
    module_dev/config

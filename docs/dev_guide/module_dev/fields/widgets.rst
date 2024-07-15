@@ -199,7 +199,8 @@ page on which this field is being displayed
 
 The second form element is an organism select. This select list contains all
 organisms currently defined, and the site administrator can select the
-appropriate organism.
+appropriate organism. If editing an existing record, then the current
+organism is presented as the default.
 
 .. code-block:: php
 
@@ -216,7 +217,8 @@ appropriate organism.
 .. note::
 
   For fields with a large number of possible items, it may be more appropriate
-  to use an autocomplete field. @@@to-do describe this
+  to use an autocomplete field.
+  @@@to-do describe this
 
 
 

@@ -4,10 +4,10 @@ Fields Overview
 
 Fields are the building blocks of content in Drupal. For example, all content
 types (e.g. "Article", or "Basic Page") provide content to the end-user via
-fields that are bundled with them.  For example, when adding a basic
+fields that are bundled with the content type. For example, when adding a basic
 page (a default Drupal content type), the end-user is provided with form
 elements (or widgets) that allow the user to set the title and the body text
-for the page. The "Body" is a field.  When a basic page is
+for the page. The "Body" is a field. When a basic page is
 viewed, the body is rendered on the page using formatters, and
 Drupal stores the values for the body in the database. Every
 field, therefore, provides three types of functionality: instructions

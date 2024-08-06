@@ -5,6 +5,11 @@ Upgrading a Tripal 3 site
 .. notice::
   The upgrade path is still under development. More information will be added here as it becomes available.
 
+.. toctree::
+   :maxdepth: 2
+
+   site/migrating_chado
+
 **What we know so far:**
 
  - Upgrading from Drupal 7 to 10+ requires a migration.

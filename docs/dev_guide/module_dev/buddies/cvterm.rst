@@ -4,8 +4,12 @@ Chado Cvterm Buddy
 
 This buddy has the class name ``ChadoCvtermBuddy`` and the instance name ``chado_cvterm_buddy``.
 
-This buddy deals with four chado tables,
-the ``db``, ``dbxref``, ``cv``, and ``cvterm`` tables.
+This buddy deals with five chado tables, the
+`db <https://laceysanderson.github.io/chado-docs/db/tables/db.html>`_,
+`dbxref <https://laceysanderson.github.io/chado-docs/db/tables/dbxref.html>`_,
+`cv <https://laceysanderson.github.io/chado-docs/cv/tables/cv.html>`_,
+`cvterm <https://laceysanderson.github.io/chado-docs/cv/tables/cvterm.html>`_,
+and `cvtermsynonym <https://laceysanderson.github.io/chado-docs/cv/tables/cvtermsynonym.html>`_ tables.
 
 This buddy provides the following functions:
 
@@ -229,6 +233,7 @@ Valid keys for ``$options``:
    want to automatically create a dbxref if one does not already exist.
 
 
+
 upsertCvterm()
 ^^^^^^^^^^^^^^^^
 
@@ -292,3 +297,85 @@ Valid keys for ``$options``:
   constraint, so a value is required.
 
 This function returns TRUE if successful.
+
+
+
+getCvtermSynonym()
+^^^^^^^^^^^^^^^^^^^^
+
+Retrieves one or more records from the chado `cvtermsynonym <https://laceysanderson.github.io/chado-docs/cv/tables/cvtermsynonym.html>`_ table.
+
+Usage: ``$chado_buddy_records = $cvterm_instance->getCvtermSynonym($conditions, $options);``
+
+Valid keys for ``$conditions`` are all of those specified
+for :ref:`getCvterm()` plus these additional keys:
+
+* ``cvtermsynonym.cvtermsynonym_id``
+* ``cvtermsynonym.cvterm_id``
+* ``cvtermsynonym.synonym``
+* ``cvtermsynonym.type_id``
+
+Valid settings for ``$options``:
+
+Same as for :ref:`getCvterm()`.
+
+
+
+insertCvtermSynonym()
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Inserts a new record into the chado `cvtermsynonym <https://laceysanderson.github.io/chado-docs/cv/tables/cvtermsynonym.html>`_ table.
+
+Usage: ``$chado_buddy_records = $cvterm_instance->getCvtermSynonym($conditions, $options);``
+
+Valid keys for ``$conditions`` are all of those specified
+for :ref:`insertCvterm()` plus these additional keys:
+
+* ``cvtermsynonym.cvterm_id``
+* ``cvtermsynonym.synonym``
+* ``cvtermsynonym.type_id``
+
+Valid settings for ``$options``:
+
+Same as for :ref:`insertCvterm()`.
+
+
+
+updateCvtermSynonym()
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Updates an existing record in the chado `cvtermsynonym <https://laceysanderson.github.io/chado-docs/cv/tables/cvtermsynonym.html>`_ table.
+
+Usage: ``$chado_buddy_records = $cvterm_instance->getCvtermSynonym($conditions, $options);``
+
+Valid keys for ``$conditions`` are all of those specified
+for :ref:`updateCvterm()` plus these additional keys:
+
+* ``cvtermsynonym.cvtermsynonym_id``
+* ``cvtermsynonym.cvterm_id``
+* ``cvtermsynonym.synonym``
+* ``cvtermsynonym.type_id``
+
+Valid settings for ``$options``:
+
+Same as for :ref:`updateCvterm()`.
+
+
+
+upsertCvtermSynonym()
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Updates a record if it exists, or inserts it if it does not, in the chado `cvtermsynonym <https://laceysanderson.github.io/chado-docs/cv/tables/cvtermsynonym.html>`_ table.
+
+Usage: ``$chado_buddy_records = $cvterm_instance->getCvtermSynonym($conditions, $options);``
+
+Valid keys for ``$conditions`` are all of those specified
+for :ref:`upsertCvterm()` plus these additional keys:
+
+* ``cvtermsynonym.cvterm_id`` Ⓠ
+* ``cvtermsynonym.synonym`` Ⓠ
+* ``cvtermsynonym.type_id``
+
+Valid settings for ``$options``:
+
+Same as for :ref:`upsertCvterm()`.

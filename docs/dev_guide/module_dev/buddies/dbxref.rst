@@ -4,8 +4,9 @@ Chado Dbxref Buddy
 
 This buddy has the class name ``ChadoDbxrefBuddy`` and the instance name ``chado_dbxref_buddy``.
 
-This is the simplest buddy since it handles just two chado tables,
-the ``db`` and ``dbxref`` tables.
+This is the simplest buddy since it handles just two chado tables, the
+`db <https://laceysanderson.github.io/chado-docs/db/tables/db.html>`_
+and `dbxref <https://laceysanderson.github.io/chado-docs/db/tables/dbxref.html>`_ tables.
 
 This buddy provides the following functions:
 
@@ -199,6 +200,7 @@ Valid keys for ``$conditions`` only:
 * ``db.url``
 * ``db.urlprefix``
 * ``dbxref.dbxref_id``
+
 
 
 upsertDbxref()

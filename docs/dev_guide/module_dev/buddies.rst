@@ -13,7 +13,7 @@ All buddies are created by a two step process:
      ``$buddy_service = \Drupal::service('tripal_chado.chado_buddy');``
 
      For best practice, this service should be injected into your class.
-     To see how to do this, see TBD
+     To see how to do this, see :ref:`Injecting the Buddy Service`
 
   2. Create an instance for each service you want, for example:
 

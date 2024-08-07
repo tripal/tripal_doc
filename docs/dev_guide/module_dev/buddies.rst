@@ -29,3 +29,4 @@ See the following sections for details on each buddy class.
    buddies/dbxref
    buddies/cvterm
    buddies/property
+   buddies/inject

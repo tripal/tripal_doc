@@ -96,8 +96,8 @@ Cross schema queries
   please add an issue on our github at 
   https://github.com/tripal/tripal_doc/issues !
 
-Additional Resources
---------------------
+Additional Deprecation Resources
+--------------------------------
 
  - `Official Drupal: db_* procedural functions of the Database API layer have been deprecated <https://www.drupal.org/node/2993033>`_
  - `Official Drupal: function db_select <https://api.drupal.org/api/drupal/core%21includes%21database.inc/function/db_select/8.9.x>`_

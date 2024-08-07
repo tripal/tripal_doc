@@ -11,6 +11,9 @@ For example, for the table ``db`` and column ``name``, the key would be ``db.nam
 This method prevents ambiguity when a buddy handles more than one table, and different tables
 may have the same column name, such as ``db.name`` and ``cv.name``.
 
+Any or all input values can be also be passed in using a ChadoBuddyRecord, using the key
+`buddy_record` in the values array.
+
 Chado Buddy Output Values
 ---------------------------
 
@@ -89,11 +92,13 @@ including a dbxref, and using that term to assign a property to a gene.
   if ($count != 1) {
     // This is unlikely, and you should catch exceptions as shown in example #3
   }
+  $cvterm_id = $chado_cvterm_record->getValue('cvterm.cvterm_id');
+  print "Created or found cvterm with id=$cvterm_id\n";
 
   // Create the property record in the featureprop table
   $feature_id = 1; // For this example a gene feature exists with this id
   $values = [
-    'featureprop.type_id' => $chado_cvterm_record->getValue('cvterm.cvterm_id'),
+    'buddy_record' => $chado_cvterm_record,
     'featureprop.value' => 'Example value of 2 for the property',
   ];
   $chado_property_record = $property_instance->upsertProperty('feature', $feature_id, $values, []);

@@ -7,7 +7,7 @@ This buddy has the class name ``ChadoDbxrefBuddy`` and the instance name ``chado
 This is the simplest buddy since it handles just two chado tables,
 the ``db`` and ``dbxref`` tables.
 
-It provides the following functions:
+This buddy provides the following functions:
 
   .. table:: Chado Dbxref Buddy:
 
@@ -44,6 +44,7 @@ Valid keys for ``$conditions``:
 * ``db.description``
 * ``db.url``
 * ``db.urlprefix``
+* ``buddy_record``
 
 Valid settings for ``$options``:
 
@@ -69,6 +70,7 @@ Valid keys for ``$values``:
 * ``db.description``
 * ``db.url``
 * ``db.urlprefix``
+* ``buddy_record``
 
 Required keys to insert a new record:
 
@@ -89,6 +91,7 @@ Valid keys for ``$values`` and ``$conditions``:
 * ``db.description``
 * ``db.url``
 * ``db.urlprefix``
+* ``buddy_record``
 
 Valid keys for ``$conditions`` only:
 
@@ -110,6 +113,7 @@ Valid keys for ``$values``:
 * ``db.description``
 * ``db.url``
 * ``db.urlprefix``
+* ``buddy_record``
 
 Required keys to upsert a new record:
 
@@ -136,6 +140,7 @@ Valid keys for ``$conditions``:
 * ``dbxref.description``
 * ``dbxref.accession``
 * ``dbxref.version``
+* ``buddy_record``
 
 Valid settings for ``$options``:
 
@@ -162,6 +167,7 @@ Valid keys for ``$values``:
 * ``dbxref.description``
 * ``dbxref.accession``
 * ``dbxref.version``
+* ``buddy_record``
 
 Required keys to insert a new record:
 
@@ -183,6 +189,7 @@ Valid keys for ``$values`` and ``$conditions``:
 * ``dbxref.description``
 * ``dbxref.accession``
 * ``dbxref.version``
+* ``buddy_record``
 
 Valid keys for ``$conditions`` only:
 
@@ -212,6 +219,7 @@ Valid keys for ``$values``:
 * ``dbxref.description``
 * ``dbxref.accession`` Ⓠ
 * ``dbxref.version`` Ⓠ
+* ``buddy_record``
 
 Required keys to upsert a new record:
 

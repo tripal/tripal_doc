@@ -76,7 +76,7 @@ we inject both the chado database and chado buddy:
     );
   }
 
-Next we add a ``__create()`` function, or if you already have one, add similar code to it. For example:
+Next we add a ``__construct()`` function, or if you already have one, add similar code to it. For example:
 
 .. code::
 

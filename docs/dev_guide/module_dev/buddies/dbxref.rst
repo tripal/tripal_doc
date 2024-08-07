@@ -35,7 +35,7 @@ getDb()
 
 Retrieves one or more records from the chado `db <https://laceysanderson.github.io/chado-docs/db/tables/db.html>`_ table.
 
-Usage: ``$chado_buddy_records = $instance->getDb($conditions, $options);``
+Usage: ``$chado_buddy_records = $dbxref_instance->getDb($conditions, $options);``
 
 Valid keys for ``$conditions``:
 
@@ -48,6 +48,11 @@ Valid keys for ``$conditions``:
 Valid settings for ``$options``:
 
 * ``'case_insensitive' => key`` or ``'case_insensitive' => [key1, key2, ...]``
+  Any keys specified here will be queried without case sensitivity. For example
+
+  ``$dbxref_instance->getDb(['db.name' => 'edam'], ['case_insensitive' => 'db.name']);``
+
+  will return either 'edam' or 'EDAM' or both.
 
 
 
@@ -56,7 +61,7 @@ insertDb()
 
 Inserts a new record into the chado `db <https://laceysanderson.github.io/chado-docs/db/tables/db.html>`_ table.
 
-Usage: ``$chado_buddy_records = $instance->insertDb($values, $options);``
+Usage: ``$chado_buddy_records = $dbxref_instance->insertDb($values, $options);``
 
 Valid keys for ``$values``:
 
@@ -76,7 +81,7 @@ updateDb()
 
 Updates an existing record in the chado `db <https://laceysanderson.github.io/chado-docs/db/tables/db.html>`_ table.
 
-Usage: ``$chado_buddy_records = $instance->updateDb($values, $conditions, $options);``
+Usage: ``$chado_buddy_records = $dbxref_instance->updateDb($values, $conditions, $options);``
 
 Valid keys for ``$values`` and ``$conditions``:
 
@@ -85,7 +90,7 @@ Valid keys for ``$values`` and ``$conditions``:
 * ``db.url``
 * ``db.urlprefix``
 
-Valid keys for ``$values`` only:
+Valid keys for ``$conditions`` only:
 
 * ``db.db_id``
 
@@ -95,9 +100,9 @@ upsertDb()
 ^^^^^^^^^^^^
 
 Updates a record if it exists, or inserts it if it does not, in the chado `db <https://laceysanderson.github.io/chado-docs/db/tables/db.html>`_ table.
-Only keys designated with a Ⓠ are used to find the record to update if it already exists.
+Only keys designated with a Ⓠ are used for the query to find the record to update if it already exists.
 
-Usage: ``$chado_buddy_records = $instance->insertDb($values, $options);``
+Usage: ``$chado_buddy_records = $dbxref_instance->insertDb($values, $options);``
 
 Valid keys for ``$values``:
 
@@ -117,7 +122,7 @@ getDbxref()
 
 Retrieves one or more records from the chado `dbxref <https://laceysanderson.github.io/chado-docs/db/tables/dbxref.html>`_ table.
 
-Usage: ``$chado_buddy_records = $instance->getDbxref($conditions, $options);``
+Usage: ``$chado_buddy_records = $dbxref_instance->getDbxref($conditions, $options);``
 
 Valid keys for ``$conditions``:
 
@@ -135,6 +140,7 @@ Valid keys for ``$conditions``:
 Valid settings for ``$options``:
 
 * ``'case_insensitive' => key`` or ``'case_insensitive' => [key1, key2, ...]``
+  Any keys specified here will be queried without case sensitivity, e.g. 'edam' == 'EDAM'
 
 
 
@@ -143,7 +149,7 @@ insertDbxref()
 
 Inserts a new record into the chado `dbxref <https://laceysanderson.github.io/chado-docs/db/tables/dbxref.html>`_ table.
 
-Usage: ``$chado_buddy_records = $instance->insertDbxref($values, $options);``
+Usage: ``$chado_buddy_records = $dbxref_instance->insertDbxref($values, $options);``
 
 Valid keys for ``$values``:
 
@@ -169,7 +175,7 @@ updateDbxref()
 
 Updates an existing record in the chado `dbxref <https://laceysanderson.github.io/chado-docs/db/tables/dbxref.html>`_ table.
 
-Usage: ``$chado_buddy_records = $instance->updateDbxref($values, $conditions, $options);``
+Usage: ``$chado_buddy_records = $dbxref_instance->updateDbxref($values, $conditions, $options);``
 
 Valid keys for ``$values`` and ``$conditions``:
 
@@ -178,7 +184,7 @@ Valid keys for ``$values`` and ``$conditions``:
 * ``dbxref.accession``
 * ``dbxref.version``
 
-Valid keys for ``$values`` only:
+Valid keys for ``$conditions`` only:
 
 * ``db.db_id``
 * ``db.name``
@@ -192,9 +198,9 @@ upsertDbxref()
 ^^^^^^^^^^^^^^^^
 
 Updates a record if it exists, or inserts it if it does not, in the chado `dbxref <https://laceysanderson.github.io/chado-docs/db/tables/dbxref.html>`_ table.
-Only keys designated with a Ⓠ are used to find the record to update if it already exists.
+Only keys designated with a Ⓠ are used for the query to find the record to update if it already exists.
 
-Usage: ``$chado_buddy_records = $instance->insertDbxref($values, $options);``
+Usage: ``$chado_buddy_records = $dbxref_instance->insertDbxref($values, $options);``
 
 Valid keys for ``$values``:
 
@@ -220,7 +226,7 @@ associateDbxref()
 Given an existing dbxref record, associate it with a record in a chado table using its linking table.
 Both the dbxref and the chado record indicated by $record_id must already exist.
 
-Usage: ``$boolean_result = $instance->associateDbxref($base_table, $record_id, $dbxref, $options);``
+Usage: ``$boolean_result = $dbxref_instance->associateDbxref($base_table, $record_id, $dbxref, $options);``
 
 Parameter string ``$base_table`` is the base table for which the dbxref should be associated.
 For example, to associate a dbxref with a feature the base_table=``feature`` and dbxref_id is added to the
@@ -252,7 +258,7 @@ urlprefix. But Tripal supports the use of {db} and {accession} tokens
 in the db.urlprefix string. If present, they will be replaced with the
 db name and dbxref accession, respectively.
 
-Usage: ``$url_string = $instance->getDbxrefUrl($dbxref, $options);``
+Usage: ``$url_string = $dbxref_instance->getDbxrefUrl($dbxref, $options);``
 
 Parameter ChadoBuddyRecord ``$dbxref`` is a record returned by one of the ``xxxDbxref()`` or ``xxxCvterm()`` functions.
 

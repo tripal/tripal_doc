@@ -17,7 +17,7 @@ This buddy provides the following functions:
 
     +------------------+-------------------+--------------------------+------------------------------+
     | Type of          |                   |                          |                              |
-    | Function         | cv table          | cvterm table             | cvtermsynonym synonym        |
+    | Function         | cv table          | cvterm table             | cvtermsynonym table          |
     +==================+===================+==========================+==============================+
     | Lookup           | :ref:`getCv()`    | :ref:`getCvterm()`       | :ref:`getCvtermSynonym()`    |
     +------------------+-------------------+--------------------------+------------------------------+

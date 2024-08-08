@@ -21,7 +21,16 @@ The procedure for this is as follows:
    you should specify a name for your chado schema that is **different** than your existing
    Tripal 3 site, for example ``--build-arg chadoschema="tempchado"``.
 
-3. Upload your Tripal 3 chado database dump to your new Tripal 4 site.
+3. `If you are using docker`, copy your Tripal 3 chado database dump to inside your
+   Tripal 4 docker container using ``docker cp``, and then obtain a bash shell inside your docker.
+   For example, if your container is named "tripal4" you could run
+
+.. code-block:: bash
+
+  docker cp chado.sql.gz tripal4:/var/www/drupal/web/
+  docker exec -it tripal4 /bin/bash
+
+4. Upload your Tripal 3 chado database dump to your new Tripal 4 Postgresql database.
    Again, substitute appropriate Tripal 4 connection information.
 
 .. code-block:: bash
@@ -34,17 +43,17 @@ The procedure for this is as follows:
   | then you will need to run this command at a sql prompt **before** uploading your chado database dump:
   | ``sitedb=> CREATE EXTENSION IF NOT EXISTS btree_gist;``
 
-4. Now you need to check that your imported existing chado matches what Tripal 4 expects as far as cvterms go.
+5. Now you need to check that your imported existing chado matches what Tripal 4 expects as far as cvterms go.
    This can be done using the command
 
 .. code-block:: bash
 
   drush trp-check-terms --chado_schema=chado
 
-5. Once that command tells you there are no errors with your cvterm setup, then you can
+6. Once that command tells you there are no errors with your cvterm setup, then you can
    prepare your chado instance by going to TRIPAL4-SITE/admin/tripal/storage/chado/prepare.
 
-6. Now go into your Tripal 4 site and set the newly imported and prepared chado to be your default chado.
+7. Now go into your Tripal 4 site and set the newly imported and prepared chado to be your default chado.
 
   a. Go to TRIPAL4-WEBSITE/admin/tripal/storage/chado/manager
 
@@ -54,7 +63,7 @@ The procedure for this is as follows:
 
   d. If you had a temporary Chado schema, you can drop it at this point.
 
-7. We recommend that you reserve existing entity ID numbers, so that you can later generate url aliases that will match your Tripal 3 site. To do so
+8. We recommend that you reserve existing entity ID numbers, so that you can later generate url aliases that will match your Tripal 3 site. To do so
 
   a. On your existing **Tripal 3** site, launch a psql command prompt and run this command
 
@@ -73,10 +82,9 @@ The procedure for this is as follows:
 
     sitedb=> ALTER SEQUENCE tripal_entity_id_seq RESTART 123456;  ← substitue the number from step a.
 
-8. You can now import content types and find fields so that you can start configuring your content types.
+9. You can now import content types and find fields so that you can start configuring your content types.
 
-9. Publish all of your content types.
+10. Publish all of your content types.
 
 .. notice::
   The plan is to add a command in the future that will help pull over url aliases from your Drupal 7 site for existing pages.
-

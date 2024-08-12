@@ -55,38 +55,31 @@ Testing on an unmerged branch
 
   .. code::
 
-    sudo docker build --tag=tripaldocker:testing-9999 --build-arg drupalversion="10.2.x-dev" --build-arg postgresqlversion="15" --file tripaldocker/Dockerfile-php8.3 ./
+    sudo docker build --tag=tripaldocker:testing-9999 --build-arg drupalversion="10.2.x-dev" --build-arg postgresqlversion="15" --build-arg phpversion=8.3 ./
 
 6. We will now create a running docker **container** using the **image** we just built. We will map the web port `80` to a value available on the local test system. For example, we will select port ``8080``:
 
   .. code::
 
-    sudo docker run --publish=8080:80 -tid --name=testing-9999 --volume=$(pwd):/var/www/drupal9/web/modules/contrib/tripal tripaldocker:testing-9999
+    sudo docker run --publish=8080:80 -tid --name=testing-9999 --volume=$(pwd):/var/www/drupal/web/modules/contrib/tripal tripaldocker:testing-9999
 
-7. And finally we need to start up our PostgreSQL database inside the docker container.
-
-  .. code::
-
-    sudo docker exec testing-9999 service postgresql restart
-
-8. The Tripal site should now be available to evaluate at http://localhost:8080 or whatever other port number you selected.
+7. The Tripal site should now be available to evaluate at http://localhost:8080 or whatever other port number you selected.
 
    For more details about TripalDocker including the site administrator login information and more usage commands see :ref:`the install Tripal using Docker usage section<Development Site Information:>`.
 
-9. If you need a shell inside the docker, such as to run a drush command, use
+8. If you need a shell inside the docker, such as to run a drush command, use
 
   .. code::
 
     sudo docker exec -it testing-9999 /bin/bash
 
-10. If at some point you reboot your test system, you can restart this docker container with:
+9. If at some point you reboot your test system, you can restart this docker container with:
 
   .. code::
 
     sudo docker start testing-9999
-    sudo docker exec testing-9999 service postgresql restart
 
-11. Listing existing containers, include ``-a`` to show containers that are not running.
+10. Listing existing containers, include ``-a`` to show containers that are not running.
 
   .. code::
 

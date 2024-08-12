@@ -2,13 +2,13 @@
 Using VSCode when developing for Tripal
 ==========================================
 
-In addition to using docker directly when testing or developing for Tripal, we also have built in integration with VSCode to make your life that little bit easier! More specifically, we integrate with `VSCode DevContainers <https://code.visualstudio.com/docs/devcontainers/containers>`_ via the devcontainer.json file in the root of this repository. This allows VSCode to automatically
+In addition to using docker directly when testing or developing for Tripal, we also have built in integration with VSCode to make your life that little bit easier! More specifically, we integrate with `VSCode DevContainers <https://code.visualstudio.com/docs/devcontainers/containers>`_ via the devcontainer.json file in the root of this repository. This allows VSCode to automatically:
 
 1. Build a docker image based on our Dockerfile
 2. Start a container using that image
 3. Mount your current local directory inside the container
 4. Configure VScode to seamlessly integrate with the container so that Devcontainer enabled extensions use the container directly. For example, opening the terminal will open a bash session directly in the container in your mounted tripal directory.
-5. Install and configure a number really helpful VSCode extensions to make your life easier including php intelephense (php syntax checking and autocomplete), Drupal specific autocomplete, code standards checking, phpunit testing integration, etc. (see more below)
+5. Install and configure a number of really helpful VSCode extensions to make your life easier including php intelephense (php syntax checking and autocomplete), Drupal specific autocomplete, code standards checking, phpunit testing integration, etc. (see more below)
 
 Dev Container: Requirements
 ---------------------------
@@ -50,7 +50,7 @@ Ports automatically mapped
 
 Ports exposed via the dockerfile are now mapped automatically to ports on your local machine. This allows you to have multiple devcontainers open without having to think about ports at all.
 
-To view your Drupal site, go to "Ports", hoveer over the forwarded address for port 80 which runs the webserver and then click on the little globe icon. This will open the Drupal homepage in your default web browser. Note the login information was printed to the terminal during devcontainer startup *winks*.
+To view your Drupal site, go to "Ports", hover over the forwarded address for port 80 which runs the webserver, and then click on the little globe icon. This will open the Drupal homepage in your default web browser. Note the login information was printed to the terminal during devcontainer startup 😉.
 
 .. image:: vscode.devcontainer.ports.1.png
 
@@ -79,7 +79,7 @@ While it does have a premium version, we use the free version which includes the
 
 **Hover over a method name to get the full documentation header for it.**
 
-In the screenshot below we simply hovered over the "getFormId()" method and the full documentation from the Drupal API automatically popped up describing it's function, parameters and return value.
+In the screenshot below we simply hovered over the "getFormId()" method, and the full documentation from the Drupal API automatically popped up describing its function, parameters and return value.
 
 .. image:: vscode.devcontainer.Intelephense.signature.png
 

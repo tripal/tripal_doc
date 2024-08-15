@@ -218,9 +218,37 @@ organism is presented as the default.
 
   For fields with a large number of possible items, it may be more appropriate
   to use an autocomplete field.
-  @@@to-do describe this
+  A working example of this can be found in the additional type field in
+  `tripal_chado/src/Plugin/Field/FieldWidget/ChadoAdditionalTypeWidgetDefault.php`.
+  Additional documentation about adding an autocomplete to a form can be found in
+  :ref:`The form() function`.
 
+The massageFormValues() function
+``````````````````````````````````
 
+This function is called afther the form is submitted by the user, and takes care of
+removing any records that may have been present earlier, but were removed before saving.
+This is a simple example, but your field may need to do more, particularly if the field
+is referencing a linked table.
+
+.. code-block:: php
+
+    public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
+      // Remove any empty values that don't have an organism
+      foreach ($values as $delta => $item) {
+        if ($item['organism_id'] == '') {
+          unset($values[$delta]);
+        }
+      }
+
+      // Reset the weights
+      $i = 0;
+      foreach ($values as $val_key => $value) {
+        $values[$val_key]['_weight'] = $i;
+        $i++;
+      }
+      return $values;
+    }
 
 
 .. note::
@@ -228,4 +256,3 @@ organism is presented as the default.
   A good way to learn about fields is to look at examples of fields in the Tripal
   core codebase. Specifically, look in the
   `tripal_chado/src/Plugin/Field/FieldWidget` directory.
-

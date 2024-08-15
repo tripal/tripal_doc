@@ -19,7 +19,9 @@ The procedure for this is as follows:
    It is important that you either **skip** the step where you :ref:`Install and Prepare Chado`,
    or if you are using a Docker image and chado is installed automatically,
    you should specify a name for your chado schema that is **different** than your existing
-   Tripal 3 site, for example ``--build-arg chadoschema="tempchado"``.
+   Tripal 3 site. For example:
+
+   ``--build-arg chadoschema="tempchado"``.
 
 3. `If you are using docker`, copy your Tripal 3 chado database dump to inside your
    Tripal 4 docker container using ``docker cp``, and then obtain a bash shell inside your docker.
@@ -38,6 +40,7 @@ The procedure for this is as follows:
   gunzip -c chado.sql.gz | psql CONNECTION_INFORMATION TRIPAL4_DATABASENAME
 
 .. note::
+
   | If you encounter the error
   | ``ERROR: data type bigint has no default operator class for access method "gist"``
   | then you will need to run this command at a sql prompt **before** uploading your chado database dump:
@@ -46,12 +49,20 @@ The procedure for this is as follows:
 5. Now you need to check that your imported existing chado matches what Tripal 4 expects as far as cvterms go.
    This can be done using the command
 
-.. code-block:: bash
+   .. code-block:: bash
 
-  drush trp-check-terms --chado_schema=chado
+     drush trp-check-terms --chado_schema=chado
+
+   **It is likely there will be things to fix!**
+
+   The tool can correct some errors automatically, but it is possible that some will need manual correction.
+
+.. tip::
+
+   Run this command to see more options: ``drush trp-check-terms --help``
 
 6. Once that command tells you there are no errors with your cvterm setup, then you can
-   prepare your chado instance by going to TRIPAL4-SITE/admin/tripal/storage/chado/prepare.
+   prepare your chado instance by going to `TRIPAL4-SITE/admin/tripal/storage/chado/prepare`.
 
 7. Now go into your Tripal 4 site and set the newly imported and prepared chado to be your default chado.
 
@@ -61,7 +72,7 @@ The procedure for this is as follows:
 
   c. Click the "Set Default" button.
 
-  d. If you had a temporary Chado schema, you can drop it at this point.
+  d. Optional: If you had a temporary Chado schema, you can drop it at this point.
 
 8. We recommend that you reserve existing entity ID numbers, so that you can later generate url aliases that will match your Tripal 3 site. To do so
 
@@ -76,15 +87,43 @@ The procedure for this is as follows:
       123456  ← make note of this number
     (1 row)
 
-  b. On your **Tripal 4** site, set it with
+  b. On your new **Tripal 4** site, set it with
 
   .. code-block::
 
     sitedb=> ALTER SEQUENCE tripal_entity_id_seq RESTART 123456;  ← substitue the number from step a.
 
-9. You can now import content types and find fields so that you can start configuring your content types.
+.. note::
 
-10. Publish all of your content types.
-
-.. notice::
   The plan is to add a command in the future that will help pull over url aliases from your Drupal 7 site for existing pages.
+
+9. You can now import content types
+
+  a. Go to Tripal → Page Structure
+  b. Click on the "+Import type collection" button
+  c. Select the checkboxes on your desired collections and click the "Import" button.
+  d. You will then need to run the job. For example:
+
+  .. code-block::
+
+    drush trp-run-jobs --username=drupaladmin --root=/var/www/drupal/web
+
+10. Now find fields so that you can start configuring your content types.
+
+  a. Go to Tripal → Page Structure
+  b. For each of the content types, on the right select "Manage Fields"
+  c. Click on the "+Check for new fields" button.
+
+11. Publish all of your content types.
+    You can now publish your imported chado content for each of the appropriate content types.
+    For example, to publish organisms
+
+  a. Go to Tripal → Content → +Publish Tripal Content
+
+  b. Under "Content Type" select "Organism", and then click on the Publish button.
+
+  c. You will then need to run the job. For example:
+
+  .. code-block::
+
+    drush trp-run-jobs --username=drupaladmin --root=/var/www/drupal/web

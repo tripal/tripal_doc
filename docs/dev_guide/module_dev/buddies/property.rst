@@ -226,9 +226,11 @@ deleteProperty()
 
 Deletes one or more records in the chado linker table.
 
-Usage: ``$chado_buddy_records = $property_instance->getProperty($base_table, $record_id, $conditions, $options);``
+Usage: ``$number_deleted = $property_instance->getProperty($base_table, $record_id, $conditions, $options);``
 
 Use the same parameters as described above for :ref:`getProperty()`
+
+Returns a count of how many properties were actually deleted.
 
 Additional valid key for ``$options``:
 

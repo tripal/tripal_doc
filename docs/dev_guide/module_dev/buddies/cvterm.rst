@@ -299,10 +299,43 @@ Parameter ChadoBuddyRecord ``$cvterm`` is a ChadoBuddyRecord returned by one of 
 
 Valid keys for ``$options``:
 
-* ``pkey`` Looking up the primary key for the base table is costly. If it is
+* ``pkey`` - Looking up the primary key for the base table is costly. If it is
   known, then pass it in as this option for better performance.
 * Also pass in any other columns used in the linking table. Sometimes there is a NOT NULL
   constraint, so a value is required.
+* ``lookup_columns`` - If you do not pass in any other columns, this option controls
+  whether they will be looked up automatically. By default it is set to TRUE, but this
+  is a slight performance hit. It can be disabled by setting to FALSE, or by including
+  one of the columns below:
+
+
+  .. table:: Chado 1.3 defines these columns in the various linking tables. Only those listed with "not null" are required.:
+
+  +-----------------------------+----------+-------------+-------------+----------------+
+  | table                       | pub_id   | is_not      | rank        | cvterm_type_id |
+  +=============================+==========+=============+=============+================+
+  | analysis_cvterm             | -absent- | has default | has default | -absent-       |
+  +-----------------------------+----------+-------------+-------------+----------------+
+  | cell_line_cvterm            | not null | -absent-    | has default | -absent-       |
+  +-----------------------------+----------+-------------+-------------+----------------+
+  | environment_cvterm          | -absent- | -absent-    | -absent-    | -absent-       |
+  +-----------------------------+----------+-------------+-------------+----------------+
+  | expression_cvterm           | -absent- | -absent-    | has default | not null       |
+  +-----------------------------+----------+-------------+-------------+----------------+
+  | feature_cvterm              | not null | has default | has default | -absent-       |
+  +-----------------------------+----------+-------------+-------------+----------------+
+  | library_cvterm              | not null | -absent-    | -absent-    | -absent-       |
+  +-----------------------------+----------+-------------+-------------+----------------+
+  | organism_cvterm             | not null | -absent-    | has default | -absent-       |
+  +-----------------------------+----------+-------------+-------------+----------------+
+  | phenotype_comparison_cvterm | not null | -absent-    | has default | -absent-       |
+  +-----------------------------+----------+-------------+-------------+----------------+
+  | phenotype_cvterm            | -absent- | -absent-    | has default | -absent-       |
+  +-----------------------------+----------+-------------+-------------+----------------+
+  | stock_cvterm                | not null | has default | has default | -absent-       |
+  +-----------------------------+----------+-------------+-------------+----------------+
+  | stock_relationship_cvterm   | yes null | -absent-    | -absent-    | -absent-       |
+  +-----------------------------+----------+-------------+-------------+----------------+
 
 This function returns TRUE if successful.
 

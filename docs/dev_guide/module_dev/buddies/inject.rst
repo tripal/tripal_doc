@@ -97,4 +97,4 @@ will be there and initialized! For example:
 
 .. code::
 
-  $chado_buddy_record = $this->cvterm_instance->getCv('cv.name' => 'local');
+  $chado_buddy_records = $this->cvterm_instance->getCv('cv.name' => 'local');

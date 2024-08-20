@@ -95,7 +95,7 @@ insertProperty()
 Inserts a new record into the chado linker table,
 and returns a ChadoBuddyRecord describing the inserted record.
 
-Usage: ``$chado_buddy_records = $property_instance->insertProperty($base_table, $record_id, $values, $options);``
+Usage: ``$chado_buddy_record = $property_instance->insertProperty($base_table, $record_id, $values, $options);``
 
 Valid keys for ``$values``:
 
@@ -138,7 +138,7 @@ updateProperty()
 Updates an existing record in the chado linker table,
 and returns a ChadoBuddyRecord describing the updated record.
 
-Usage: ``$chado_buddy_records = $property_instance->updateProperty($base_table, $record_id, $values, $conditions, $options);``
+Usage: ``$chado_buddy_record = $property_instance->updateProperty($base_table, $record_id, $values, $conditions, $options);``
 
 Valid keys for ``$values`` and ``$conditions``:
 
@@ -185,7 +185,7 @@ Updates a record if it exists, or inserts it if it does not, in the chado linker
 and returns a ChadoBuddyRecord describing the updated record.
 Only keys designated with a Ⓠ are used for the query to find the record to update if it already exists.
 
-Usage: ``$chado_buddy_records = $property_instance->insertProperty($base_table, $record_id, $values, $options);``
+Usage: ``$chado_buddy_record = $property_instance->insertProperty($base_table, $record_id, $values, $options);``
 
 Valid keys for ``$values``:
 
@@ -232,5 +232,5 @@ Use the same parameters as described above for :ref:`getProperty()`
 
 Additional valid key for ``$options``:
 
-* ``max_delete`` This by default is ``1``. If more records than this number would
+* ``max_delete`` - This by default is ``1``. If more records than this number would
   be deleted, an exception is thrown. Set to ``-1`` to disable this limit.

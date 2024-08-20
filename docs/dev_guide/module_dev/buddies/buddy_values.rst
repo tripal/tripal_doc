@@ -11,7 +11,7 @@ This method prevents ambiguity when a buddy handles more than one table, and dif
 may have the same column name, such as ``db.name`` and ``cv.name``.
 
 Any or all input values can be also be passed in using a ChadoBuddyRecord, using the key
-`buddy_record` in the values array.
+``buddy_record`` in the values array.
 
 Chado Buddy Output Values
 ---------------------------
@@ -79,7 +79,8 @@ including a dbxref, and using that term to assign a property to a gene.
   print "Created or found cvterm with id=$cvterm_id\n";
 
   // Create the property record in the featureprop table
-  $feature_id = 1; // For this example a gene feature exists with this id
+  $feature_id = 1; // For this example, assume a gene feature already exists with this id
+  // Here we demonstrate passing all the cvterm values using a ChadoBuddyRecord
   $values = [
     'buddy_record' => $chado_cvterm_record,
     'featureprop.value' => 'Example value of 2 for the property',
@@ -110,10 +111,12 @@ or CV names we supplied might not exist.
     'cvterm.definition' => 'A fake ontology term for example #3',
     'featureprop.value' => 'Example value of 3 for the property',
   ];
+  // This option triggers the ability to create the term and dbxref automatically
   $options = [
     'create_cvterm' => TRUE,
   ];
-  $feature_id = 1; // For this example a gene feature exists with this id
+  $feature_id = 1; // For this example, assume a gene feature already exists with this id
+  // Catch exceptions in case anything goes wrong
   try {
     $chado_property_record = $property_instance->upsertProperty('feature', $feature_id, $values, $options);
   }

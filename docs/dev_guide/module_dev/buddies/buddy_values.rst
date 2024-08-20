@@ -16,7 +16,7 @@ Any or all input values can be also be passed in using a ChadoBuddyRecord, using
 Chado Buddy Output Values
 ---------------------------
 
-Most of the chado buddy functions return one or more objects of the class ``ChadoBuddyRecord``.
+Depending on the function, most of the chado buddy functions will return one or more objects of the class ``ChadoBuddyRecord``.
 An object of this class provides two functions to retrieve values:
 
   1. ``$chado_buddy_record->getValues()`` - this function returns an associative array in the same format
@@ -30,18 +30,10 @@ An object of this class provides two functions to retrieve values:
 
 .. note::
 
-  A buddy function will return a single object of the ``ChadoBuddyRecord`` class if a single record is returned.
+  For insert and update functions, the function will return a single object of the ``ChadoBuddyRecord`` class.
 
-  It will return an array of ``ChadoBuddyRecord`` objects if two or more records are returned.
-
-  It will return ``FALSE`` if no records matched the input values.
-
-The buddy class also provides a counting function for convenience in determining how many records were returned.
-For example:
-
-``$count = $buddy_instance->countBuddies($chado_buddy_records);``
-
-which will return an integer indicating how many records were returned.
+  For query functions, the function will return an array of ``ChadoBuddyRecord`` records. This array will be
+  empty if no records matched the input values, and can have one or more records if matches were found.
 
 Chado Buddy Example #1
 ------------------------
@@ -56,15 +48,9 @@ Here is a simple example to look up the ``db_id`` value of the ``local`` databas
   $chado_buddy_records = $dbxref_instance->getDb(['db.name' => 'local'], []);
   $db_id = NULL;
   if ($chado_buddy_records) {
-    // For demonstration, we can first check if this is an array
-    if (is_array($chado_buddy_records)) {
-      $db_id = $chado_buddy_records[0]->getValue('db.db_id');
-    }
-    else {
-      $db_id = $chado_buddy_records->getValue('db.db_id');
-    }
+    $db_id = $chado_buddy_records[0]->getValue('db.db_id');
+    print "local db id=$db_id\n";
   }
-  print "local db id=$db_id\n";
 
 Chado Buddy Example #2
 ------------------------
@@ -87,10 +73,8 @@ including a dbxref, and using that term to assign a property to a gene.
     'cvterm.definition' => 'A fake ontology term for example #2',
   ];
   $chado_cvterm_record = $cvterm_instance->upsertCvterm($values, []);
-  $count = $cvterm_instance->countBuddies($chado_cvterm_record);
-  if ($count != 1) {
-    // This is unlikely, and you should catch exceptions as shown in example #3
-  }
+  // if for any reason insert failed, an exception is thrown, so
+  // you should catch exceptions as shown in example #3
   $cvterm_id = $chado_cvterm_record->getValue('cvterm.cvterm_id');
   print "Created or found cvterm with id=$cvterm_id\n";
 

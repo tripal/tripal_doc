@@ -37,7 +37,8 @@ This buddy provides the following functions:
 getProperty()
 ^^^^^^^^^^^^^^^
 
-Retrieves one or more records from the linker table.
+Retrieves zero or more records from the linker table,
+and returns an array of ChadoBuddyRecord records.
 
 Usage: ``$chado_buddy_records = $property_instance->getProperty($base_table, $record_id, $conditions, $options);``
 
@@ -91,7 +92,8 @@ Valid settings for ``$options``:
 insertProperty()
 ^^^^^^^^^^^^^^^^^^
 
-Inserts a new record into the chado linker table.
+Inserts a new record into the chado linker table,
+and returns a ChadoBuddyRecord describing the inserted record.
 
 Usage: ``$chado_buddy_records = $property_instance->insertProperty($base_table, $record_id, $values, $options);``
 
@@ -133,7 +135,8 @@ Required keys to insert a new record:
 updateProperty()
 ^^^^^^^^^^^^^^^^^^
 
-Updates an existing record in the chado linker table.
+Updates an existing record in the chado linker table,
+and returns a ChadoBuddyRecord describing the updated record.
 
 Usage: ``$chado_buddy_records = $property_instance->updateProperty($base_table, $record_id, $values, $conditions, $options);``
 
@@ -178,7 +181,8 @@ Valid keys for ``$options``:
 upsertProperty()
 ^^^^^^^^^^^^^^^^^^
 
-Updates a record if it exists, or inserts it if it does not, in the chado linker table.
+Updates a record if it exists, or inserts it if it does not, in the chado linker table,
+and returns a ChadoBuddyRecord describing the updated record.
 Only keys designated with a Ⓠ are used for the query to find the record to update if it already exists.
 
 Usage: ``$chado_buddy_records = $property_instance->insertProperty($base_table, $record_id, $values, $options);``

@@ -34,7 +34,8 @@ This buddy provides the following functions:
 getDb()
 ^^^^^^^^^
 
-Retrieves one or more records from the chado `db <https://laceysanderson.github.io/chado-docs/db/tables/db.html>`_ table.
+Retrieves zero or more records from the chado `db <https://laceysanderson.github.io/chado-docs/db/tables/db.html>`_ table,
+and returns an array of ChadoBuddyRecord records.
 
 Usage: ``$chado_buddy_records = $dbxref_instance->getDb($conditions, $options);``
 
@@ -61,7 +62,8 @@ Valid settings for ``$options``:
 insertDb()
 ^^^^^^^^^^^^
 
-Inserts a new record into the chado `db <https://laceysanderson.github.io/chado-docs/db/tables/db.html>`_ table.
+Inserts a new record into the chado `db <https://laceysanderson.github.io/chado-docs/db/tables/db.html>`_ table,
+and returns a ChadoBuddyRecord describing the inserted record.
 
 Usage: ``$chado_buddy_records = $dbxref_instance->insertDb($values, $options);``
 
@@ -82,7 +84,8 @@ Required keys to insert a new record:
 updateDb()
 ^^^^^^^^^^^^
 
-Updates an existing record in the chado `db <https://laceysanderson.github.io/chado-docs/db/tables/db.html>`_ table.
+Updates an existing record in the chado `db <https://laceysanderson.github.io/chado-docs/db/tables/db.html>`_ table,
+and returns a ChadoBuddyRecord describing the updated record.
 
 Usage: ``$chado_buddy_records = $dbxref_instance->updateDb($values, $conditions, $options);``
 
@@ -103,7 +106,8 @@ Valid keys for ``$conditions`` only:
 upsertDb()
 ^^^^^^^^^^^^
 
-Updates a record if it exists, or inserts it if it does not, in the chado `db <https://laceysanderson.github.io/chado-docs/db/tables/db.html>`_ table.
+Updates a record if it exists, or inserts it if it does not, in the chado `db <https://laceysanderson.github.io/chado-docs/db/tables/db.html>`_ table,
+and returns a ChadoBuddyRecord describing the updated record.
 Only keys designated with a Ⓠ are used for the query to find the record to update if it already exists.
 
 Usage: ``$chado_buddy_records = $dbxref_instance->insertDb($values, $options);``
@@ -125,7 +129,8 @@ Required keys to upsert a new record:
 getDbxref()
 ^^^^^^^^^^^^^
 
-Retrieves one or more records from the chado `dbxref <https://laceysanderson.github.io/chado-docs/db/tables/dbxref.html>`_ table.
+Retrieves zero or more records from the chado `dbxref <https://laceysanderson.github.io/chado-docs/db/tables/dbxref.html>`_ table,
+and returns an array of ChadoBuddyRecord records.
 
 Usage: ``$chado_buddy_records = $dbxref_instance->getDbxref($conditions, $options);``
 
@@ -153,7 +158,8 @@ Valid settings for ``$options``:
 insertDbxref()
 ^^^^^^^^^^^^^^^^
 
-Inserts a new record into the chado `dbxref <https://laceysanderson.github.io/chado-docs/db/tables/dbxref.html>`_ table.
+Inserts a new record into the chado `dbxref <https://laceysanderson.github.io/chado-docs/db/tables/dbxref.html>`_ table,
+and returns a ChadoBuddyRecord describing the inserted record.
 
 Usage: ``$chado_buddy_records = $dbxref_instance->insertDbxref($values, $options);``
 
@@ -180,7 +186,8 @@ Required keys to insert a new record:
 updateDbxref()
 ^^^^^^^^^^^^^^^^
 
-Updates an existing record in the chado `dbxref <https://laceysanderson.github.io/chado-docs/db/tables/dbxref.html>`_ table.
+Updates an existing record in the chado `dbxref <https://laceysanderson.github.io/chado-docs/db/tables/dbxref.html>`_ table,
+and returns a ChadoBuddyRecord describing the updated record.
 
 Usage: ``$chado_buddy_records = $dbxref_instance->updateDbxref($values, $conditions, $options);``
 
@@ -206,7 +213,8 @@ Valid keys for ``$conditions`` only:
 upsertDbxref()
 ^^^^^^^^^^^^^^^^
 
-Updates a record if it exists, or inserts it if it does not, in the chado `dbxref <https://laceysanderson.github.io/chado-docs/db/tables/dbxref.html>`_ table.
+Updates a record if it exists, or inserts it if it does not, in the chado `dbxref <https://laceysanderson.github.io/chado-docs/db/tables/dbxref.html>`_ table,
+and returns a ChadoBuddyRecord describing the updated record.
 Only keys designated with a Ⓠ are used for the query to find the record to update if it already exists.
 
 Usage: ``$chado_buddy_records = $dbxref_instance->insertDbxref($values, $options);``

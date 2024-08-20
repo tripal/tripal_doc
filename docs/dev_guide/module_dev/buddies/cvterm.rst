@@ -35,7 +35,8 @@ This buddy provides the following functions:
 getCv()
 ^^^^^^^^^
 
-Retrieves one or more records from the chado `cv <https://laceysanderson.github.io/chado-docs/cv/tables/cv.html>`_ table.
+Retrieves zero or more records from the chado `cv <https://laceysanderson.github.io/chado-docs/cv/tables/cv.html>`_ table,
+and returns an array of ChadoBuddyRecord records.
 
 Usage: ``$chado_buddy_records = $cvterm_instance->getCv($conditions, $options);``
 
@@ -60,7 +61,8 @@ Valid settings for ``$options``:
 insertCv()
 ^^^^^^^^^^^^
 
-Inserts a new record into the chado `cv <https://laceysanderson.github.io/chado-docs/cv/tables/cv.html>`_ table.
+Inserts a new record into the chado `cv <https://laceysanderson.github.io/chado-docs/cv/tables/cv.html>`_ table,
+and returns a ChadoBuddyRecord describing the inserted record.
 
 Usage: ``$chado_buddy_records = $cvterm_instance->insertCv($values, $options);``
 
@@ -79,7 +81,8 @@ Required keys to insert a new record:
 updateCv()
 ^^^^^^^^^^^^
 
-Updates an existing record in the chado `cv <https://laceysanderson.github.io/chado-docs/cv/tables/cv.html>`_ table.
+Updates an existing record in the chado `cv <https://laceysanderson.github.io/chado-docs/cv/tables/cv.html>`_ table,
+and returns a ChadoBuddyRecord describing the updated record.
 
 Usage: ``$chado_buddy_records = $cvterm_instance->updateCv($values, $conditions, $options);``
 
@@ -98,7 +101,8 @@ Valid keys for ``$conditions`` only:
 upsertCv()
 ^^^^^^^^^^^^
 
-Updates a record if it exists, or inserts it if it does not, in the chado `cv <https://laceysanderson.github.io/chado-docs/cv/tables/cv.html>`_ table.
+Updates a record if it exists, or inserts it if it does not, in the chado `cv <https://laceysanderson.github.io/chado-docs/cv/tables/cv.html>`_ table,
+and returns a ChadoBuddyRecord describing the updated record.
 Only keys designated with a Ⓠ are used for the query to find the record to update if it already exists.
 
 Usage: ``$chado_buddy_records = $cvterm_instance->insertCv($values, $options);``
@@ -118,7 +122,8 @@ Required keys to upsert a new record:
 getCvterm()
 ^^^^^^^^^^^^^
 
-Retrieves one or more records from the chado `cvterm <https://laceysanderson.github.io/chado-docs/cv/tables/cvterm.html>`_ table.
+Retrieves zero or more records from the chado `cvterm <https://laceysanderson.github.io/chado-docs/cv/tables/cvterm.html>`_ table,
+and returns an array of ChadoBuddyRecord records.
 
 Usage: ``$chado_buddy_records = $cvterm_instance->getCvterm($conditions, $options);``
 
@@ -156,7 +161,8 @@ Valid settings for ``$options``:
 insertCvterm()
 ^^^^^^^^^^^^^^^^
 
-Inserts a new record into the chado `cvterm <https://laceysanderson.github.io/chado-docs/cv/tables/cvterm.html>`_ table.
+Inserts a new record into the chado `cvterm <https://laceysanderson.github.io/chado-docs/cv/tables/cvterm.html>`_ table,
+and returns a ChadoBuddyRecord describing the updated record.
 
 Usage: ``$chado_buddy_records = $cvterm_instance->insertCvterm($values, $options);``
 
@@ -196,7 +202,8 @@ Required keys to insert a new record:
 updateCvterm()
 ^^^^^^^^^^^^^^^^
 
-Updates an existing record in the chado `cvterm <https://laceysanderson.github.io/chado-docs/cv/tables/cvterm.html>`_ table.
+Updates an existing record in the chado `cvterm <https://laceysanderson.github.io/chado-docs/cv/tables/cvterm.html>`_ table,
+and returns a ChadoBuddyRecord describing the updated record.
 
 Usage: ``$chado_buddy_records = $cvterm_instance->updateCvterm($values, $conditions, $options);``
 
@@ -237,7 +244,8 @@ Valid keys for ``$options``:
 upsertCvterm()
 ^^^^^^^^^^^^^^^^
 
-Updates a record if it exists, or inserts it if it does not, in the chado `cvterm <https://laceysanderson.github.io/chado-docs/cv/tables/cvterm.html>`_ table.
+Updates a record if it exists, or inserts it if it does not, in the chado `cvterm <https://laceysanderson.github.io/chado-docs/cv/tables/cvterm.html>`_ table,
+and returns a ChadoBuddyRecord describing the updated record.
 Only keys designated with a Ⓠ are used for the query to find the record to update if it already exists.
 
 Usage: ``$chado_buddy_records = $cvterm_instance->insertCvterm($values, $options);``
@@ -287,7 +295,7 @@ For example, to associate a dbxref with a feature the base_table=``feature`` and
 
 Parameter integer ``$record_id`` is the primary key of the base_table to associate the dbxref with.
 
-Parameter ChadoBuddyRecord ``$cvterm`` is a record returned by one of the ``xxxCvterm()`` functions.
+Parameter ChadoBuddyRecord ``$cvterm`` is a ChadoBuddyRecord returned by one of the ``xxxCvterm()`` functions.
 
 Valid keys for ``$options``:
 
@@ -303,7 +311,8 @@ This function returns TRUE if successful.
 getCvtermSynonym()
 ^^^^^^^^^^^^^^^^^^^^
 
-Retrieves one or more records from the chado `cvtermsynonym <https://laceysanderson.github.io/chado-docs/cv/tables/cvtermsynonym.html>`_ table.
+Retrieves zero or more records from the chado `cvtermsynonym <https://laceysanderson.github.io/chado-docs/cv/tables/cvtermsynonym.html>`_ table,
+and returns an array of ChadoBuddyRecord records.
 
 Usage: ``$chado_buddy_records = $cvterm_instance->getCvtermSynonym($conditions, $options);``
 
@@ -324,7 +333,8 @@ Same as for :ref:`getCvterm()`.
 insertCvtermSynonym()
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Inserts a new record into the chado `cvtermsynonym <https://laceysanderson.github.io/chado-docs/cv/tables/cvtermsynonym.html>`_ table.
+Inserts a new record into the chado `cvtermsynonym <https://laceysanderson.github.io/chado-docs/cv/tables/cvtermsynonym.html>`_ table,
+and returns a ChadoBuddyRecord describing the inserted record.
 
 Usage: ``$chado_buddy_records = $cvterm_instance->getCvtermSynonym($conditions, $options);``
 
@@ -344,7 +354,8 @@ Same as for :ref:`insertCvterm()`.
 updateCvtermSynonym()
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Updates an existing record in the chado `cvtermsynonym <https://laceysanderson.github.io/chado-docs/cv/tables/cvtermsynonym.html>`_ table.
+Updates an existing record in the chado `cvtermsynonym <https://laceysanderson.github.io/chado-docs/cv/tables/cvtermsynonym.html>`_ table,
+and returns a ChadoBuddyRecord describing the updated record.
 
 Usage: ``$chado_buddy_records = $cvterm_instance->getCvtermSynonym($conditions, $options);``
 
@@ -365,7 +376,8 @@ Same as for :ref:`updateCvterm()`.
 upsertCvtermSynonym()
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Updates a record if it exists, or inserts it if it does not, in the chado `cvtermsynonym <https://laceysanderson.github.io/chado-docs/cv/tables/cvtermsynonym.html>`_ table.
+Updates a record if it exists, or inserts it if it does not, in the chado `cvtermsynonym <https://laceysanderson.github.io/chado-docs/cv/tables/cvtermsynonym.html>`_ table,
+and returns a ChadoBuddyRecord describing the updated record.
 
 Usage: ``$chado_buddy_records = $cvterm_instance->getCvtermSynonym($conditions, $options);``
 

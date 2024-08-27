@@ -13,6 +13,7 @@ from sphinx.highlighting import lexers
 from pygments.lexers.web import PhpLexer
 lexers["php"] = PhpLexer(startinline=True, linenos=1)
 lexers["php-annotations"] = PhpLexer(startinline=True, linenos=1)
+import time
 
 # -- Path setup --------------------------------------------------------------
 
@@ -28,13 +29,13 @@ lexers["php-annotations"] = PhpLexer(startinline=True, linenos=1)
 # -- Project information -----------------------------------------------------
 
 project = u'Tripal'
-copyright = u'2023, Tripal Project Management Committee with the help of the Tripal Community'
+copyright = u'2009-%s, Tripal Project Management Committee with the help of the Tripal Community' % time.strftime('%Y')
 author = u'Tripal Project Management Committee with the help of the Tripal Community'
 
 # The short X.Y version
 version = u'4.x'
 # The full version, including alpha/beta/rc tags
-release = u'4.x.alpha.1'
+release = u'4.x.alpha.2'
 
 
 # -- General configuration ---------------------------------------------------

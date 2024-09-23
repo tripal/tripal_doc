@@ -5,11 +5,6 @@ Upgrading a Tripal 3 site
 .. notice::
   The upgrade path is still under development. More information will be added here as it becomes available.
 
-.. toctree::
-   :maxdepth: 2
-
-   site/migrating_chado
-
 **What we know so far:**
 
  - Upgrading from Drupal 7 to 10+ requires a migration.
@@ -22,3 +17,9 @@ Upgrading a Tripal 3 site
  - Upgrading from Tripal 3 to 4 will also use the Drupal migration functionality.
  - Only Chado ≥1.3 will be supported in Tripal 4 so you need to upgrade Chado first.
  - We provided a tool for migrating your Chado data, this is described in :ref:`Migrating Chado`
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Additional Documentation:
+
+   site/migrating_chado

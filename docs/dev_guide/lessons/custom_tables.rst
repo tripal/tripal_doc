@@ -8,7 +8,7 @@ This lesson describes how to programmatically create and manage :doc:`../biodata
 
 Creating a Custom Table
 -----------------------
-To create a new custom table, you must first define the table schema which will include the table columns, constraints, default values, and indexes.  This design must then be written using the the Drupal `Schema API <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Database%21database.api.php/group/schemaapi/10>`_, which is a PHP associative array with key/value pairs that specify the components of the table.  The following provides an example table schema array for a custom ``library_stock`` table that is intended to link records in the ``stock`` table of Chado with records in the ``library`` table of Chado:
+To create a new custom table, you must first define the table schema which will include the table columns, constraints, default values, and indexes.  This design must then be written using the Drupal `Schema API <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Database%21database.api.php/group/schemaapi/10>`_, which is a PHP associative array with key/value pairs that specify the components of the table.  The following provides an example table schema array for a custom ``library_stock`` table that is intended to link records in the ``stock`` table of Chado with records in the ``library`` table of Chado:
 
 .. code-block:: php
 
@@ -80,7 +80,7 @@ The code above will create an instance of a ``ChadoCustomTable`` object but it d
 In the code above, the ``$schema`` variable contains the Schema API array defined above. Calling ``setTableSchema()`` will automatically create the table in the Chado schema and return ``TRUE`` on success.  If there are any errors in the structure of the ``$schema`` array or any problems creating the table, messages will be logged to Drupal, the attempt will fail and the function will return ``FALSE``.
 
 Locking a Custom Table
----------------------
+----------------------
 Tripal provides to the site developers an interface by which they can add custom tables. Site developers can see custom tables in the interface which allows them to delete them, rename them or alter them.  If you are adding a custom table for use by your extension module and you do not want the site developers to alter it in any way, you can lock the table.  Non-custom Chado tables are not available for alteration and custom tables that are necessary for the functioning of a module should not be either.
 
 After creation of your custom table, you can lock the table from the site developers by calling the ``setLocked()`` function on the ``ChadoCustomTable`` object and passing ``TRUE`` as the only argument.

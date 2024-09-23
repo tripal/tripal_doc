@@ -186,8 +186,8 @@ A new configuration should be made using PHP. The following options can be used 
     ]
   }
 
-The important parameter here is `pathMappings` which will allow Xdebug and your IDE know which paths on the host and in the Docker VM coorespond to eachother.
-The first path listed is the one within the Docker and should point to the Tripal directory. The seocnd path is the one on your local host machine where you
+The important parameter here is `pathMappings` which will allow Xdebug and your IDE know which paths on the host and in the Docker VM correspond to each other.
+The first path listed is the one within the Docker and should point to the Tripal directory. The second path is the one on your local host machine where you
 installed the repo and built the Docker image. If you followed the instructions above, this should be in your user folder under `~/Dockers/t4`.
 
 9003 is the default port and should only be changed if 9003 is already in use on your host system.

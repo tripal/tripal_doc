@@ -10,5 +10,6 @@ Extending Tripal
    dev_guide/cvterms
    dev_guide/biodata
    dev_guide/module_dev
+   dev_guide/deprecations
    dev_guide/testing
    dev_guide/lessons

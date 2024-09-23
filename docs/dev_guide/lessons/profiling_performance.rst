@@ -93,3 +93,7 @@ Now, go to the following URL in your browser: http://localhost:8081. You should 
 
 
 Next, choose one of the webgrind files from the drop-down in the top right corner to visualize it and click update.
+
+.. warning::
+
+  This documentation is still being developed, since we are still working out the best way to do this in Drupal/Tripal4. However, we have decided to publish our current progress to at least provide a start for anyone who wants to work on performance.

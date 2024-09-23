@@ -12,7 +12,7 @@ Custom Module Development
    module_dev/routing
    module_dev/entities
    module_dev/buddies
-   module_dev/fields
+   module_dev/tripal_fields
    module_dev/forms
    module_dev/jobs
    module_dev/logging

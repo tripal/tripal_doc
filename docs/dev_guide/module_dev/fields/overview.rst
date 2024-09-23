@@ -1,33 +1,10 @@
 
-Fields Overview
-================
-
-Fields are the building blocks of content in Drupal. For example, all content
-types (e.g. "Article", or "Basic Page") provide content to the end-user via
-fields that are bundled with the content type. For example, when adding a basic
-page (a default Drupal content type), the end-user is provided with form
-elements (or widgets) that allow the user to set the title and the body text
-for the page. The "Body" is a field. When a basic page is
-viewed, the body is rendered on the page using formatters, and
-Drupal stores the values for the body in the database. Every
-field, therefore, provides three types of functionality: instructions
-for storage, widgets for allowing input, and formatters for rendering.
-
-Drupal provides a variety of built-in fields, and extension module developers
-have created a multitude of new fields that can be added by the site admin
-to add new functionality and support new types of data.  Tripal follows this
-model, but adds a variety of new object oriented classes to support storage
-of data in biological databases such as Chado.
-
-.. note::
-
-  Not every custom module will require fields. But if you need a new way
-  to store and retrieve data, or if you need data to appear on an existing
-  Tripal content type, then you will want to create a new field for your
-  custom module.
+Tripal Field Overview
+=======================
 
 Field Classes
 ---------------
+
 Anyone who wants to implement a new field in Drupal must implement three
 different classes:
 
@@ -68,12 +45,9 @@ stored in Chado should implement the following three classes for every new field
 - **ChadoFormatterBase**: extends the Tripal class `TripalFormatterBase`
   which extends the Drupal class `FormatterBase`.
 
-
-How to Write a New Field for Chado
-------------------------------------
-
 Directory Setup
-^^^^^^^^^^^^^^^^
+-----------------
+
 Drupal manages fields using its `Plugin API <https://www.drupal.org/docs/drupal-apis/plugin-api>`_.
 This means that as long as new field classes are placed in the correct directory
 and have the correct "annotations" in the class comments, then Drupal will find them
@@ -103,8 +77,8 @@ the directory structure would look like the following:
 
 Note that the file name must match the class name.
 
-Naming convention
-^^^^^^^^^^^^^^^^^
+Naming conventions
+-------------------
 
 The filename for your new field should adhere to the following schema. Please
 note the casing used. In addition, for fields that will be included in Tripal
@@ -133,9 +107,9 @@ should **not** use 'Default':
     | Formatter        | MyFieldFormatter.php        |
     +------------------+-----------------------------+
     | Widget           | MyFieldWidget.php           |
-    +------------------+-----------------------------+ 
+    +------------------+-----------------------------+
 
-Within the individual files, in the annotation section, the ID also has to follow 
+Within the individual files, in the annotation section, the ID also has to follow
 a specific format, and would look like the following:
 
   .. table:: Tripal Core modules:
@@ -148,7 +122,7 @@ a specific format, and would look like the following:
     | Formatter        | my_field_formatter_default |
     +------------------+----------------------------+
     | Widget           | my_field_widget_default    |
-    +------------------+----------------------------+ 
+    +------------------+----------------------------+
 
   .. table:: Extension modules:
 
@@ -160,13 +134,13 @@ a specific format, and would look like the following:
     | Formatter        | my_field_formatter         |
     +------------------+----------------------------+
     | Widget           | my_field_widget            |
-    +------------------+----------------------------+ 
+    +------------------+----------------------------+
 
 About the Storage Backend
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------
 
 Default Drupal Behavior
-````````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^^^
 By default, all built-in fields provided by Drupal store their data in the
 Drupal database.  This is provided by Drupal's
 `SqlContentEntityStorage <https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Entity%21Sql%21SqlContentEntityStorage.php/class/SqlContentEntityStorage/>`_
@@ -221,7 +195,7 @@ These columns are specific to the field:
 
 
 Support for Chado
-```````````````````
+^^^^^^^^^^^^^^^^^^
 For fields storing biological data in something other than Drupal tables,
 Tripal provides its own plugin named `TripalStorage`.  If a custom module wants to
 store data in a data backend other than in Drupal tables, it must create an implementation
@@ -252,22 +226,3 @@ described in the following sections.
 
 See the next section :ref:`Field Types` to learn how to define the
 properties for a new field.
-
-Automate Adding a Field to a Content Type
-------------------------------------------
-
-.. warning::
-
-  This documentation is still being developed. In the meantime there are
-  examples for programmatically adding TripalFields in the Tripal core codebase.
-  Specifically, look in the Chado Preparer class in
-  `tripal_chado/src/Task/ChadoPreparer.php`.
-
-What About Fields not for Chado?
----------------------------------
-
-.. warning::
-
-  This documentation is still being developed. Currently ChadoStorage provides
-  an example for implementing the TripalStorage data store extension. It can be
-  found in `tripal_chado/src/Plugin/TripalStorage/ChadoStorage.php`.

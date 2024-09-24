@@ -2,7 +2,7 @@
 Using VSCode when developing for Tripal
 ==========================================
 
-In addition to using docker directly when testing or developing for Tripal, we also have built in integration with VSCode to make your life that little bit easier! More specifically, we integrate with `VSCode DevContainers <https://code.visualstudio.com/docs/devcontainers/containers>`_ via the devcontainer.json file in the root of this repository. This allows VSCode to automatically:
+In addition to using docker directly when testing or developing for Tripal, we also have built in integration with the `Visual Studio Code <https://code.visualstudio.com/>`_ development environment (VSCode) to make your life that little bit easier! More specifically, we integrate with `VSCode DevContainers <https://code.visualstudio.com/docs/devcontainers/containers>`_ via the devcontainer.json file in the root of this repository. This allows VSCode to automatically:
 
 1. Build a docker image based on our Dockerfile
 2. Start a container using that image

@@ -55,7 +55,7 @@ Testing on an unmerged branch
 
   .. code::
 
-    sudo docker build --tag=tripaldocker:testing-9999 --build-arg drupalversion="10.2.x-dev" --build-arg postgresqlversion="15" --build-arg phpversion=8.3 ./
+    sudo docker build --tag=tripaldocker:testing-9999 --build-arg drupalversion="10.4.x-dev" --build-arg postgresqlversion="16" --build-arg phpversion=8.3 ./
 
 6. We will now create a running docker **container** using the **image** we just built. We will map the web port `80` to a value available on the local test system. For example, we will select port ``8080``:
 

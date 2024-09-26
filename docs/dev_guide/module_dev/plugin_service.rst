@@ -22,6 +22,10 @@ Although more complex than typical plugins, entities are also technically an
 example of a plugin. Read more about :doc:`Entities<entities>` to help decide
 whether what you need to implement is an entity or a regular plugin.
 
+Additional Resources:
+ - `Official Drupal Plugin Documentation <https://www.drupal.org/docs/drupal-apis/plugin-api>`_
+ - `Drupalize.me Topic on Plugins for Drupal 8, 9, and 10 <https://drupalize.me/topic/plugins-plugin-api>`_
+
 What is a service?
 -------------------
 
@@ -39,3 +43,7 @@ include:
 
 - :doc:`Tripal Logger<logging>` to handle error reporting and logging of messages to the system
 - :doc:`Tripal Jobs<jobs>` for dealing with large datasets outside of a page load (to prevent page timeout)
+
+Additional Resources:
+ - `Official Drupal Services and Dependency Injection Container Documentation for Drupal 11.x <https://api.drupal.org/api/drupal/core%21core.api.php/group/container/11.x>`_
+ - `Drupalize.me Topic on Services for Drupal 8, 9, and 10 <https://drupalize.me/topic/services>`_

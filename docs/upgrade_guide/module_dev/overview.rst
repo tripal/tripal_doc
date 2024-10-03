@@ -24,5 +24,5 @@ Tripal community have a lot of experience with developing in Drupal 8+
 components!). We recommend first reading through the
 :doc:`Extending Tripal <../module_dev>` section of this documentation.
 Additionally, please consider joining our weekly Tripal codefests and joining
-our Slack channel, and someone will be happy to help you with the decision
+our :ref:`Slack channel<Verbal Communication>`, and someone will be happy to help you with the decision
 making process.

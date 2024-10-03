@@ -1,9 +1,6 @@
 
-Module Upgrade Overview
-=========================
-
 Upgrading an Extension Module
-------------------------------
+===============================
 
 If you have developed an extension module on a previous version of Tripal that
 you want to upgrade to Tripal 4, the first step will be to assess what kind of

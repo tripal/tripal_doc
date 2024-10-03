@@ -1,6 +1,6 @@
 
-Upgrading an Extension Module
-================================
+Upgrading from Tripal 3 to Tripal 4
+=====================================
 
 .. toctree::
    :maxdepth: 2

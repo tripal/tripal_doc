@@ -63,7 +63,7 @@ There are usually browser extensions available that can trigger Xdebug. That sai
 
 For example, if you wanted to profile loading of the frontpage of your Tripal site, you would go to the following URL: http://localhost/?XDEBUG_TRIGGER.
 
-While the page is loading, XDebug is profiling the actions taken and saving the information it gleems to the /var/www/drupal/web/modules/contrib/tripal/tripaldocker/xdebug_output directory inside the docker. You can see these by looking inside that directory in the docker:
+While the page is loading, XDebug is profiling the actions taken and saving the information it gleans to the /var/www/drupal/web/modules/contrib/tripal/tripaldocker/xdebug_output directory inside the docker. You can see these by looking inside that directory in the docker:
 
 .. code-block:: console
 

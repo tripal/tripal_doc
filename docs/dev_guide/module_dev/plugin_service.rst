@@ -18,8 +18,7 @@ someone else that you would want to implement. In order for your module to
 provide a custom Tripal field, then you are going to be implementing either the
 :doc:`Tripal Field<tripal_fields>` plugin or Chado Field plugin.
 
-Although more complex than typical plugins, entities are also technically an
-example of a plugin. Read more about :doc:`Entities<entities>` to help decide
+Although more complex than typical plugins, entities are fill a similar role in modules. Read more about :doc:`Entities<entities>` to help decide
 whether what you need to implement is an entity or a regular plugin.
 
 Additional Resources:

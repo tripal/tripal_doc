@@ -2,7 +2,7 @@
 Upgrading a Tripal 3 site
 ===========================
 
-.. notice::
+.. note::
   The upgrade path is still under development. More information will be added here as it becomes available.
 
 **What we know so far:**

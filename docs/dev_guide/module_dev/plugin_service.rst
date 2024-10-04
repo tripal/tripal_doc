@@ -6,8 +6,8 @@ What is a plugin?
 ------------------
 
 You can think of a plugin as defining a type of functionality (e.g. Field,
-Importer) that has or will have multiple implementations for which a single
-site may want to use. A plugin is a sort of template or description that can be
+Importer) that (a) has or will have multiple implementations and (b) a single
+site may want to use 1+ of these implementations. A plugin is a sort of template or description that can be
 used in multiple different situations, rather than explicitly coding a single
 field or a single importer that is only used in one situation.
 

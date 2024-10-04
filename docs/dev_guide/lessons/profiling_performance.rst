@@ -83,8 +83,9 @@ For visualizing these files, we will use Webgrind. Since we already have docker 
 
 .. code-block:: console
 
-  docker run --rm -v xdebug_output:/tmp -p 8081:80 jokkedk/webgrind:latest
+  docker run --rm -v <xdebug_output>:/tmp -p 8081:80 jokkedk/webgrind:latest
 
+Where `<xdebug_output>` is the name of the directory on your host system where you copied the profiling files.
 This will start the webgrind application and make it visible in your browser under port 8081. **Do not quit the open stream after running this command until you want to shut down webgrind!**
 
 Now, go to the following URL in your browser: http://localhost:8081. You should see a screen like the following:

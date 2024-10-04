@@ -67,7 +67,7 @@ To get the current user:
 
 Creating Links
 --------------
-To create HTML links the Drupal 7 was was:
+To create HTML links the Drupal 7 approach was:
 
 .. code-block:: php
 

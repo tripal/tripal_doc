@@ -12,6 +12,9 @@ First you will need to include these classes in your importer:
   use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
   use Symfony\Component\DependencyInjection\ContainerInterface;
   use Drupal\tripal_chado\ChadoBuddy\PluginManagers\ChadoBuddyPluginManager;
+  use Drupal\tripal_chado\Plugin\ChadoBuddy\‎ChadoDbxrefBuddy;
+  use Drupal\tripal_chado\Plugin\ChadoBuddy\‎ChadoCvtermBuddy;
+  use Drupal\tripal_chado\Plugin\ChadoBuddy\‎ChadoPropertyBuddy;
 
 Then you will need to implement ``ContainerFactoryPluginInterface`` in your class. For example:
 

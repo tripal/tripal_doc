@@ -26,7 +26,4 @@ See the following sections for details on each buddy class.
    :caption: Contents:
 
    buddies/buddy_values
-   buddies/dbxref
-   buddies/cvterm
-   buddies/property
    buddies/inject

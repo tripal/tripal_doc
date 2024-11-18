@@ -20,7 +20,7 @@ Then you will need to implement ``ContainerFactoryPluginInterface`` in your clas
 
 .. code::
 
-  abstract class MyImporter extends ChadoImporterBase implements ContainerFactoryPluginInterface {
+  class MyImporter extends ChadoImporterBase implements ContainerFactoryPluginInterface {
 
 Next add a class variable to store the buddy service, and whichever buddy instance or instances you will need.
 

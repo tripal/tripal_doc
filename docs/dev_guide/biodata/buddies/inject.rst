@@ -27,24 +27,32 @@ Next add a class variable to store the buddy service, and whichever buddy instan
 .. code::
 
   /**
-   * Used to store the buddy service manager
+   * The Chado Buddy service manager
+   *
+   * @var Drupal\tripal_chado\ChadoBuddy\PluginManagers\ChadoBuddyPluginManager
    */
-  protected object $buddy_manager;
+  protected ChadoBuddyPluginManager $buddy_manager;
 
   /**
-   * Used to store the buddy dbxref instance
+   * An instance of the dbxref Chado Buddy.
+   *
+   * @var Drupal\tripal_chado\Plugin\ChadoBuddy\‎ChadoDbxrefBuddy
    */
-  protected object $dbxref_instance;
+  protected ‎ChadoDbxrefBuddy $dbxref_instance;
 
   /**
-   * Used to store the buddy cvterm instance
+   * An instance of the cvterm Chado Buddy.
+   *
+   * @var Drupal\tripal_chado\Plugin\ChadoBuddy\‎ChadoCvtermBuddy
    */
-  protected object $cvterm_instance;
+  protected ‎ChadoCvtermBuddy $cvterm_instance;
 
   /**
-   * Used to store the buddy property instance
+   * An instance of the property Chado Buddy.
+   *
+   * @var Drupal\tripal_chado\Plugin\ChadoBuddy\‎ChadoPropertyBuddy
    */
-  protected object $property_instance;
+  protected ‎ChadoPropertyBuddy $property_instance;
 
 
 You will need to add a ``create()`` function to your class. An example of this, where

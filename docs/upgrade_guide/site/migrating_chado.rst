@@ -108,13 +108,58 @@ The procedure for this is as follows:
 
     drush trp-run-jobs --username=drupaladmin --root=/var/www/drupal/web
 
-10. Now find fields so that you can start configuring your content types.
+10. Tripal 3 stores the term used to define the bundle differently than
+    Tripal 4, it uses ``rdfs:type`` for the ``type_id`` and for the value
+    uses the name of the CV term *e.g.* ``genome_annotation``.
+    Tripal 4 uses the bundle term in the ``type_id`` column.
+    Execute the following code at a SQL prompt to convert your chado
+    records to the current method:
+
+  .. code-block:: sql
+
+    -- Genome Assembly:
+    UPDATE analysisprop SET type_id=(SELECT cvterm_id FROM cvterm T
+      LEFT JOIN dbxref X ON T.dbxref_id=X.dbxref_id LEFT JOIN db D ON X.db_id=D.db_id
+      WHERE D.name='operation' AND X.accession='0525') WHERE type_id=
+      (SELECT cvterm_id FROM cvterm T LEFT JOIN dbxref X ON T.dbxref_id=X.dbxref_id
+      LEFT JOIN db D ON X.db_id=D.db_id WHERE D.name='rdfs' AND X.accession='type')
+      AND value='genome_assembly';
+    -- Genome Annotation:
+    UPDATE analysisprop SET type_id=(SELECT cvterm_id FROM cvterm T
+      LEFT JOIN dbxref X ON T.dbxref_id=X.dbxref_id LEFT JOIN db D ON X.db_id=D.db_id
+      WHERE D.name='operation' AND X.accession='0362') WHERE type_id=
+      (SELECT cvterm_id FROM cvterm T LEFT JOIN dbxref X ON T.dbxref_id=X.dbxref_id
+      LEFT JOIN db D ON X.db_id=D.db_id WHERE D.name='rdfs' AND X.accession='type')
+      AND value='genome_annotation';
+    -- Genome Project:
+    UPDATE projectprop SET type_id=(SELECT cvterm_id FROM cvterm T
+      LEFT JOIN dbxref X ON T.dbxref_id=X.dbxref_id LEFT JOIN db D ON X.db_id=D.db_id
+      WHERE D.name='local' AND X.accession='Genome Project') WHERE type_id=
+      (SELECT cvterm_id FROM cvterm T LEFT JOIN dbxref X ON T.dbxref_id=X.dbxref_id
+      LEFT JOIN db D ON X.db_id=D.db_id WHERE D.name='rdfs' AND X.accession='type')
+      AND value='genome_project';
+    -- Physical Map:
+    UPDATE featuremapprop SET type_id=(SELECT cvterm_id FROM cvterm T
+      LEFT JOIN dbxref X ON T.dbxref_id=X.dbxref_id LEFT JOIN db D ON X.db_id=D.db_id
+      WHERE D.name='data' AND X.accession='1280') WHERE type_id=
+      (SELECT cvterm_id FROM cvterm T LEFT JOIN dbxref X ON T.dbxref_id=X.dbxref_id
+      LEFT JOIN db D ON X.db_id=D.db_id WHERE D.name='rdfs' AND X.accession='type')
+      AND value='physical';
+    -- Genetic Map:
+    UPDATE featuremapprop SET type_id=(SELECT cvterm_id FROM cvterm T
+      LEFT JOIN dbxref X ON T.dbxref_id=X.dbxref_id LEFT JOIN db D ON X.db_id=D.db_id
+      WHERE D.name='data' AND X.accession='1278') WHERE type_id=
+      (SELECT cvterm_id FROM cvterm T LEFT JOIN dbxref X ON T.dbxref_id=X.dbxref_id
+      LEFT JOIN db D ON X.db_id=D.db_id WHERE D.name='rdfs' AND X.accession='type')
+      AND value='genetic';
+
+11. Now find fields so that you can start configuring your content types.
 
   a. Go to Tripal → Page Structure
   b. For each of the content types, on the right select "Manage Fields"
   c. Click on the "+Check for new fields" button.
 
-11. Publish all of your content types.
+12. Publish all of your content types.
     You can now publish your imported chado content for each of the appropriate content types.
     For example, to publish organisms
 

@@ -204,6 +204,13 @@ The procedure for this is as follows:
 
     drush trp-run-jobs --username=drupaladmin --root=/var/www/drupal/web
 
+  .. note::
+
+    The "Lenient Migration" option may be necessary if you happen to have unpublished content on
+    your Tripal 3 site, as otherwise this will prevent publishing. When this option is selected,
+    these problematic records will be skipped. If you wish, these skipped records can later be
+    published by not specifying a migration data file.
+
 14. You can also publish on the command line using drush. An example of an equivalent command would be:
 
   .. code-block::

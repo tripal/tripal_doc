@@ -172,6 +172,9 @@ The procedure for this is as follows:
   b. For each of the content types, on the right select "Manage Fields"
   c. Click on the "+Check for new fields" button.
 
+  .. warning::
+    For now, do not add the "Type" field if it is listed, see `Tripal issue 2033 <https://github.com/tripal/tripal/issues/2033>`_
+
 12. You can now publish your imported chado content for each of the appropriate content types.
     While optional, we recommend using the file generated in step 3 to preserve the bio_data
     entity values from your Tripal 3 site.

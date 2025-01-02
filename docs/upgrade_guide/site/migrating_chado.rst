@@ -23,7 +23,17 @@ The procedure for this is as follows:
 
    ``--build-arg chadoschema="tempchado"``.
 
-3. `If you are using docker`, copy your Tripal 3 chado database dump to inside your
+3. We recommend that you also export your existing Tripal 3 entity ID numbers, so that when
+   you publish your content, the bio_data entity values will exactly match those that were
+   present on your Tripal 3 site. To do so:
+
+  a. Copy this file from your new Tripal 4 site to your Tripal 3 server: `.../tripal/tripal_chado/migration/export_tripal3_entity_mapping.php`
+
+  b. Run it on your Tripal 3 server `drush php:script export_chado_entity_mapping.php tripal3_entity_mapping.tsv`
+
+  c. Either copy the output file `tripal3_entity_mapping.tsv` to your Tripal 4 server, or to your desktop computer.
+
+4. `If you are using docker`, copy your Tripal 3 chado database dump to inside your
    Tripal 4 docker container using ``docker cp``, and then obtain a bash shell inside your docker.
    For example, if your container is named "tripal4" you could run
 
@@ -32,7 +42,7 @@ The procedure for this is as follows:
   docker cp chado.sql.gz tripal4:/var/www/drupal/web/
   docker exec -it tripal4 /bin/bash
 
-4. Upload your Tripal 3 chado database dump to your new Tripal 4 Postgresql database.
+5. Upload your Tripal 3 chado database dump to your new Tripal 4 Postgresql database.
    Again, substitute appropriate Tripal 4 connection information.
 
 .. code-block:: bash
@@ -46,7 +56,7 @@ The procedure for this is as follows:
   | then you will need to run this command at a sql prompt **before** uploading your chado database dump:
   | ``sitedb=> CREATE EXTENSION IF NOT EXISTS btree_gist;``
 
-5. Now you need to check that your imported existing chado matches what Tripal 4 expects as far as cvterms go.
+6. Now you need to check that your imported existing chado matches what Tripal 4 expects as far as cvterms go.
    This can be done using the command
 
    .. code-block:: bash
@@ -61,10 +71,10 @@ The procedure for this is as follows:
 
    Run this command to see more options: ``drush trp-check-terms --help``
 
-6. Once that command tells you there are no errors with your cvterm setup, then you can
+7. Once that command tells you there are no errors with your cvterm setup, then you can
    prepare your chado instance by going to `TRIPAL4-SITE/admin/tripal/storage/chado/prepare`.
 
-7. Now go into your Tripal 4 site and set the newly imported and prepared chado to be your default chado.
+8. Now go into your Tripal 4 site and set the newly imported and prepared chado to be your default chado.
 
   a. Go to TRIPAL4-WEBSITE/admin/tripal/storage/chado/manager
 
@@ -74,7 +84,7 @@ The procedure for this is as follows:
 
   d. Optional: If you had a temporary Chado schema, you can drop it at this point.
 
-8. We recommend that you reserve existing entity ID numbers, so that you can later generate url aliases that will match your Tripal 3 site. To do so
+9. We recommend that you reserve existing Tripal 3 entity ID numbers, so that when you publish later you will have the same bio_data entity values as were present on your Tripal 3 site. To do so
 
   a. On your existing **Tripal 3** site, launch a psql command prompt and run this command
 
@@ -97,18 +107,21 @@ The procedure for this is as follows:
 
   The plan is to add a command in the future that will help pull over url aliases from your Drupal 7 site for existing pages.
 
-9. You can now import content types
+10. You can now import content types
 
   a. Go to Tripal → Page Structure
+
   b. Click on the "+Import type collection" button
+
   c. Select the checkboxes on your desired collections and click the "Import" button.
+
   d. You will then need to run the job. For example:
 
   .. code-block::
 
     drush trp-run-jobs --username=drupaladmin --root=/var/www/drupal/web
 
-10. Tripal 3 stores the term used to define the bundle differently than
+11. Tripal 3 stores the term used to define the bundle differently than
     Tripal 4, it uses ``rdfs:type`` for the ``type_id`` and for the value
     uses the name of the CV term *e.g.* ``genome_annotation``.
     Tripal 4 uses the bundle term in the ``type_id`` column.
@@ -153,22 +166,53 @@ The procedure for this is as follows:
       LEFT JOIN db D ON X.db_id=D.db_id WHERE D.name='rdfs' AND X.accession='type')
       AND value='genetic';
 
-11. Now find fields so that you can start configuring your content types.
+12. Now find fields so that you can start configuring your content types.
 
   a. Go to Tripal → Page Structure
   b. For each of the content types, on the right select "Manage Fields"
   c. Click on the "+Check for new fields" button.
 
-12. Publish all of your content types.
-    You can now publish your imported chado content for each of the appropriate content types.
-    For example, to publish organisms
+  .. warning::
+    For now, do not add the "Type" field if it is listed, see `Tripal issue 2033 <https://github.com/tripal/tripal/issues/2033>`_
+
+12. You can now publish your imported chado content for each of the appropriate content types.
+    While optional, we recommend using the file generated in step 3 to preserve the bio_data
+    entity values from your Tripal 3 site.
+
+  .. warning::
+    You can only migrate your Tripal 3 bio_data entity values the first time you publish them,
+    so we recommend taking the extra time to do this for each content type when you migrate your site.
+
+13. For example, to publish organisms using the user interface:
 
   a. Go to Tripal → Content → +Publish Tripal Content
 
-  b. Under "Content Type" select "Organism", and then click on the Publish button.
+  b. Under "Content Type" select "Organism",
 
-  c. You will then need to run the job. For example:
+  c. Expand the tab at the bottom of the screen
+
+  .. image:: publish-tripal-3-migration-options.png
+
+  d. Either upload the file from step 3 above, or
+     supply the server path.
+
+  e. Click on the Publish button.
+
+  f. You will then need to run the job. For example, to run all pending jobs:
 
   .. code-block::
 
     drush trp-run-jobs --username=drupaladmin --root=/var/www/drupal/web
+
+  .. note::
+
+    The "Lenient Migration" option may be necessary if you happen to have unpublished content on
+    your Tripal 3 site, as otherwise this will prevent publishing. When this option is selected,
+    these problematic records will be skipped. If you wish, these skipped records can later be
+    published by not specifying a migration data file.
+
+14. You can also publish on the command line using drush. An example of an equivalent command would be:
+
+  .. code-block::
+
+    drush tripal-chado:publish organism --migration-file=tripal3_entity_mapping.tsv

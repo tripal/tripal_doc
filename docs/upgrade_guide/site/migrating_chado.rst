@@ -183,7 +183,7 @@ The procedure for this is as follows:
     You can only migrate your Tripal 3 bio_data entity values the first time you publish them,
     so we recommend taking the extra time to do this for each content type when you migrate your site.
 
-13. For example, to publish organisms
+13. For example, to publish organisms using the user interface:
 
   a. Go to Tripal → Content → +Publish Tripal Content
 
@@ -203,3 +203,9 @@ The procedure for this is as follows:
   .. code-block::
 
     drush trp-run-jobs --username=drupaladmin --root=/var/www/drupal/web
+
+14. You can also publish on the command line using drush. An example of an equivalent command would be:
+
+  .. code-block::
+
+    drush tripal-chado:publish organism --migration-file=tripal3_entity_mapping.tsv

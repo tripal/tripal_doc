@@ -160,7 +160,7 @@ The following is a simple class example:
 
       // Return the array of property types.
       return [
-        new ChadoIntStoragePropertyType($entity_type_id, self::$id, 'record_id', [
+        new ChadoIntStoragePropertyType($entity_type_id, self::$id, 'record_id', self::$record_id_term, [
           'action' => 'store_id',
           'drupal_store' => TRUE,
           'path' => $base_table . '.' . $base_pkey_col,
@@ -466,7 +466,7 @@ before that is selected, this function should return without doing anything.
 
     // Return the array of property types.
     return [
-      new ChadoIntStoragePropertyType($entity_type_id, self::$id,'record_id', [
+      new ChadoIntStoragePropertyType($entity_type_id, self::$id, 'record_id', self::$record_id_term, [
         'action' => 'store_id',
         'drupal_store' => TRUE,
         'chado_table' => $base_table,
@@ -675,7 +675,6 @@ file of Tripal.
     // Get the CV terms used for each of the properties
     $storage = \Drupal::entityTypeManager()->getStorage('chado_term_mapping');
     $mapping = $storage->load('core_mapping');
-    $record_id_term = 'SIO:000729';
     $drupal_entity_term = 'schema:ItemPage';
     $organism_id_term = $mapping->getColumnTermId($base_table, 'organism_id');
     $genus_term = $mapping->getColumnTermId('organism', 'genus');
@@ -686,7 +685,7 @@ file of Tripal.
 
     // Return the properties for this field.
     return [
-      new ChadoIntStoragePropertyType($entity_type_id, self::$id, 'record_id', $record_id_term, [
+      new ChadoIntStoragePropertyType($entity_type_id, self::$id, 'record_id', self::$record_id_term, [
         'action' => 'store_id',
         'drupal_store' => TRUE,
         'path' => $base_table . '.' . $base_pkey_col,

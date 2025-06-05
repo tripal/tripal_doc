@@ -16,4 +16,4 @@ For more information on how to test each of the above goals, see the following t
    :maxdepth: 2
 
    fields/chadoStorage
-
+   fields/fieldTypeCRUD

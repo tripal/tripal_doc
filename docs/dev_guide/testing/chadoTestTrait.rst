@@ -30,8 +30,8 @@ The chado testing environment builds upon the Tripal testing environment. I will
 4. Finally your test method is called. Note: any services, plugins, etc. that you use here will only have the test environment available. You will not have access to any data in your main site, nor should this long term affect your main site. **That said, we do not recommend running tests on production sites!**
 5. Once your test is complete, the `tearDown()`` method is called to clean the entire development environment up. This includes dropping the development drupal tables including any changes made by your test.
 
-Retrieving the cvterm ID of a term in your test chado
--------------------------------------------------------
+Retrieving the cvterm ID of a term
+------------------------------------
 
 Often in your setup you will be using Tripal DBX to insert records into your test chado instance. There is a handly function to help you look up the cvterm_id based on the accession:
 
@@ -42,3 +42,19 @@ Often in your setup you will be using Tripal DBX to insert records into your tes
     $cvterm_id = $this->getCvtermID($idspace, $accession);
 
 The above example retrieves the cvterm_id for the gene term in the test chado database.
+
+Retrieving a cv, db, or cvterm record
+----------------------------------------
+
+When testing functionality you will often want to select a record from your test chado instance to confirm your functionality did what you expected. This can be done using Tripal DBX just as you would outside of the testing environment. Additionally, for a few often used tables we have helper methods to make it even easier. Each of the following will retrieve a single row in the specified table based on the parameters.
+
+  .. code-block:: php
+
+    $cvname = 'sequence';
+    $cv_record = $this->getChadoCvRecord($cvname);
+
+    $dbname = 'SO';
+    $db_record = $this->getChadoDbRecord($dbname);
+
+    $cvterm_name = 'gene';
+    $cvterm_record = $this->getChadoCvtermRecord($cvname, $cvterm_name);

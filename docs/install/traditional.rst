@@ -80,7 +80,7 @@ Install Drupal
     
       .. code-block:: shell
       
-        composer create-project drupal/recommended-project /var/www/tripal4
+        composer create-project --stability dev drupal/recommended-project /var/www/tripal4
 
       (If you are presented with this question, you can respond with a `y`:
       `Do you want to remove the existing VCS (.git, .svn..) history? [Y,n]?`)

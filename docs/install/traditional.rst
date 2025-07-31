@@ -80,7 +80,7 @@ Install Drupal
     
       .. code-block:: shell
       
-        composer create-project --stability dev drupal/recommended-project /var/www/tripal4
+        composer create-project drupal/recommended-project /var/www/tripal4
 
       (If you are presented with this question, you can respond with a `y`:
       `Do you want to remove the existing VCS (.git, .svn..) history? [Y,n]?`)
@@ -104,7 +104,7 @@ Install Drupal
     .. code-block:: shell
 
       cd /var/www/tripal4/
-      composer require drush/drush drupal/field_group drupal/field_group_table
+      composer require drush/drush drupal/field_group drupal/field_group_table:dev-1.x
 
 3. Drupal may complain about permissions on certain files, as well as generating a configuration file from the template provided by Drupal. The files in question must be readable and writable by the webserver's user, as well as yourself. If you're using Apache, this is typically ``www-data`` and for Nginx, it is commonly ``nginx``. Read more about Drupal's requirements here: `Administering a Drupal site - security in Drupal <https://www.drupal.org/docs/administering-a-drupal-site/security-in-drupal/securing-file-permissions-and-ownership>`__, or run the following commands to satisfy them:
 

@@ -56,7 +56,9 @@ The chado_query() function was created to support use of an SQL query with place
 chado_select_record()
 -----------------------
 
-Tripal DBX now provides an object-oriented approach to selecting a record that better supports selecting across multiple tables and complex conditions. The following example shows how you can update using chado_record_select() to select all genes with a given organism using TripalDBX.
+Tripal DBX now provides an object-oriented approach to selecting a record that better supports selecting across multiple tables and complex conditions. The following example shows how you can update using `chado_record_select()` to select all genes with a given organism using TripalDBX.
+
+Tripal DBX select uses the same syntax and supports all the same functionality as the Drupal Database API does. As such you can find more information on the new syntax in `the official Drupal docs on dynamic querying <https://www.drupal.org/docs/develop/drupal-apis/database-api/dynamic-queries>`_. Additionally, you can find more information on Tripal DBX including specific chado examples `in our own documentation <https://tripaldoc.readthedocs.io/en/latest/dev_guide/biodata/tripaldbx.html>`_.
 
 **Before:**
 

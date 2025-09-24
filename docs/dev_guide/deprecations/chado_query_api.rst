@@ -5,7 +5,7 @@ Tripal Chado Query API is deprecated in favour of the Tripal DBX Query API
 - **Deprecated in** tripal 4.0.0-alpha3
 - **Removed in** tripal 4.1.0
 - **Issue** `#1314 <https://github.com/tripal/tripal/issues/1341>`_
-- **PR**
+- **PR** `#2294 <https://github.com/tripal/tripal/pull/2294>`_
 
 The `Drupal Database API <https://www.drupal.org/docs/develop/drupal-apis/database-api>`_ provides a unified, object-oriented approach to querying databases that provides support for a large number of underlying database engines (e.g. MySQL, MongoDb, SQLlite, PostgreSQL). It is built upon PHP's PDO (PHP Data Objects) database API, and inherits much of its syntax and semantics. Tripal DBX extends the Drupal Database API to provide support specific to handling multiple schemas in PostgreSQL, as well as, to provide awareness of the Chado Schema.
 

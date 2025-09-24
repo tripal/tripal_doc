@@ -1,0 +1,24 @@
+
+## {thing} is deprecated in favour of {thing}
+
+- **Deprecated in** {tripal 4.0.0-alpha3}
+- **Removed in** {tripal 4.1.0}
+- **Issue** `#{issue number} <https://github.com/tripal/tripal/issues/{issue number}>`_
+- **PR** `#{PR number} <https://github.com/tripal/tripal/pull/{pr number}>`_
+
+{long dcescription with background information}
+
+{method name}
+--------------
+
+**Before:**
+
+.. code-block:: php
+
+  {code example of how previous method was used}
+
+**After:**
+
+.. code-block:: php
+
+  {code example that does the exact same thing as shown in **Before:** but with the new functionality}

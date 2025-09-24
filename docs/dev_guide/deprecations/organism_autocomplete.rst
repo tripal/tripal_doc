@@ -9,7 +9,7 @@ ChadoOrganismAutocompleteController is deprecated in favour of ChadoOrganismForm
 The ChadoOrganismFormElementController class replaces the functionality of the existing ChadoOrganismAutocompleteController. It retains all existing methods with the same functionality. This class was created as an extension of the original class, and all method calls can be directly replaced without any changes.
 
 ChadoOrganismAutocompleteController::handleAutocomplete()
---------------
+-------------------------------------------------------------
 
 **Before:**
 
@@ -38,7 +38,7 @@ ChadoOrganismAutocompleteController::handleAutocomplete()
 
 
 ChadoOrganismAutocompleteController::getPkeyId()
---------------
+-----------------------------------------------------
 
 **Before:**
 
@@ -55,7 +55,7 @@ ChadoOrganismAutocompleteController::getPkeyId()
 
 
 ChadoOrganismAutocompleteController::getQuery()
---------------
+----------------------------------------------------
 
 **Before:**
 

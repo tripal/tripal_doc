@@ -193,7 +193,7 @@ The following example shows how you would update a specific genes name and type 
       'is_obsolete' => 0
     ),
   );
-  $result = chado_update_record('feature',$umatch,$uvalues);
+  $result = chado_update_record('feature', $umatch, $uvalues);
 
 **After:**
 
@@ -244,7 +244,7 @@ Tripal DBX delete uses the same syntax and supports all the same functionality a
         'is_obsolete' => 0
     ),
   );
-  $result = chado_select_record(
+  $result = chado_delete_record(
     'feature',                      // table to select from
     $values                         // records to delete (see variable defn. above)
   );

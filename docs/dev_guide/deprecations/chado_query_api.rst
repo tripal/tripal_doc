@@ -85,7 +85,7 @@ Tripal DBX now provides an object-oriented approach to selecting a record that b
 
 .. code-block:: php
 
-  $query = \Drupal(tripal_chado.database)->select('1:feature', 'f')
+  $query = \Drupal('tripal_chado.database')->select('1:feature', 'f')
     ->fields('f', ['name','uniquename'])
     ->join('organism', 'o', 'o.organism_id = f.organism_id')
     ->condition('o.genus', 'Citrus', '=')
@@ -100,6 +100,10 @@ Tripal DBX now provides an object-oriented approach to selecting a record that b
 
 chado_insert_record()
 ----------------------
+
+Tripal DBX insert uses the same syntax and supports all the same functionality as the Drupal Database API does. As such you can find more information on the new syntax in `the official Drupal docs on insert() <https://www.drupal.org/docs/drupal-apis/database-api/insert-queries>`_. Additionally, you can find more information on Tripal DBX including specific chado examples `in our own documentation <https://tripaldoc.readthedocs.io/en/latest/dev_guide/biodata/tripaldbx.html>`_.
+
+The following example shows how you would insert a gene before using `chado_insert_record()` and now using Tripal DBX. You will notice that a complicated insert which needs to lookup a number of values takes a separate query now. In the future we will extend chado buddies to a lot of these cases but in the meantime we still recommend using Tripal DBX as the old `chado_insert_record()` is not only very slow but also no longer maintained.
 
 **Before:**
 
@@ -129,10 +133,35 @@ chado_insert_record()
 
 .. code-block:: php
 
-  $query = \Drupal(tripal_chado.database)->insert('1:feature', 'f');
+  $chado_connection = \Drupal('tripal_chado.database');
+  // First we have to select the organism id.
+  $organism_query = $chado_connection->select('1:organism', 'o')
+    ->fields('o', ['organism_id'])
+    ->condition('o.genus', 'Citrus', '=')
+    ->condition('o.species', 'sinensis', '=');
+  $organism_id = $organism_query->execute()->fetchField();
+  // Then we have to get the type id for gene.
+  // We suggest you use the chado buddies for this and as such will not
+  // include an example here. You could also use Tripal DBX but it's ideal
+  // to select cvterms using the dbxref.accession and db.name which makes
+  // for a fair number of joins.
+  $type_id = 123;
+  // Finally we can call the insert.
+  $query = $connection->insert('1:feature', 'f')
+    ->fields([
+      'name' => 'orange1.1g000034m.g',
+      'uniquename' => 'orange1.1g000034m.g',
+      'organism_id' => $organism_id,
+      'type_id' => $type_id,
+    ])
+    ->execute();
 
 chado_update_record()
 ----------------------
+
+Tripal DBX update uses the same syntax and supports all the same functionality as the Drupal Database API does. As such you can find more information on the new syntax in `the official Drupal docs on update() <https://www.drupal.org/docs/drupal-apis/database-api/update-queries>`_. Additionally, you can find more information on Tripal DBX including specific chado examples `in our own documentation <https://tripaldoc.readthedocs.io/en/latest/dev_guide/biodata/tripaldbx.html>`_.
+
+The following example shows how you would update a specific genes name and type before using `chado_update_record()` and now using Tripal DBX. Just as with insert above, we need to query the organism_id and types before we can formulate our update query. See `chado_select_record()` above for more information on doing this.
 
 **Before:**
 
@@ -168,10 +197,33 @@ chado_update_record()
 
 .. code-block:: php
 
-  $query = \Drupal(tripal_chado.database)->select('1:update', 'f');
+  // Just as with insert we need to lookup the organism_id and the types.
+  // For simplicity of this example, we will just use variables here.
+  // Values to match the original record we want to update.
+  $umatch = [
+    'organism_id' => $organism_id,
+    'uniquename' => 'orange1.1g000034m.g7',
+    'type_id' => $gene_typeid,
+  ];
+  // Values we want to update this record to have.
+  $uvalues = array(
+    'name' => 'orange1.1g000034m.g',
+    'type_id' => $mrna_typeid,
+  );
+  $update_query = \Drupal('tripal_chado.database')->update('1:feature')
+    ->fields($uvalues);
+  // We are going to use a loop to each item in the array as a condition.
+  foreach ($umatch as $column_name => $value) {
+    $update_query->condition($column_name, $value, '=');
+  }
+  $update_query->execute();
 
 chado_delete_record()
 ----------------------
+
+The following example shows how you would delete all Citrus sinensis genes before using `chado_delete_record()` and now using Tripal DBX. Just as with insert and update above, we need to query the organism_id and type_id before we can formulate our delete query. See `chado_select_record()` above for more information on doing this.
+
+Tripal DBX delete uses the same syntax and supports all the same functionality as the Drupal Database API does. As such you can find more information on the new syntax in `the official Drupal docs on delete() <hhttps://www.drupal.org/docs/drupal-apis/database-api/delete-queries>`_. Additionally, you can find more information on Tripal DBX including specific chado examples `in our own documentation <https://tripaldoc.readthedocs.io/en/latest/dev_guide/biodata/tripaldbx.html>`_.
 
 **Before:**
 
@@ -200,4 +252,9 @@ chado_delete_record()
 
 .. code-block:: php
 
-  $query = \Drupal(tripal_chado.database)->select('1:delete', 'f');
+  // Just as with insert we need to lookup the organism_id and the types.
+  // For simplicity of this example, we will just use variables here.
+  $query = \Drupal('tripal_chado.database')->delete('1:feature', 'f')
+    ->condition('organism_id', $organism_id, '=')
+    ->condition('type_id', $type_id, '=')
+    ->execute();

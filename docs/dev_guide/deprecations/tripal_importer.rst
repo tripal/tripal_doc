@@ -6,7 +6,13 @@
 - **Issue** `#2056 <https://github.com/tripal/tripal/issues/2056>`_
 - **PR** `#2221 <https://github.com/tripal/tripal/pull/2221>`_
 
-{long description with background information}
+Coding best practice is to inject dependencies into classes. In this case, several services
+were used in tripal importers, but were created inside the class at various points.
+Updating the importer base class `__construct()` methods to inject these services involved
+adding new parameters. To maintain backward compatibility, the new parameters are optional,
+and if NULL, then the service is created inside the `__construct()` method, but a deprecation
+message is generated with a link that leads to this page. When version 4.0.0 is released,
+these parameters will be required.
 
 TripalImporterBase __construct()
 --------------------------------

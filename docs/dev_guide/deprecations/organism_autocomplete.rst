@@ -1,7 +1,8 @@
-## ChadoOrganismAutocompleteController is deprecated in favour of ChadoOrganismFormElementController
+ChadoOrganismAutocompleteController is deprecated in favour of ChadoOrganismFormElementController
+======================================================================================================
 
-- **Deprecated in** {tripal 4.0.0-alpha3}
-- **Removed in** {tripal 4.1.0}
+- **Deprecated in** tripal 4.0.0-alpha3
+- **Removed in** tripal 4.1.0
 - **Issue** `#2284 <https://github.com/tripal/tripal/issues/2284>`_
 - **PR** `#2293 <https://github.com/tripal/tripal/pull/2293>`_
 

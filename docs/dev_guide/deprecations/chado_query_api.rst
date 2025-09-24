@@ -7,7 +7,7 @@ Tripal Chado Query API is deprecated in favour of the Tripal DBX Query API
 - **Issue** `#1314 <https://github.com/tripal/tripal/issues/1341>`_
 - **PR**
 
-The `Drupal Database API <https://www.drupal.org/docs/develop/drupal-apis/database-api>`_ provides a unified, object-oriented approach to querying databases that provides support for a large number of underlying database engines (e.g. MySQL, MongoDb, SQLlite, PostgreSQL). It is built upon PHP's PDO (PHP Data Objects) database API, and inherits much of its syntax and semantics. Tripal DBX extends the Drupal Database API to provide support specific to handling multiple schema in PostgreSQL, as well as, to provide awareness of the Chado Schema.
+The `Drupal Database API <https://www.drupal.org/docs/develop/drupal-apis/database-api>`_ provides a unified, object-oriented approach to querying databases that provides support for a large number of underlying database engines (e.g. MySQL, MongoDb, SQLlite, PostgreSQL). It is built upon PHP's PDO (PHP Data Objects) database API, and inherits much of its syntax and semantics. Tripal DBX extends the Drupal Database API to provide support specific to handling multiple schemas in PostgreSQL, as well as, to provide awareness of the Chado Schema.
 
 This change record marks the point that the old function-based Tripal Chado Query API will be deprecated in favour of this new object-oriented approach fully integrated with Drupal 9+.
 
@@ -56,7 +56,7 @@ The chado_query() function was created to support use of an SQL query with place
 chado_select_record()
 -----------------------
 
-Tripal DBX now provides an object-oriented approach to selecting a record that better supports selecting across multiple tables and complex conditions. The following example shows how you can update using chado_record_select() to select all genes with a given organism to be done using TripalDBX.
+Tripal DBX now provides an object-oriented approach to selecting a record that better supports selecting across multiple tables and complex conditions. The following example shows how you can update using chado_record_select() to select all genes with a given organism using TripalDBX.
 
 **Before:**
 

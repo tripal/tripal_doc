@@ -15,3 +15,9 @@ Several of Tripal 4.x's functions have been modified, deprecating their older ve
    :caption: Removed in Tripal 4.1.0:
 
    deprecations/chado_query_api
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Removed in Tripal 4.1.0:
+
+   deprecations/organism_autocomplete

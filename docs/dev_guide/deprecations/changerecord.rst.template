@@ -6,7 +6,7 @@
 - **Issue** `#{issue number} <https://github.com/tripal/tripal/issues/{issue number}>`_
 - **PR** `#{PR number} <https://github.com/tripal/tripal/pull/{pr number}>`_
 
-{long dcescription with background information}
+{long description with background information}
 
 {method name}
 --------------

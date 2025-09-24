@@ -1,5 +1,5 @@
-
-## {thing} is deprecated in favour of {thing}
+{thing} is deprecated in favour of {thing}
+============================================
 
 - **Deprecated in** {tripal 4.0.0-alpha3}
 - **Removed in** {tripal 4.1.0}

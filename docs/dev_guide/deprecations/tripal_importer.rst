@@ -1,5 +1,5 @@
-
-## Tripal importer core services not being injected is deprecated in favour of injecting them.
+Tripal importer core services not being injected is deprecated in favour of injecting them.
+=============================================================================================
 
 - **Deprecated in** {tripal 4.0.0-alpha3}
 - **Removed in** {tripal 4.0.0}
@@ -15,7 +15,7 @@ message is generated with a link that leads to this page. When version 4.0.0 is 
 these parameters will be required.
 
 TripalImporterBase __construct()
---------------------------------
+----------------------------------
 
 If your importer does not override the `__construct()` method, no changes are needed.
 If it does because you are injecting one or more additional services, you now need to include the additional core services.
@@ -51,6 +51,13 @@ If it does because you are injecting one or more additional services, you now ne
 **After:**
 
 .. code-block:: php
+
+  use Drupal\Core\Messenger\Messenger;
+  use Drupal\tripal\Services\TripalFileRetriever;
+  use Drupal\tripal\Services\TripalLogger;
+  use Drupal\tripal\TripalBackendPublish\PluginManager\TripalBackendPublishManager;
+
+  ...
 
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
@@ -88,7 +95,7 @@ If it does because you are injecting one or more additional services, you now ne
   }
 
 ChadoImporterBase __construct()
---------------------------------
+---------------------------------
 
 If your importer does not override the `__construct()` method, no changes are needed.
 If it does because you are injecting one or more additional services, you now need to include the additional core services.
@@ -126,6 +133,14 @@ If it does because you are injecting one or more additional services, you now ne
 **After:**
 
 .. code-block:: php
+
+  use Drupal\Core\Messenger\Messenger;
+  use Drupal\tripal_chado\Database\ChadoConnection;
+  use Drupal\tripal\Services\TripalFileRetriever;
+  use Drupal\tripal\Services\TripalLogger;
+  use Drupal\tripal\TripalBackendPublish\PluginManager\TripalBackendPublishManager;
+
+  ...
 
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(

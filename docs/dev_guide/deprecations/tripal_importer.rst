@@ -1,4 +1,4 @@
-Tripal importer core services not being injected is deprecated in favour of injecting them.
+Tripal importer using \Drupal::service() is deprecated in favour of dependency injection.
 =============================================================================================
 
 - **Deprecated in** {tripal 4.0.0-alpha3}

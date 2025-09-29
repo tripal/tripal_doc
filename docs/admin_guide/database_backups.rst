@@ -15,7 +15,7 @@ You can use the PostgreSQL command ``pg_dump`` to make a backup of your database
 
   #!/bin/bash
 
-  file="/var/www/drupal9/web/$(date +%Y%m%d).sql"
+  file="/var/www/drupal/web/$(date +%Y%m%d).sql"
   echo "Backup Tripal database to \"$file\""
 
   PGPASSWORD=drupaldevelopmentonlylocal \

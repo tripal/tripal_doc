@@ -15,12 +15,16 @@ ChadoOrganismAutocompleteController::handleAutocomplete()
 
 .. code-block:: php
 
+  use Drupal\tripal_chado\Controller\ChadoOrganismAutocompleteController;
+  
+  ...
+
   $organism_autocomplete = new ChadoOrganismAutocompleteController();
   $request = Request::create(
-      'chado/organism/autocomplete/10',
-      'GET',
-      ['q' => 't']
-    );
+    'chado/organism/autocomplete/10',
+    'GET',
+    ['q' => 't']
+  );
   $organism_autocomplete->handleAutocomplete($request, 5);
 
 
@@ -28,12 +32,16 @@ ChadoOrganismAutocompleteController::handleAutocomplete()
 
 .. code-block:: php
 
+  use Drupal\tripal_chado\Controller\ChadoOrganismFormElementController;
+
+  ...
+
   $organism_autocomplete = new ChadoOrganismFormElementController();
   $request = Request::create(
-      'chado/organism/autocomplete/10',
-      'GET',
-      ['q' => 't']
-   );
+    'chado/organism/autocomplete/10',
+    'GET',
+    ['q' => 't']
+  );
   $organism_autocomplete->handleAutocomplete($request, 5);
 
 

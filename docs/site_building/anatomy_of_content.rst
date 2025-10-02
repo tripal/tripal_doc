@@ -1,6 +1,8 @@
 Anatomy of a Tripal Site
 ========================
 
+.. _site-building-tripal-content-types:
+
 Content Types
 -------------
 
@@ -26,6 +28,7 @@ This is a working list of content types that are currently built-in to Tripal. S
    * Project
    * Protocol
    * Publication
+   * Species Tree
    * Study
 * Expression
    * Array Design
@@ -52,6 +55,7 @@ This is a working list of content types that are currently built-in to Tripal. S
    * QTL
    * Sequence Variant
 
+.. _site-building-tripal-fields:
 
 Fields
 ------
@@ -72,11 +76,11 @@ For example, the Organism content type comes by default with the following field
 +--------------------+------------------------------+
 |Genus               |genus                         |
 +--------------------+------------------------------+
-|Infraspecies        |infraspecific_name            |
-+--------------------+------------------------------+
-|Infraspecific Type  |infraspecific_name            |
-+--------------------+------------------------------+
 |Species             |species                       |
++--------------------+------------------------------+
+|Infraspecific Type  |infraspecific_type            |
++--------------------+------------------------------+
+|Infraspecies        |infraspecific_name            |
 +--------------------+------------------------------+
 
 Just like with Content Types, each field must also have its own Controlled Vocabulary term associated to it. If we look at the Organism example again, we have the following terms that are drawn from ontologies and their identifier:
@@ -92,9 +96,9 @@ Just like with Content Types, each field must also have its own Controlled Vocab
 +--------------------+------------------------------+--------------------------------------------------------------------------------------+
 |Genus               |genus                         |`TAXRANK:0000005 <http://purl.obolibrary.org/obo/TAXRANK_0000005>`_                   |
 +--------------------+------------------------------+--------------------------------------------------------------------------------------+
-|Infraspecies        |infraspecific_name            |`TAXRANK:0000045 <http://purl.obolibrary.org/obo/TAXRANK_0000045>`_                   |
+|Species             |species                       |`TAXRANK:0000006 <http://purl.obolibrary.org/obo/TAXRANK_0000006>`_                   | 
 +--------------------+------------------------------+--------------------------------------------------------------------------------------+
 |Infraspecific Type  |infraspecific_type            |local:infraspecific_type                                                              |
 +--------------------+------------------------------+--------------------------------------------------------------------------------------+
-|Species             |species                       |`TAXRANK:0000006 <http://purl.obolibrary.org/obo/TAXRANK_0000006>`_                   | 
+|Infraspecies        |infraspecific_name            |`TAXRANK:0000045 <http://purl.obolibrary.org/obo/TAXRANK_0000045>`_                   |
 +--------------------+------------------------------+--------------------------------------------------------------------------------------+

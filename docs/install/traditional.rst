@@ -211,7 +211,7 @@ Install Tripal
         .. code-block:: shell
 
           cd /var/www/tripal4/
-          composer require tripal/tripal:4.0-alpha2
+          composer require tripal/tripal:4.0-alpha3
 
     B. **Developer installation.** Clone the Tripal repository in your ``web/modules`` directory.
 

@@ -19,7 +19,7 @@ For Tripal Core fields you will note that we use the categories
 **Tripal Fields** (`tripal`) and **Chado Fields** (`tripal_chado`),
 and this is based on whether the field is defined in the **tripal** or **tripal_chado** module.
 
-  .. image:: tripal_field_categories.png
+  .. image:: auto_attach.1.tripal_field_categories.png
      :width: 711
      :alt: Selectors for Tripal fields and for Chado fields
 

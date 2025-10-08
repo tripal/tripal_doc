@@ -19,7 +19,7 @@ in which case, we typically do not show the field on the entity page.
 As an example, this is a **project** entity page, and it is displaying three fields:
 title, description, and a link to a related publication.
 
-  .. image:: project_entity_example.png
+  .. image:: publishing.1.project_entity_example.png
         :width: 915
         :alt: Example of a project entity page showing title, description, and publication fields
 
@@ -113,7 +113,7 @@ Access the global limit at
 
 There you will find these options that can be configured:
 
-  .. image:: publishing_options.png
+  .. image:: publishing.2.publising_options.png
         :width: 633
         :alt: Publishing options form: "Maximum number of linked records to publish" and "Inhibit publish when many records are present"
 
@@ -134,12 +134,12 @@ Go to
 
  * Change the cardinality from:
 
-  .. image:: cardinality_unlimited.png
+  .. image:: publishing.3.cardinality_unlimited.png
         :width: 278
         :alt: Field cardinality shown when set to unlimited
 
 to whatever value you desire, for example 50:
 
-  .. image:: cardinality_50.png
+  .. image:: publishing.4.cardinality_50.png
         :width: 266
         :alt: Field cardinality shown when set to 50

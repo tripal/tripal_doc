@@ -78,7 +78,7 @@ Note that in the array structure above, the columns, primary keys, foreign keys,
 
   Be aware of a possible situation when one or more columns in a unique constraint are allowed to be NULL.
   Note that the column ``type_id`` in this example is allowed to be NULL, but it is also included in the unique key.
-  By default, multiple occurrences of NULL are considered distinct, so it would be possible to enter two duplicate records
+  By default, multiple occurrences of NULL are considered distinct, so it would be possible to enter two identical records
   in this table with the same ``library_id`` and ``stock_id`` provided that both had NULL ``type_id`` values. 
   In this example we included the optional key ``'nulls not distinct'`` and supplied the name of the unique key.
   In Postgresql versions 15 and above, this will prevent creation of duplicate records.

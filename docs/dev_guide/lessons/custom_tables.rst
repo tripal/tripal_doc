@@ -3,7 +3,7 @@ How to use Custom Tables in Chado
 This lesson describes how to programmatically create and manage :doc:`../biodata/custom_tables`.
 
 .. warning::
-    You should avoid making any changes to existing Chado tables as it could make upgrades to future releases of Chado more difficult and could break functionality in Tripal that expects Chado tabes to be a certain way.  Instead, use custom tables!
+    You should avoid making any changes to existing Chado tables as it could make upgrades to future releases of Chado more difficult and could break functionality in Tripal that expects Chado tables to be a certain way.  Instead, use custom tables!
 
 Creating a Custom Table
 -----------------------

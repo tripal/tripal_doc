@@ -204,4 +204,4 @@ Then, when your module is upgraded on a Drupal site to the next version, the tab
 
 Using the Custom Table
 ----------------------
-After the custom table has been created, you can use it the same as any other table in Chado.  You can find examples for interacting with Chado tables in the :doc:`../biodata/tripaldbx`.
+After the custom table has been created, you can use it the same as any other table in Chado.  You can find examples for interacting with Chado tables in the section :doc:`../biodata/tripaldbx`.

@@ -99,8 +99,8 @@ For example, this is the first field defined in `tripal_chado/config/install/tri
                     region: 'content'
                     weight: 10
 
-If you need to add a field later, for example in an update hook, code similar to the
-following can be used to load a specific field as defined in a YAML file.
+If you need to add a field later, such as in an update hook, use code similar to the
+following to load a specific field as defined in a YAML file.
 
 .. code-block:: php
 

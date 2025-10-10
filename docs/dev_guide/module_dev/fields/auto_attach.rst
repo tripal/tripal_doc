@@ -42,6 +42,7 @@ For extension modules, we recommend determining your category as follows:
 As an example, you can see the category `tripal_chado` has been defined for the Additional Type field:
 
 .. code-block:: php
+  use Drupal\Core\StringTranslation\TranslatableMarkup;
 
   /**
    * Plugin implementation of Tripal additional type field type.

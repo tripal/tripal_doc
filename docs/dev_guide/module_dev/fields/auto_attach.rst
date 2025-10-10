@@ -31,7 +31,7 @@ For extension modules, we recommend determining your category as follows:
  - `tripal_chado`: any field which is dependent on chado for data storage/retrieval.
    This includes most fields in Tripal Core, and likely most fields in general.
 
- - custom category: you may want to make your own category if your field uses a different
+ - `custom category`: you may want to make your own category if your field uses a different
    storage backend or REST API. You can also create your own category for a module providing
    a large number of fields supporting specific functionality, but be careful to ensure this
    will be intuitive to your users and keep it functionality focused, not development group

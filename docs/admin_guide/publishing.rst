@@ -113,7 +113,7 @@ Access the global limit at
 
 There you will find these options that can be configured:
 
-  .. image:: publishing.2.publising_options.png
+  .. image:: publishing.2.publishing_options.png
         :width: 633
         :alt: Publishing options form: "Maximum number of linked records to publish" and "Inhibit publish when many records are present"
 

@@ -15,7 +15,7 @@ Field Categories
 -----------------
 
 Each field is present in one of the categories on this page based on its annotation.
-For Tripal Core fields you will note that we use the categories
+For Tripal Core fields, you will note that we use the categories
 **Tripal Fields** (`tripal`) and **Chado Fields** (`tripal_chado`),
 and this is based on whether the field is defined in the **tripal** or **tripal_chado** module.
 

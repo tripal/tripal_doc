@@ -64,19 +64,19 @@ For example, to publish the **Project** content type:
 
   .. code-block:: shell
 
-    drush trp-chado-pub project
+    drush trp-chado-publish project
 
 or to republish
 
   .. code-block:: shell
 
-    drush trp-chado-pub project --republish
+    drush trp-chado-publish project --republish
 
 Other drush publish options can be listed with:
 
   .. code-block:: shell
 
-    drush trp-chado-pub --help
+    drush trp-chado-publish --help
 
 Unpublishing
 ------------

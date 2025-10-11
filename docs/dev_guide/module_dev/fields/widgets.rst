@@ -228,7 +228,7 @@ organism is presented as the default.
 The massageFormValues() function
 ``````````````````````````````````
 
-This function is called afther the form is submitted by the user, and takes care of
+This function is called after the form is submitted by the user, and takes care of
 removing any records that may have been present earlier, but were removed before saving.
 This is a simple example, but your field may need to do more, particularly if the field
 is referencing a linked table.

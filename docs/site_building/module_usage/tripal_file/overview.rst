@@ -3,7 +3,7 @@ Overview
 
 .. warning::
 
-  The Tripal file module for Tripal 4 is only available with **Tripal v4.0.alpha4 or higher**.
+  The Tripal File module for Tripal 4 is only available with **Tripal v4.0.alpha4 or higher**.
 
 The Tripal File module supports association of data files with content in a Chado database
 and integrates those associations with content types on a Tripal website.

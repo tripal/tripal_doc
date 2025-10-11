@@ -6,7 +6,8 @@ Module Installation
 
 The Tripal File module is one of the core Tripal modules, so will be
 available on any Tripal site, it simply needs to be enabled.
-The module will create two new content types: `File` and `License`.
+
+When this module is enabled, it will create two new content types: `File` and `License`.
 It will also create a variety of tables in your Chado database for
 associating files to other content types.
 
@@ -14,8 +15,8 @@ You may activate the module either using drush on the command line, or activate 
 
 .. note::
 
-  The `EDAM vocabulary <http://edamontology.org/page>`_ is needed for the Tripal File module
-  because it provides terms for many of the file types (e.g. FASTA, GFF3, VCF, etc.).
+  The `EDAM vocabulary <http://edamontology.org/page>`_ is imported when the the Tripal File module
+  is enabled, because it provides terms for many common biological file types (e.g. FASTA, GFF3, VCF, etc.).
   Any file that is managed by the Tripal File module requires a file type.
 
 Install using a Drush command
@@ -117,7 +118,7 @@ Install using the GUI
 
 .. image:: install.1.gui-enable-extend.png
 
-2. Scroll down to the "Tripal File" module and check the box
+2. Scroll down to the "Tripal File" module, or enter "Tripal File" in the filter box, and check the box for the module.
 
 .. image:: install.2.gui-enable-tripal-file.png
 

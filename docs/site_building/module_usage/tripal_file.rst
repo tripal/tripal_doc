@@ -1,9 +1,9 @@
-Tripal File Extension Module
-============================
+Tripal File Module
+====================
 
 .. toctree::
    :maxdepth: 4
-   :caption: Tripal File Extension Module
+   :caption: Tripal File Module
 
    tripal_file/overview
    tripal_file/install

@@ -20,22 +20,23 @@ The following is a simple class example:
 
   namespace Drupal\mymodule\Plugin\Field\FieldWidget;
 
+  use Drupal\Core\StringTranslation\TranslatableMarkup;
   use Drupal\Core\Field\FieldItemListInterface;
   use Drupal\Core\Form\FormStateInterface;
+  use Drupal\tripal\TripalField\Attribute\TripalFieldWidget;
   use Drupal\tripal_chado\TripalField\ChadoWidgetBase;
 
   /**
    * Plugin implementation of organism name widget.
-   *
-   * @FieldWidget(
-   *   id = "my_field_widget",
-   *   label = @Translation("Organism Scientific Name Widget"),
-   *   description = @Translation("A chado organism scientific name widget."),
-   *   field_types = {
-   *     "my_field"
-   *   }
-   * )
    */
+  #[TripalFieldWidget(
+    id: 'my_field_widget',
+    label: new TranslatableMarkup('Organism Scientific Name Widget'),
+    description: new TranslatableMarkup('A chado organism scientific name widget.'),
+    field_types: [
+      'my_field',
+    ],
+  )]
   class MyFieldWidget extends ChadoWidgetBase {
 
     /**
@@ -111,36 +112,37 @@ The following "use" statements are required for all Chado fields.
 
 .. code-block:: php
 
+  use Drupal\Core\StringTranslation\TranslatableMarkup;
   use Drupal\Core\Field\FieldItemListInterface;
   use Drupal\Core\Form\FormStateInterface;
+  use Drupal\tripal\TripalField\Attribute\TripalFieldWidget;
   use Drupal\tripal_chado\TripalField\ChadoWidgetBase;
 
-Widget Annotation Section
-``````````````````````````````
-The annotation section in the class file is the set of in-line comments for the class.
-This annotation is required.
-This section is similar to the annotation section in the previous Type and Formatter classes.
-Note the ``field_types`` annotation, which specifies what field types this formatter can be used
-for. This should match the ``id`` annotation in the Type class.
+Widget Attribute Section
+``````````````````````````
+The attribute section in the class file is the set of lines wrapped inside ``#[ ]``.
+The attribute section is required.
+This section is similar to the attribute section in the previous Type and Formatter classes.
+Note the ``field_types`` attribute, which specifies what field types this formatter can be used
+for. This should match the ``id`` attribute in the Type class.
 
 .. code-block:: php
 
   /**
    * Plugin implementation of organism name widget.
-   *
-   * @FieldWidget(
-   *   id = "my_field_widget",
-   *   label = @Translation("Organism Scientific Name Widget"),
-   *   description = @Translation("A chado organism scientific name widget."),
-   *   field_types = {
-   *     "my_field"
-   *   }
-   * )
    */
+  #[TripalFieldWidget(
+    id: 'my_field_widget',
+    label: new TranslatableMarkup('Organism Scientific Name Widget'),
+    description: new TranslatableMarkup('A chado organism scientific name widget.'),
+    field_types: [
+      'my_field',
+    ],
+  )]
 
 .. warning::
 
-   If the annotation section is not present, has misspellings, or is not
+   If the attribute section is not present, has misspellings, or is not
    complete, the field will not be recognized by Drupal.
 
 Widget Class Definition

@@ -104,7 +104,7 @@ Install Drupal
     .. code-block:: shell
 
       cd /var/www/tripal4/
-      composer require drush/drush drupal/field_group drupal/field_group_table
+      composer require drush/drush drupal/field_group drupal/field_group_table:dev-1.x
 
 3. Drupal may complain about permissions on certain files, as well as generating a configuration file from the template provided by Drupal. The files in question must be readable and writable by the webserver's user, as well as yourself. If you're using Apache, this is typically ``www-data`` and for Nginx, it is commonly ``nginx``. Read more about Drupal's requirements here: `Administering a Drupal site - security in Drupal <https://www.drupal.org/docs/administering-a-drupal-site/security-in-drupal/securing-file-permissions-and-ownership>`__, or run the following commands to satisfy them:
 
@@ -211,7 +211,7 @@ Install Tripal
         .. code-block:: shell
 
           cd /var/www/tripal4/
-          composer require tripal/tripal:4.0-alpha2
+          composer require tripal/tripal:4.0-alpha3
 
     B. **Developer installation.** Clone the Tripal repository in your ``web/modules`` directory.
 

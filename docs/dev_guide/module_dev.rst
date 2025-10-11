@@ -10,8 +10,9 @@ Custom Module Development
 
    module_dev/file_structure
    module_dev/routing
+   module_dev/plugin_service
    module_dev/entities
-   module_dev/fields
+   module_dev/tripal_fields
    module_dev/forms
    module_dev/jobs
    module_dev/logging

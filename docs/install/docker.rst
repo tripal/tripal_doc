@@ -1,7 +1,7 @@
 Tripal Docker
 ================
 
-Tripal Docker is currently focused on Development, Debugging, and Unit Testing. There will be a production focused Tripal Docker soon.
+Tripal Docker is currently focused on Development, Debugging, and Automated Testing. There will be a production focused Tripal Docker soon.
 
 Software Stack
 --------------
@@ -19,26 +19,19 @@ Currently we have the following installed:
 Quickstart
 ----------
 
-1. Run the image in the background mapping its web server to your port 9000.
+Run the image in the background mapping its web server to your port 9000.
 
-    a) Stand-alone container for testing or demonstration.
+  a) Stand-alone container for testing or demonstration.
 
-    .. code::
+  .. code::
 
-      docker run --publish=9000:80 --name=t4 -tid tripalproject/tripaldocker:latest
+    docker run --publish=9000:80 --name=t4 -tid tripalproject/tripaldocker:latest
 
-    b) Development container with current directory mounted within the container for easy edits. Change my_module with the name of yours.
+  b) Development container with current directory mounted within the container for easy edits. Change my_module with the name of yours.
 
-    .. code::
+  .. code::
 
-      docker run --publish=9000:80 --name=t4 -tid --volume=$(pwd):/var/www/drupal/web/modules/contrib/my_module tripalproject/tripaldocker:latest
-
-2. Start the PostgreSQL database.
-
-.. code::
-
-  docker exec t4 service postgresql start
-
+    docker run --publish=9000:80 --name=t4 -tid --volume=$(pwd):/var/www/drupal/web/modules/contrib/my_module tripalproject/tripaldocker:latest
 
 Development Site Information:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

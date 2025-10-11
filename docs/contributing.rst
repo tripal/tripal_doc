@@ -21,3 +21,4 @@ The following guidelines are meant to encourage contribution to Tripal source-co
    contributing/code-of-conduct
    contributing/github
    contributing/docker-for-testing
+   contributing/vscode-devcontainer

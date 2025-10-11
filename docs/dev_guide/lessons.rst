@@ -10,3 +10,4 @@ The following lessons provide hands-on training for various aspects of Tripal ex
 
 
    lessons/custom_tables
+   lessons/profiling_performance

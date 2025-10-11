@@ -94,7 +94,7 @@ Now we will run our specific test in order to confirm that it is setup properly:
 
 .. code-block:: bash
 
-  docker exec --workdir=/var/www/drupal9/web/modules/contrib/YOURMODULE \
+  docker exec --workdir=/var/www/drupal/web/modules/contrib/YOURMODULE \
     CONTAINERNAME phpunit tests/src/Kernel/Plugin/ChadoStorage/FIELDNAMETest.php
 
 This will only run the tests in the test file we just setup. If you see errors regarding missing classes, then check that you have the `use` statements for those classes. If no test is found then make sure the class name matches the filename, the classname ends in `Test`, and the method name starts with `test`.
@@ -106,7 +106,7 @@ For example, if I were to complete the above instructions to create a `tripal_ch
 
 .. code-block:: bash
 
-  ❯ docker exec --workdir=/var/www/drupal9/web/modules/contrib/tripal tripal1587 \
+  ❯ docker exec --workdir=/var/www/drupal/web/modules/contrib/tripal tripal1587 \
     phpunit tripal_chado/tests/src/Kernel/Plugin/ChadoStorage/ChadoContactDefaultTest.php
 
 I would get the following output:

@@ -3,8 +3,7 @@ How to use Custom Tables in Chado
 This lesson describes how to programmatically create and manage :doc:`../biodata/custom_tables`.
 
 .. warning::
-    You should avoid making any changes to existing Chado tables as it could make upgrades to future releases of Chado more difficult and could break functionality in Tripal that expects Chado tabes to be a certain way.  Instead, use custom tables!
-
+    You should avoid making any changes to existing Chado tables as it could make upgrades to future releases of Chado more difficult and could break functionality in Tripal that expects Chado tables to be a certain way.  Instead, use custom tables!
 
 Creating a Custom Table
 -----------------------
@@ -26,39 +25,65 @@ To create a new custom table, you must first define the table schema which will 
             'stock_id' => [
                 'type' => 'int',
                 'not null' => TRUE,
-            ]
+            ],
+            'type_id' => [
+                'type' => 'int',
+            ],
+            'rank' => [
+                'type' => 'int',
+                'not null' => TRUE,
+                'default' => 0,
+            ],
         ],
         'primary key' => [
             'library_stock_id'
         ],
         'unique keys' => [
             'library_stock_c1' => [
-            'library_id',
-            'stock_id'
-            ]
+                'library_id',
+                'stock_id',
+                'type_id',
+            ],
+        ],
+        'nulls not distinct' => [
+            'library_stock_c1' => TRUE,
         ],
         'indexes' => [
-            'name' => ['library_id', 'stock_id'],
+            'library_stock_idx1' => [
+                'library_id',
+            ],
+            'library_stock_idx2' => [
+                'stock_id',
+            ],
         ],
         'foreign keys' => [
             'library' => [
                 'table' => 'library',
                 'columns' => [
-                    'library_id' => 'library_id'
+                    'library_id' => 'library_id',
                 ],
             ],
             'stock' => [
                 'table' => 'stock',
                 'columns' => [
-                    'stock_id' => 'stock_id'
-                ]
-            ]
-        ]
+                    'stock_id' => 'stock_id',
+                ],
+            ],
+        ],
     ]
 
-Note that in the array structure above, the columns, primary keys, foreign keys, unique keys, and indexes for the table are indicated. 
+Note that in the array structure above, the columns, primary keys, foreign keys, unique keys, and indexes for the table are indicated.
 
-The table can be created by calling the ``create()`` function of the Tripal Custom Table Service.  To create the ``library_stock`` table  defined in the array above we would use the following:
+.. note::
+
+  Be aware of a possible situation when one or more columns in a unique constraint are allowed to be NULL.
+  Note that the column ``type_id`` in this example is allowed to be NULL, but it is also included in the unique key.
+  By default, multiple occurrences of NULL are considered distinct, so it would be possible to enter two identical records
+  in this table with the same ``library_id`` and ``stock_id`` provided that both had NULL ``type_id`` values. 
+  In this example we included the optional key ``'nulls not distinct'`` and supplied the name of the unique key.
+  In Postgresql versions 15 and above, this will prevent creation of duplicate records.
+
+The table can be created by calling the ``create()`` function of the Tripal Custom Table Service.  To create the ``library_stock`` table defined in the array above we would use the following:
 
 .. code-block:: php
 
@@ -177,7 +202,6 @@ Suppose you have created a custom table for your module and released the module 
 
 Then, when your module is upgraded on a Drupal site to the next version, the table changes will happen automatically.
 
-
 Using the Custom Table
 ----------------------
-After the custom table has been created you can use it the same as any other table in Chado.  You  can find examples for interacting with Chado tables in the :doc:`../biodata/tripaldbx`.
+After the custom table has been created, you can use it the same as any other table in Chado.  You can find examples for interacting with Chado tables in the section :doc:`../biodata/tripaldbx`.

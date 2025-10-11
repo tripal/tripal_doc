@@ -6,8 +6,10 @@ A field can also be defined in a YAML file for fields you want to be added autom
 see :ref:`Adding a field programatically`.
 
 To add a field manually, this can be done through the "Manage Fields" interface for a given Content Type.
-More specifically, go to **Tripal** → **Page Structure**
-and then choose "**Manage Fields**" for the Content Type you want to add a field to,
+More specifically, find the **Tripal** menu in the shortcuts toolbar at the upper right.
+In that menu select **Page Structure**. Alternatively, you can navigate to the path ``/admin/structure/bio_data``.
+You will find yourself on the **Tripal Content Type** page.
+There, choose "**Manage Fields**" for the Content Type you want to add a field to,
 and then click "**+ Create a new field**".
 
 

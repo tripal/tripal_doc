@@ -33,7 +33,7 @@ Tripal provides some ready-to-use field classes for single-values.  These are:
 
 If you need to add a single-value field for your custom module then you do not
 need to write your own field! You can use one of these existing field types.
-See the section :ref:`Automate Adding a Field to a Content Type` for
+See the section :ref:`Adding a field programatically` for
 instructions to add the field during installation of your module.
 
 Complex Fields
@@ -295,7 +295,7 @@ As an example, the Tripal organism field sets the term ID space and accession:
 Not all fields will need the `termIdSpace` and `termAccession` hardcoded like
 in the example above.  A field can be re-used for different terms and those
 can be set when the field is added automatically. See the
-:ref:`Automate Adding a Field to a Content Type` section.
+:ref:`Adding a field programatically` section.
 
 The defaultStorageSettings() Function
 ```````````````````````````````````````

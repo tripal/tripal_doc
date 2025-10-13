@@ -114,11 +114,13 @@ You should see output similar to this when the command is run:
 Install using the GUI
 ^^^^^^^^^^^^^^^^^^^^^
 
+You will need to be logged into your site as a user that has administrative permissions.
+
 1. From the administrative menu select "Extend"
 
 .. image:: install.1.gui-enable-extend.png
 
-2. Scroll down to the "Tripal File" module, or enter "Tripal File" in the filter box, and check the box for the module.
+2. Scroll down to the "Tripal File" module, or enter "Tripal File" in the filter box, and check the box for the **Tripal File** module.
 
 .. image:: install.2.gui-enable-tripal-file.png
 
@@ -139,16 +141,4 @@ Set Permissions
 
 .. warning::
 
-  Not Implemented Yet.
-
-Now that the Tripal File module is installed, we must set permissions so that
-users can view and or create File and License content types.
-To set permissions, navigate to **People** page and click the **Permissions** tab.
-Look for permissions that begin with prefix `File:` and `License:`
-and set them according to your needs.
-
-.. image:: tbd.png
-
-.. warning::
-
-  You should not give the **anonymous** user any permissions other than 'view' permission.
+  Permissions have not yet been implemented.

@@ -3,9 +3,9 @@ Import a Genome Assembly + Annotation
 
 Now that we have our organism and whole genome analysis ready, we can begin loading genomic data. For this tutorial only a single gene from sweet orange will be loaded into the database. This is to ensure we can move through the tutorial rather quickly. The following datasets will be used for this tutorial:
 
-- `Citrus sinensis-orange1.1g015632m.g.gff3 <http://tripal.info/sites/default/files/Citrus_sinensis-orange1.1g015632m.g.gff3>`_
-- `Citrus sinensis-scaffold00001.fasta <http://tripal.info/sites/default/files/Citrus_sinensis-scaffold00001.fasta>`_
-- `Citrus sinensis-orange1.1g015632m.g.fasta <http://tripal.info/sites/default/files/Citrus_sinensis-orange1.1g015632m.g.fasta>`_
+- :download:`Citrus sinensis-orange1.1g015632m.g.gff3 <Citrus_sinensis-orange1.1g015632m.g.gff3>`
+- :download:`Citrus sinensis-scaffold00001.fasta <Citrus_sinensis-scaffold00001.fasta>`
+- :download:`Citrus sinensis-orange1.1g015632m.g.fasta <Citrus_sinensis-orange1.1g015632m.g.fasta>`
 
 One of the new features available in many of the Tripal v4 data loaders is an HTML5 file upload element which allows administrators and users to upload large files reliably. This removes the requirement in previous versions of this tutorial to download these files directly on the server and provide a path to the file. Instead, if you have the file on your current local machine you can now simply upload it for loading.
 

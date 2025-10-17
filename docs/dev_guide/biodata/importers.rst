@@ -118,87 +118,105 @@ Notice in the ``form()`` function there is a call to the ``parent::form()``:
 
 Without calling the ``parent::form()`` function your importer's form may not properly work.  This is required.
 
-Step 4: Add Class Annotations
+Step 4: Add Class Attributes
 -----------------------------
-All Drupal plugins require an `Annotation section <https://www.drupal.org/docs/drupal-apis/plugin-api/annotations-based-plugins>`_ that appears as a PHP comment just above the Class definition. The annotation section provides settings that the **TripalImporter** plugin requires.  As a quick example here is the Annotation section for the GFF3 importer. The GFF3 importer is provided by the Tripal Genome module and imports features defined in a GFF3 file into Chado.
+All Drupal plugins require an
+`Attribute section <https://www.drupal.org/docs/drupal-apis/plugin-api/attribute-based-plugins>`_
+which consists of lines wrapped inside ``#[ ]`` just above the Class definition.
+The attribute section provides settings that the **TripalImporter** plugin requires.
+As a quick example here is the Attribute section for the GFF3 importer.
+The GFF3 importer is provided by the Tripal Genome module and imports features defined in a GFF3 file into Chado.
 
 .. code-block:: php
 
-  /**
-  *  GFF3 Importer implementation of the ChadoImporterBase.
-  *
-  *  @TripalImporter(
-  *    id = "chado_fasta_loader",
-  *    label = @Translation("Chado FASTA File Loader"),
-  *    description = @Translation("Import a FASTA file into Chado"),
-  *    file_types = {"fasta","txt","fa","aa","pep","nuc","faa","fna"},
-  *    upload_description = @Translation("Please provide a plain text file following the <a target='_blank' href='https://en.wikipedia.org/wiki/FASTA_format'>FASTA format specification</a>."),
-  *    upload_title = @Translation("FASTA File"),
-  *    use_analysis = True,
-  *    require_analysis = True,
-  *    use_button = True,
-  *    button_text = @Translation("Import FASTA file"),
-  *    file_upload = True,
-  *    file_remote = True,
-  *    file_local = True,
-  *    file_required = True,
-  *    submit_disabled = False
-  *  )
-  */
-  class GFF3Importer extends ChadoImporterBase {
+  use Drupal\Core\StringTranslation\TranslatableMarkup;
+  use Drupal\tripal\TripalImporter\Attribute\TripalImporter;
 
-In the code above, the annotation section consists of multiple settings in key/value pairs.  The meaning of each settings is as follows:
+  ...
+
+  /**
+   * GFF3 Importer implementation of the TripalImporterBase.
+   */
+  #[TripalImporter(
+    id: 'chado_gff3_loader',
+    label: new TranslatableMarkup('Chado GFF3 File Loader'),
+    description: new TranslatableMarkup('Import a GFF3 file into Chado'),
+    file_types: [
+      'gff',
+      'gff3',
+      'txt',
+    ],
+    upload_description: new TranslatableMarkup('Please provide a plain text, tab-delimited file following the <a target="_blank" href="https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md">GFF3 Specification</a>. It is expected that all landmark features are associated with the same organism and that the types (column 3) are sequence ontology terms.'),
+    upload_title: new TranslatableMarkup('GFF3 File'),
+    use_analysis: true,
+    require_analysis: true,
+    use_button: true,
+    button_text: new TranslatableMarkup('Import GFF3 file'),
+    file_upload: true,
+    file_remote: true,
+    file_local: true,
+    file_required: true,
+    publish: [
+      'bundle' => [
+        'gene',
+        'mrna',
+      ],
+    ],
+  )]
+  class GFF3Importer extends ChadoImporterBase implements ContainerFactoryPluginInterface {
+
+In the code above, the attribute section consists of multiple settings in key/value pairs.
+The meaning of each settings is as follows:
 
 - ``id``: A unique machine readable plugin ID for the loader. It must only contain alphanumeric characters and the underscore. It should be lowercase.  
-- ``label``: the human readable name (or label) for this importer. It is wrapped in a ``@Translation()`` function which will allow Drupal to provide translations for it.  This label is shown to the user in the list of available data importers.
+- ``label``: the human readable name (or label) for this importer. It is wrapped in a ``TranslatableMarkup()`` class which will allow Drupal to provide translations for it.  This label is shown to the user in the list of available data importers.
 - ``description``: A short description for the site user that briefly indicates what this loader is for. It too is wrapped in a ``@Translation()``  function.  This description is shown to the user for the loader.
 - ``file_types``: A list of file extensions that the importer will allow to be uploaded. If a file does not have an extension in the list then it cannot be uploaded by the importer.
 - ``upload_title``:  Provides the title that should appear above the upload button.  This helps the user understand what type of file is expected.
 - ``upload_description``: Provides the information for the user related to the file upload. You can provide additional instructions or help text.
 - ``use_analysis``:  To support FAIR data principles, we should ensure that provenance of data is available. Chado provides the ``analysis`` table to link data to an analysis.  The analysis record provides the details for how the data in the file was created or obtained. Set this to ``False`` if the loader should not require an analysis when loading. if ``use_analysis`` is set to ``True`` then the user will be presented with a form element to select an analysis and this analysis will be available to you for your importer.
 - ``require_analysis``:  If the ``use_analysis`` value is set then this value indicates if the analysis should be required. If ``True`` it will be required, otherwise it will be optional.
-- ``button_text``: The text that should appear on the button at the bottom of the importer form.
 - ``use_button``: Indicates whether a submit button should be present. This should only be ``False`` in situations were you need multiple buttons or greater control over the submit process (e.g., multi-page forms).
+- ``button_text``: The text that should appear on the button at the bottom of the importer form.
 - ``submit_disabled``: Indicates whether the submit button should be disabled when the form appears. The form can then be programmatically enabled via AJAX once certain criteria is set.
 - ``file_upload``: Indicates if the loader should provide a form element for uploading a file.
 - ``file_remote``: Indicates if the loader should provide a form element for specifying the URL of a remote file.
 - ``file_local``: Indicates if the loader should provide a form element for specifying the path available to the web server where the file is located.
-- ``file_required``:  Indicates if the file must be provided. 
+- ``file_required``: Indicates if the file must be provided.
+- ``publish``: Indicates any content types that should be published after the import job has completed.
 
-For our ``ExampleImporter`` class we will set the annotations accordingly:
+For our ``ExampleImporter`` class we will set the attributes accordingly:
 
 .. code-block:: php
 
   /**
     *  TST Importer implementation of the ChadoImporterBase.
-    *
-    *  @TripalImporter(
-    *    id = "tripal_tst_loader",
-    *    label = @Translation("Example TST File Importer"),
-    *    description = @Translation("Loads TST files"),
-    *    file_types = {"txt", "tst", "csv"},
-    *    upload_description = @Translation("TST is a fictional format.  Its a 2-column, CSV file.  The columns should be of the form featurename, and text"),
-    *    upload_title = @Translation("TST File"),
-    *    use_analysis = True,
-    *    require_analysis = True,
-    *    use_button = True,
-    *    button_text = @Translation("Import TST file"),
-    *    file_upload = True,
-    *    file_remote = True,
-    *    file_local = True,
-    *    file_required = True,
-    *    submit_disabled = False
-    *  )
     */
-    class ExampleImporter extends ChadoImporterBase {
-
-.. warning::
-
-  You must use double quotes when specifying strings in the Annotations.
+  #[TripalImporter(
+    id: 'tripal_tst_loader',
+    label: new TranslatableMarkup('Example TST File Importer'),
+    description: new TranslatableMarkup('Loads TST files'),
+    file_types: [
+      'txt',
+      'tst',
+      'csv',
+    ],
+    upload_description: new TranslatableMarkup('TST is a fictional format. It is a 2-column, CSV file. The columns should be of the form featurename, and text'),
+    upload_title: new TranslatableMarkup('TST File'),
+    use_analysis: true,
+    require_analysis: true,
+    button_text: new TranslatableMarkup('Import TST file'),
+    file_upload: true,
+    file_remote: true,
+    file_local: true,
+    file_required: true,
+    submit_disabled: false,
+  )]
+  class ExampleImporter extends ChadoImporterBase {
 
 Step 5: Check Availability
 --------------------------
-Now that we have created the plugin and set it's annotations it should appear in the list of Tripal Importers at **admin > Tripal > Data Loaders** after we clear the Drupal cache (``drush cr``). 
+Now that we have created the plugin and set its attributes it should appear in the list of Tripal Importers at **admin > Tripal > Data Loaders** after we clear the Drupal cache (``drush cr``). 
 
 .. image:: ./custom_data_loader.0.png
 
@@ -206,7 +224,7 @@ Now that we have created the plugin and set it's annotations it should appear in
 
   If your importer does not show in the list of data loaders, check the Drupal recent logs at **admin > Manage > Reports > Recent log messages** .
 
-Using the annotation settings we provided, the importer form will automatically provide a **File Upload** field set, and an **Analysis** selector.  The **File Upload** section lets users choose to upload a file, provide a server path to a file already on the web server or a specify a remote path for files located via a downloadable link on the web.  The **Analysis** selector is important because it allows the user to specify an analysis that describes how the data file was created. It will look like the following screenshot:
+Using the attribute settings we provided, the importer form will automatically provide a **File Upload** field set, and an **Analysis** selector.  The **File Upload** section lets users choose to upload a file, provide a server path to a file already on the web server, or specify a remote path for files located via a downloadable link on the web.  The **Analysis** selector is important because it allows the user to specify an analysis that describes how the data file was created. It will look like the following screenshot:
 
 .. image:: custom_data_loader.1.png
 
@@ -520,7 +538,7 @@ For our example importer, the following code shows how we can test the form:
     $this->assertArrayHasKey('#title', $form, 
       "The form should have a title set.");
     $this->assertEquals($importer_label, $form['#title'], 
-      "The title should match the label annotated for our plugin.");
+      "The title should match the label in the attribute for our plugin.");
     
     // The plugin_id stored in a value form element.
     $this->assertArrayHasKey('importer_plugin_id', $form, 

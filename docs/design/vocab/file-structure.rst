@@ -9,8 +9,13 @@ The base structure of this API is found in ``tripal/src/TripalVocabTerms/``. Spe
  - The **TripalTerm class**.
  - The **base classes** to extend when making your own vocabulary plugin implementation.
  - The **interfaces** you should implement are in the Interface directory and describe the methods you must implement in your vocabulary plugin implementation.
- - The **annotation classes** describe the metadata needed in the comment header of your implemented plugin class.
+ - The **attribute classes** describe the metadata needed in the attributes section of your implemented plugin class.
  - The **plugin managers** are in the PluginManager directory and simply link these plugins to the Drupal API.
+
+.. warning::
+
+  Support for the legacy **annotation classes** will be deprecated with Drupal 11.2 and support will be removed with
+  Drupal 12, so any existing annotations should be replaced with attributes.
 
 .. warning::
 

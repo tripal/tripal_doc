@@ -5,6 +5,7 @@ The Tripal File module supports association of data files with content in a Chad
 and integrates those associations with content types on a Tripal website.
 
 .. image:: https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/FAIR_data_principles.jpg/320px-FAIR_data_principles.jpg
+      :alt: The 'FAIR' logo, spelled out is Findable, Accessible, Interoperable, Reusable
 
 These associations are meant to support
 `FAIR data principles <https://www.go-fair.org/fair-principles/>`_

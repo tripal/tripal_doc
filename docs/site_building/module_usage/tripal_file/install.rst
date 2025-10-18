@@ -119,18 +119,22 @@ You will need to be logged into your site as a user that has administrative perm
 1. From the administrative menu select "Extend"
 
 .. image:: install.1.gui-enable-extend.png
+      :alt: Appearance of the 'Extend' menu item with puzzle piece icon
 
 2. Scroll down to the "Tripal File" module, or enter "Tripal File" in the filter box, and check the box for the **Tripal File** module.
 
 .. image:: install.2.gui-enable-tripal-file.png
+      :alt: Checkbox next to the Tripal File module, shown not yet checked. Descriptive text is 'A module for associating files with Tripal content and for accessing files via web services'
 
 3. Click the "Install" button
 
 .. image:: install.3.gui-enable-install.png
+      :alt: Appearance of the 'Install' button
 
 4. After several seconds you should see a screen similar to this
 
 .. image:: install.4.gui-enable-installed.png
+      :alt: Appearance after the tripal file module is installed. This includes the drush command 'drush trp-run-jobs --job_id=1 --username=drupaladmin --root=/var/www/drupal/web'
 
 5. The drush command you will need to run is shown, it is highlighted in this example.
    Copy your version of this command, it will be different than the one shown in the
@@ -142,3 +146,4 @@ Set Permissions
 .. warning::
 
   Permissions have not yet been implemented.
+  See `Tripal issue 1355 <https://github.com/tripal/tripal/issues/1355>`_ for current status.

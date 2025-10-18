@@ -28,7 +28,7 @@ Tripal provides some ready-to-use field classes for single-values.  These are:
 
 .. warning::
 
-  The alpha v2 version of Tripal v4 does not yet implement these fields:
+  The alpha v3 version of Tripal v4 does not yet implement these fields:
   `ChadoRealTypeDefault`, `ChadoDateTimeTypeDefault`
 
 If you need to add a single-value field for your custom module then you do not
@@ -75,23 +75,25 @@ The following is a simple class example:
 
   namespace Drupal\mymodule\Plugin\Field\FieldType;
 
+  use Drupal\Core\StringTranslation\TranslatableMarkup;
+  use Drupal\tripal\TripalField\Attribute\TripalFieldType;
+  use Drupal\tripal\TripalStorage\StoragePropertyValue;
   use Drupal\tripal_chado\TripalField\ChadoFieldItemBase;
-  use Drupal\tripal_chado\TripalStorage\ChadoVarCharStoragePropertyType;
   use Drupal\tripal_chado\TripalStorage\ChadoIntStoragePropertyType;
   use Drupal\tripal_chado\TripalStorage\ChadoTextStoragePropertyType;
-  use Drupal\tripal\TripalStorage\StoragePropertyValue;
+  use Drupal\tripal_chado\TripalStorage\ChadoVarCharStoragePropertyType;
 
   /**
-   * Plugin implementation of Tripal string field type.
-   *
-   * @FieldType(
-   *   id = "my_field",
-   *   label = @Translation("MyField Field"),
-   *   description = @Translation("An example field"),
-   *   default_widget = "MyFieldWidget",
-   *   default_formatter = "MyFieldFormatter"
-   * )
+   * Plugin implementation of example MyField field type.
    */
+  #[TripalFieldType(
+    id: 'my_field',
+    category: 'tripal_chado',
+    label: new TranslatableMarkup('MyField Field'),
+    description: new TranslatableMarkup('An example field'),
+    default_widget: 'my_field_widget',
+    default_formatter: 'my_field_formatter',
+  )]
   class MyField extends ChadoFieldItemBase {
 
     public static $id = "my_field";
@@ -181,7 +183,6 @@ field.
 
   namespace Drupal\mymodule\Plugin\Field\FieldType;
 
-
 .. note::
 
   Be sure to change `mymodule` in the `namespace` to the name of your module.
@@ -195,6 +196,8 @@ The following "use" statements are required for all Chado fields.
 
 .. code-block:: php
 
+  use Drupal\Core\StringTranslation\TranslatableMarkup;
+  use Drupal\tripal\TripalField\Attribute\TripalFieldType;
   use Drupal\tripal_chado\TripalField\ChadoFieldItemBase;
   use Drupal\tripal\TripalStorage\StoragePropertyValue;
 
@@ -204,37 +207,34 @@ classes you could import if needed.
 
 .. code-block:: php
 
-  use Drupal\tripal_chado\TripalStorage\ChadoVarCharStoragePropertyType;
   use Drupal\tripal_chado\TripalStorage\ChadoIntStoragePropertyType;
   use Drupal\tripal_chado\TripalStorage\ChadoTextStoragePropertyType;
+  use Drupal\tripal_chado\TripalStorage\ChadoVarCharStoragePropertyType;
 
 
-Type Annotation Section
-`````````````````````````
+Type Attribute Section
+````````````````````````
 
-The annotation section in the class file is the set of in-line comments for the class.
-Note the @FieldType stanza in the comments. Drupal
-uses these annotations to recognize the new field. It provides information such
+The attribute section in the class file is the set of lines wrapped inside ``#[ ]``.
+The attribute section is required.
+Drupal uses these attributes to recognize the new field. It provides information such
 as the field ID, label and description. It also indicates the default widget
-and formatter class. This annotation is required.
+and formatter class.
 
 .. code-block:: php
 
-  /**
-   * Plugin implementation of Tripal string field type.
-   *
-   * @FieldType(
-   *   id = "MyField",
-   *   label = @Translation("MyField Field"),
-   *   description = @Translation("An example field"),
-   *   default_widget = "MyFieldWidget",
-   *   default_formatter = "MyFieldFormatter"
-   * )
-   */
+  #[TripalFieldType(
+    id: 'my_field',
+    category: 'tripal_chado',
+    label: new TranslatableMarkup('MyField Field'),
+    description: new TranslatableMarkup('An example field'),
+    default_widget: 'my_field_widget',
+    default_formatter: 'my_field_formatter',
+  )]
 
 .. warning::
 
-   If the annotation section is not present, has misspellings, or is not
+   If the attribute section is not present, has misspellings, or is not
    complete, the field will not be recognized by Drupal.
 
 

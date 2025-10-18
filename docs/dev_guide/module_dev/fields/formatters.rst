@@ -25,20 +25,25 @@ The following is a simple class example:
   namespace Drupal\tripal_chado\Plugin\Field\FieldFormatter;
 
   use Drupal\Core\Field\FieldItemListInterface;
+  use Drupal\Core\StringTranslation\TranslatableMarkup;
+  use Drupal\tripal\TripalField\Attribute\TripalFieldFormatter;
   use Drupal\tripal_chado\TripalField\ChadoFormatterBase;
 
   /**
    * Plugin implementation of an organism scientific name formatter.
-   *
-   * @FieldFormatter(
-   *   id = "my_field_formatter",
-   *   label = @Translation("Organism scientific name formatter"),
-   *   description = @Translation("A chado organism scientific name formatter"),
-   *   field_types = {
-   *     "my_field"
-   *   },
-   * )
    */
+  #[TripalFieldFormatter(
+    id: 'my_field_formatter',
+    label: new TranslatableMarkup('Organism scientific name formatter'),
+    description: new TranslatableMarkup('A chado organism scientific name formatter'),
+    field_types: [
+      'my_field',
+    ],
+    valid_tokens: [
+      '[genus]',
+      '[species]',
+    ],
+  )]
   class MyFieldFormatter extends ChadoFormatterBase {
 
     /**
@@ -110,10 +115,12 @@ field.
 
   If you misspell the `namespace` your field will not work properly.
 
-The following "use" statement is required for all Chado fields.
+The following "use" statements are required for all Chado fields.
 
 .. code-block:: php
 
+  use Drupal\Core\StringTranslation\TranslatableMarkup;
+  use Drupal\tripal\TripalField\Attribute\TripalFieldFormatter;
   use Drupal\tripal_chado\TripalField\ChadoFormatterBase;
 
 Unless you are sure that your field will only handle a single value in all
@@ -124,28 +131,31 @@ formatter to handle a list of multiple items.
 
   use Drupal\Core\Field\FieldItemListInterface;
 
-Formatter Annotation Section
-``````````````````````````````
-The annotation section in the class file is the set of in-line comments for the class.
-This annotation is required.
-This section is similar to the annotation section in the previous Type class.
-Note the ``field_types`` annotation, which specifies what field types this formatter can be used
-for. This should match the ``id`` annotation in the Type class.
+Formatter Attribute Section
+`````````````````````````````
+The attribute section in the class file is the set of lines wrapped inside ``#[ ]``.
+The attribute section is required.
+This section is similar to the attribute section in the previous Type class.
+Note the ``field_types`` attribute, which specifies what field types this formatter can be used
+for. This should match the ``id`` attribute in the Type class.
 
 .. code-block:: php
 
   /**
    * Plugin implementation of an organism scientific name formatter.
-   *
-   * @FieldFormatter(
-   *   id = "my_field_formatter",
-   *   label = @Translation("Organism scientific name formatter"),
-   *   description = @Translation("A chado organism scientific name formatter"),
-   *   field_types = {
-   *     "my_field"
-   *   },
-   * )
    */
+  #[TripalFieldFormatter(
+    id: 'my_field_formatter',
+    label: new TranslatableMarkup('Organism scientific name formatter'),
+    description: new TranslatableMarkup('A chado organism scientific name formatter'),
+    field_types: [
+      'my_field',
+    ],
+    valid_tokens: [
+      '[genus]',
+      '[species]',
+    ],
+  )]
 
 .. note::
 
@@ -155,7 +165,7 @@ for. This should match the ``id`` annotation in the Type class.
 
 .. warning::
 
-   If the annotation section is not present, has misspellings, or is not
+   If the attribute section is not present, has misspellings, or is not
    complete, the field will not be recognized by Drupal.
 
 Formatter Class Definition

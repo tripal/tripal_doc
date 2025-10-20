@@ -7,6 +7,12 @@ Module Installation
 The Tripal File module is one of the core Tripal modules, so will be
 available on any Tripal site, it simply needs to be enabled.
 
+.. warning::
+
+  If you are migrating a Tripal 3 site to Tripal 4, you must perform the :ref:`Migrating Chado`
+  process before enabling this module, to make sure all new terms used by this module
+  are present in your chado instance.
+
 When this module is enabled, it will create two new content types: `File` and `License`.
 It will also create a variety of tables in your Chado database for
 associating files to other content types.

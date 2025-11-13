@@ -44,6 +44,6 @@ Adding clickable links to the linked contents
 .. image:: embedded_formatter_link_2.png
 
 6. Click "Update" and then "Save".
-7. Oncec you create the new parent entity (e.g., Project), the titles of the linked entities (such as Contact and Analysis) will appear as clickable links, as shown below.
+7. Once you create the new parent entity (e.g., Project), the titles of the linked entities (such as Contact and Analysis) will appear as clickable links, as shown below.
 
 .. image:: embedded_formatter_link_3.png

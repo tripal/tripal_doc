@@ -1,7 +1,7 @@
 Embedded Entity Formatter for Linker Fields
 ============================================
 
-This formatter would be available to all Linker Fields in Tripal Chado. It would allow the admin to configure the view mode they want to use and it would embed a rendered version of the linked entity using that entity_id and view mode.
+This formatter is available to all Linker Fields in Tripal Chado. It allows the admin to configure the view mode they want to use and it will embed a rendered version of the linked entity using that entity_id and view mode.
 
 Using the formatter
 ----------------------

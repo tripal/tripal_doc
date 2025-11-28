@@ -172,7 +172,7 @@ Permissions by Content Type
 Tripal also allows site administrators to set permissions by content type. These permissions include, create new content, delete any content, delete own content, edit any content, edit own content, unpublish any content, unpublish own content, view all content and view own content. For example, if you want your Curator to be able to create only certain content types like Analysis, Contact and Organism and not others, you can do so by setting the appropriate permissions for the Curator role.
 
 Accessing the **'Tripal'** Section on Sidebar
-+++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++
 
 Access to the Tripal section on the sidebar can also be controlled via permissions. For example, if you want your Content editor to have access to the Tripal section in the sidebar, you can do so by granting the 'View Tripal Administation Pages' permission for the Content editor role as shown below:
 

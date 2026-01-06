@@ -41,8 +41,11 @@ And that's it! For more information about the parameters, see the `Tripal Test G
 
 Generating a testing grid for your readme to show the current compatibility
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-1. Install tripal devtools in your container. In the future this will be part of TripalDocker by default.
-2. Within the Drupal root of your docker container (i.e. ``/var/www/drupal/web``) run the following command ``drush generate tripal-admin:readme-grid`` and answer the prompts. This will generate a number of Github workflows where each one runs a single combination from the matrix on the `4.x` branch when a PR is merged. This is used to generate the badges you will include in your readme.
+1. Install tripal devtools in your container using the following commands (in the future this will be part of TripalDocker by default):
+  - Within the drupal root of the docker container (i.e. ``/var/www/drupal/web``), run the command ``composer require tripal/tripal_devtools``
+  - Once it's installed correctly, run ``drush en tripal_devtools``
+
+2. Run the following command ``drush generate tripal-admin:readme-grid`` and answer the prompts. This will generate a number of Github workflows where each one runs a single combination from the matrix on the `4.x` branch when a PR is merged. This is used to generate the badges you will include in your readme.
 
 .. image:: images/generate_grid_1.png
 
@@ -72,9 +75,56 @@ Thankfully TripalTest Github Action handles this natively as long as you use a s
 To set this up, you will want to 
 
 1. Start a docker container on a particular combination of versions to target one of the PHPUnit versions. For example, Drupal 10.5 and PHP 8.2.
-2. Within the container, you will want to copy the default phpunit.xml configuration for that version of Drupal into your module root and name it based on the version. For example, ``cp /var/www/drupal/web/core/phpunit.xml.dist /var/www/drupal/web/modules/contrib/MYMODULE/phpunit.10.xml`` where your module code is in a directory named `MYMODULE` and the major version of PHPUnit is 10.
+2. Within the container, you will want to copy the default phpunit.xml configuration for that version of Drupal into your module root and name it based on the version. For example, ``cp /var/www/drupal/web/core/phpunit.xml.dist /var/www/drupal/web/modules/contrib/MYMODULE/phpunit.9.xml`` where your module code is in a directory named `MYMODULE` and the major version of PHPUnit is 9.
 3. You will want to repeat the above two steps for other combinations targetting the remaining PHPUnit versions.
-4. For each PHPUnit.xml you will want to configure your test files and coverage. You can see the phpunit.xml configuration files in Tripal Core for an example of how to do this.
+4. For each PHPUnit.xml you will want to configure your test files and coverage on the section of the xml file shown below. You can see the phpunit.xml configuration files in Tripal Core for an example of how to do this.
+
+::
+
+    <testsuites>
+      <testsuite name="unit">
+        <file>./tests/TestSuites/UnitTestSuite.php</file>
+      </testsuite>
+      <testsuite name="kernel">
+        <file>./tests/TestSuites/KernelTestSuite.php</file>
+      </testsuite>
+      <testsuite name="functional">
+        <file>./tests/TestSuites/FunctionalTestSuite.php</file>
+      </testsuite>
+      <testsuite name="functional-javascript">
+        <file>./tests/TestSuites/FunctionalJavascriptTestSuite.php</file>
+      </testsuite>
+      <testsuite name="build">
+        <file>./tests/TestSuites/BuildTestSuite.php</file>
+      </testsuite>
+    </testsuites>
+    <listeners>
+      <listener class="\Drupal\Tests\Listeners\DrupalListener">
+      </listener>
+    </listeners>
+    <!-- Settings for coverage reports. -->
+    <coverage>
+      <include>
+        <directory>./includes</directory>
+        <directory>./lib</directory>
+        <directory>./modules</directory>
+        <directory>../modules</directory>
+        <directory>../sites</directory>
+      </include>
+      <exclude>
+        <directory>./modules/*/src/Tests</directory>
+        <directory>./modules/*/tests</directory>
+        <directory>../modules/*/src/Tests</directory>
+        <directory>../modules/*/tests</directory>
+        <directory>../modules/*/*/src/Tests</directory>
+        <directory>../modules/*/*/tests</directory>
+        <directory suffix=".api.php">./lib/**</directory>
+        <directory suffix=".api.php">./modules/**</directory>
+        <directory suffix=".api.php">../modules/**</directory>
+      </exclude>
+    </coverage>
+
+::
 
 Now the TripalTest Github Action will automatically choose the correct version of your configuration!
 

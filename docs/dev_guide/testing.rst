@@ -34,7 +34,7 @@ After setting up automated testing with PHPUnit, it is considered best practice 
 Creating a GitHub Workflow to test a number of Drupal - PHP - PostgreSQL combinations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 1. Copy `.github/workflows/ALL-phpunit.yml <https://github.com/tripal/tripal/blob/4.x/.github/workflows/ALL-phpunit.yml>`_ into your module.
-2. In the copied ``ALL-phpunit.yml``file, update the `directory-name <https://github.com/tripal/tripal/blob/4.x/.github/workflows/ALL-phpunit.yml#L84>`_ to match the name of the directory in ``/var/www/drupal/web/modules/contrib`` that your module code will be in.
+2. In the copied ``ALL-phpunit.yml`` file, update the `directory-name <https://github.com/tripal/tripal/blob/4.x/.github/workflows/ALL-phpunit.yml#L84>`_ to match the name of the directory in ``/var/www/drupal/web/modules/contrib`` that your module code will be in.
 3. If your Dockerfile already enables the modules then `modules <https://github.com/tripal/tripal/blob/4.x/.github/workflows/ALL-phpunit.yml#L85>`_ of the copied ``ALL-phpunit.yml`` file can be left empty. If not, you can list the modules to be installed here seperated by whitespaces.
 
 And that's it! For more information about the parameters, see the `Tripal Test GitHub Action <https://github.com/tripal/test-tripal-action>`_ documentation.

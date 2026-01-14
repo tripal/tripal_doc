@@ -42,7 +42,7 @@ And that's it! For more information about the parameters, see the `Tripal Test G
 Generating a testing grid for your README to show the current compatibility
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 1. Install tripal devtools in your container using the following commands (in the future this will be part of TripalDocker by default):
-  - Within the drupal root of the docker container (i.e. ``/var/www/drupal/web``), run the command ``composer require tripal/tripal_devtools`` to install tripal_devtools module in your docker container.
+  - Within the drupal root of the docker container (i.e. ``/var/www/drupal/web``), run the command ``composer require tripal/tripal_devtools`` to install the tripal_devtools module in your docker container.
   - Once it's installed correctly, run ``drush en tripal_devtools`` to enable the module.
 
 2. Run the following command ``drush generate tripal-admin:readme-grid`` and answer the prompts. This will generate a number of Github workflows where each one runs a single combination from the matrix on the `4.x` branch when a PR is merged. This is used to generate the badges you will include in your readme.

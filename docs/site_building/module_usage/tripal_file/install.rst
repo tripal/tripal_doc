@@ -149,7 +149,14 @@ You will need to be logged into your site as a user that has administrative perm
 Set Permissions
 ----------------
 
+As with other tripal content types, permissions can be granted specifically to each content type.
+See :ref:`User Permissions` for more details about how permissions work.
+
+The Tripal File module creates the following default permissions, you can alter these as appropriate to your needs.
+
+.. image:: install.5.default-permissions.png
+      :alt: Default permissions for the Tripal File content types.
+
 .. warning::
 
-  Permissions have not yet been implemented.
-  See `Tripal issue 1355 <https://github.com/tripal/tripal/issues/1355>`_ for current status.
+  Never grant the anonymous user any permissions other than "View all content".

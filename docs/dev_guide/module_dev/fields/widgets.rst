@@ -258,3 +258,15 @@ is referencing a linked table.
   A good way to learn about fields is to look at examples of fields in the Tripal
   core codebase. Specifically, look in the
   `tripal_chado/src/Plugin/Field/FieldWidget` directory.
+
+
+Field Widget Schema
+^^^^^^^^^^^^^^^^^^^^^
+
+Field widget schema is required to make field widget information translatable in Drupal. The schema is defined in ``config/schema/mymodule.schema.yml`` and should include the following:
+
+.. code-block:: yaml
+
+  field.widget.settings.my_field_widget:
+    type: mapping
+    mapping: {}

@@ -297,7 +297,7 @@ in the example above.  A field can be re-used for different terms and those
 can be set when the field is added automatically. See the
 :ref:`Adding a field programatically` section.
 
-If you add any custom settings here for your field then you will need to add them to the schema definition in ``config/schema/mymodule.schema.yml``. For example, if you added a ``max_delta`` setting here which `indicates the number of entries to populate` as shown here:
+If you add any custom settings here for your field, then you will need to add them to the schema definition in ``config/schema/mymodule.schema.yml``. For example, if you added a ``max_delta`` setting here which `indicates the number of entries to populate` as shown here:
 
 .. code-block:: php
 
@@ -308,7 +308,7 @@ If you add any custom settings here for your field then you will need to add the
     return $settings + parent::defaultFieldSettings();
   }
 
-Then you would need to expand the schema definition for this field in ``config/schema/mymodule.schema.yml`` like this:
+Then you would need to expand the schema definition for this field in ``config/schema/mymodule.schema.yml`` as shown below:
 
 .. code-block:: yaml
 
@@ -360,7 +360,7 @@ function from this field:
     return $settings;
   }
 
-If you add any custom storage settings here for your field then you will need to add them to the schema definition in ``config/schema/mymodule.schema.yml``. For example, if you added a ``prop_table`` setting as shown here:
+If you add any custom storage settings here for your field, then you will need to add them to the schema definition in ``config/schema/mymodule.schema.yml``. For example, if you added a ``prop_table`` setting as shown here:
 
 .. code-block:: php
 
@@ -819,7 +819,7 @@ that uses a tokenized string to create the full scientific name for the organism
 Field Type Schema
 ^^^^^^^^^^^^^^^^^^^
 
-When creating a new field you need to add schema for the `field settings` and `field storage settings`. This is done by adding two stanzas to the ``config/schema/mymodule.schema.yml`` file as follows where the field machine name is ``my_field``.
+When creating a new field you need to add schema for the `field settings` and `field storage settings`. This is done by adding two stanzas to the ``config/schema/mymodule.schema.yml`` file as follows, where the field machine name is ``my_field``.
 
 .. code-block:: yaml
 
@@ -833,7 +833,7 @@ When creating a new field you need to add schema for the `field settings` and `f
 
 By defining these, the default schema will be added dynamically as defined by Tripal core. Specifically,
 
-Field Storage:
+**Field Storage:**
 
 .. code-block:: yaml
 
@@ -854,7 +854,7 @@ Field Storage:
       type: mapping
       label: 'Tripal Storage-specific Settings'   
 
-Field Settings:
+**Field Settings:**
 
 .. code-block:: yaml
 

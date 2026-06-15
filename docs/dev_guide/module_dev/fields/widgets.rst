@@ -263,7 +263,7 @@ is referencing a linked table.
 Field Widget Schema
 ^^^^^^^^^^^^^^^^^^^^^
 
-Field widget schema is required to make field widget information translatable in Drupal. The schema is defined in ``config/schema/mymodule.schema.yml`` and should include the following:
+A schema definition for your field widget is required to make field widget information translatable in Drupal. The schema is defined in ``config/schema/mymodule.schema.yml`` and should include the following:
 
 .. code-block:: yaml
 

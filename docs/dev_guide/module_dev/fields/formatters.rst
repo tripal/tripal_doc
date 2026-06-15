@@ -279,7 +279,7 @@ for this new field to allow editing content.
 Field Formatter Schema
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Field formatter schema is required to make field formatter information translatable in Drupal. The schema is defined in ``config/schema/mymodule.schema.yml`` and should include the following:
+A schema definition for your field formatter is required to make field formatter information translatable in Drupal. The schema is defined in ``config/schema/mymodule.schema.yml`` and should include the following:
 
 .. code-block:: yaml
 

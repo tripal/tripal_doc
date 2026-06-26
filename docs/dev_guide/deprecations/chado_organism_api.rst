@@ -8,10 +8,10 @@ Tripal Chado Organism API is deprecated in favour of the ChadoOrganismBuddy and 
 
 Methods in ChadoOrganismBuddy and ChadoOrganismFormElementController classes replace the majority of the functionality of the existing Chado Organism API methods. 
 
-Some of these methods can be provided a ChadyBuddyRecord as a parameter, and may return one or more Organism buddies. To learn more about ChadoBuddies, refer to: `Chado Buddies Documentation <https://tripaldoc.readthedocs.io/en/latest/dev_guide/biodata/buddies.html>`_
+Some of these methods can be provided a ChadyBuddyRecord as a parameter, and may return one or more Organism buddies. To learn more about ChadoBuddies, refer to: :ref:`Chado Buddies Documentation <Chado Buddies>`
 
 .. note::
-    The examples below demonstrate static service calls to the ChadoOrganismBuddy and ChadoOrganismFormElementController classes; however, Dependency Injection is preferred when integrating services, as recommended by Drupal best practices. For more details regarding Injecting ChadoBuddy Services, refer to: `Injecting the Buddy Service Documentation <https://tripaldoc.readthedocs.io/en/latest/dev_guide/biodata/buddies/inject.html#injecting-the-buddy-service>`_
+    The examples below demonstrate static service calls to the ChadoOrganismBuddy and ChadoOrganismFormElementController classes; however, Dependency Injection is preferred when integrating services, as recommended by Drupal best practices. For more details regarding Injecting ChadoBuddy Services, refer to: :ref:`Injecting the Buddy Service Documentation <Injecting the Buddy Service>`
 
 
 

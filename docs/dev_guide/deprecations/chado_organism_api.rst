@@ -39,8 +39,8 @@ chado_get_organism()
         'organism.genus' => 'Tripalus',  
         'organism.species' => 'databasica',
     ];
-    // Retrieves an array of ChadoOrganismBuddy records. This array will be empty if no records matched
-    // the input values, and can have one or more records if matches were found.  
+    // Retrieves an array of ChadoOrganismBuddy records. This array will be empty if no records
+    // matched the input values, and can have one or more records if matches were found.  
     $organism_buddies = $organism_buddy_instance->getOrganism($conditions, []);
 
 
@@ -116,8 +116,8 @@ By Scientific Name:
 .. code-block:: php
 
     $scientific_name = 'Tripalus databasica';  
-    // Retrieves an array of ChadoOrganismBuddy records. This array will be empty if no records matched
-    // the input values, and can have one or more records if matches were found.  
+    // Retrieves an array of ChadoOrganismBuddy records. This array will be empty if no records
+    // matched the input values, and can have one or more records if matches were found.  
     $organism_buddies = $organism_buddy_instance->getOrganismFromScientificName($scientific_name);  
     // Then grab the organism's ID  
     $organism_id = $organism_buddies[0]->getValue('organism.organism_id');  

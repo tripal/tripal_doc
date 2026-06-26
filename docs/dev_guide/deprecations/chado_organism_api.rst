@@ -39,7 +39,8 @@ chado_get_organism()
         'organism.genus' => 'Tripalus',  
         'organism.species' => 'databasica',
     ];
-    // Retrieves an array of ChadoOrganismBuddy records. This array will be empty if no records matched the input values, and can have one or more records if matches were found.  
+    // Retrieves an array of ChadoOrganismBuddy records. This array will be empty if no records matched
+    // the input values, and can have one or more records if matches were found.  
     $organism_buddies = $organism_buddy_instance->getOrganism($conditions, []);
 
 

@@ -297,6 +297,28 @@ in the example above.  A field can be re-used for different terms and those
 can be set when the field is added automatically. See the
 :ref:`Adding a field programatically` section.
 
+If you add any custom settings here for your field, then you will need to add them to the schema definition in ``config/schema/mymodule.schema.yml``. For example, if you added a ``max_delta`` setting here which `indicates the number of entries to populate` as shown here:
+
+.. code-block:: php
+
+  public static function defaultFieldSettings() {
+    $settings = [
+      'max_delta' => 100,
+    ];
+    return $settings + parent::defaultFieldSettings();
+  }
+
+Then you would need to expand the schema definition for this field in ``config/schema/mymodule.schema.yml`` as shown below:
+
+.. code-block:: yaml
+
+  field.field_settings.my_field:
+    type: mapping
+    mapping:
+      max_delta:
+        type: integer
+        label: 'Maximum number of items to populate'
+
 The defaultStorageSettings() Function
 ```````````````````````````````````````
 The field settings described in the previous function apply to the field. But
@@ -337,6 +359,32 @@ function from this field:
     $settings['storage_plugin_settings']['base_column'] = '';
     return $settings;
   }
+
+If you add any custom storage settings here for your field, then you will need to add them to the schema definition in ``config/schema/mymodule.schema.yml``. For example, if you added a ``prop_table`` setting as shown here:
+
+.. code-block:: php
+
+  public static function defaultStorageSettings() {
+    $settings = parent::defaultStorageSettings();
+    $settings['storage_plugin_settings']['prop_table'] = '';
+    return $settings;
+  }
+
+Then you would need to expand the schema definition for this field in ``config/schema/mymodule.schema.yml`` similar to above. But it is added to the ``field storage settings``:
+
+.. code-block:: yaml
+
+  field.storage_settings.my_field:
+    type: mapping
+    mapping:
+      storage_plugin_settings:
+        type: mapping
+        label: 'Tripal Storage-specific Settings'
+        mapping:
+          prop_table:
+            type: 'string'
+            label: 'Table containing property columns'
+            nullable: FALSE
 
 The storageSettingsForm() Function
 ````````````````````````````````````
@@ -762,5 +810,69 @@ that uses a tokenized string to create the full scientific name for the organism
   core codebase. Specifically, look in the
   `tripal_chado/src/Plugin/Field/FieldType` directory.
 
+.. note::
+
+  Field schema are needed to allow your field information to be translatable in Drupal. 
+  Additionally, without these schema definitions, you will get schema errors in 
+  your automated tests.
+
+Field Type Schema
+^^^^^^^^^^^^^^^^^^^
+
+When creating a new field you need to add schema for the `field settings` and `field storage settings`. This is done by adding two stanzas to the ``config/schema/mymodule.schema.yml`` file as follows, where the field machine name is ``my_field``.
+
+.. code-block:: yaml
+
+    field.field_settings.my_field:
+      type: mapping
+      mapping: {}
+
+    field.storage_settings.my_field:
+      type: mapping
+      mapping: {}
+
+By defining these, the default schema will be added dynamically as defined by Tripal core. Specifically,
+
+**Field Storage:**
+
+.. code-block:: yaml
+
+    termIdSpace:
+      type: string
+      label: 'Term ID Space'
+    termAccession:
+      type: string
+      label: 'Term Accession'
+    debug:
+      type: boolean
+      label: 'Flag to Enable field debugging'
+      nullable: true
+    storage_plugin_id:
+      type: string
+      label: 'Tripal Storage Plugin Machine Name'
+    storage_plugin_settings:
+      type: mapping
+      label: 'Tripal Storage-specific Settings'   
+
+**Field Settings:**
+
+.. code-block:: yaml
+
+    termIdSpace:
+      type: string
+      label: 'Term ID Space'
+    termAccession:
+      type: string
+      label: 'Term Accession'
+    debug:
+      type: boolean
+      label: 'Flag to Enable field debugging'
+      nullable: true
+    fixed_value:
+      type: string
+      label: 'A fixed value to use for the term Id Space and Accession for this field (e.g. data:1278).'
+      nullable: true
+
 The next section :ref:`Field Formatters` will describe how to create a formatter
 for this new field.
+

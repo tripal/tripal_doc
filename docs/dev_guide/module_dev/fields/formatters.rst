@@ -274,3 +274,15 @@ for this new field to allow editing content.
   A good way to learn about fields is to look at examples of fields in the Tripal
   core codebase. Specifically, look in the
   `tripal_chado/src/Plugin/Field/FieldFormatter` directory.
+
+
+Field Formatter Schema
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+A schema definition for your field formatter is required to make field formatter information translatable in Drupal. The schema is defined in ``config/schema/mymodule.schema.yml`` and should include the following:
+
+.. code-block:: yaml
+
+  field.formatters.settings.my_field_formatters:
+    type: mapping
+    mapping: {}

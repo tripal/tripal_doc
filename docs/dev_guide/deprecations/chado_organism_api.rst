@@ -105,7 +105,8 @@ By Common Name:
 
     $common_name = 'Tripal';  
     // Returns an array of organism IDs that match the specified common name.  
-    $organism_ids = chado_get_organism_id_from_scientific_name($common_name, ['check_common_name' => TRUE]);
+    $organism_ids = chado_get_organism_id_from_scientific_name($common_name,
+      ['check_common_name' => TRUE]);
 
 **After:**
 
@@ -114,7 +115,8 @@ By Scientific Name:
 .. code-block:: php
 
     $scientific_name = 'Tripalus databasica';  
-    // Retrieves an array of ChadoOrganismBuddy records. This array will be empty if no records matched the input values, and can have one or more records if matches were found.  
+    // Retrieves an array of ChadoOrganismBuddy records. This array will be empty if no records matched
+    // the input values, and can have one or more records if matches were found.  
     $organism_buddies = $organism_buddy_instance->getOrganismFromScientificName($scientific_name);  
     // Then grab the organism's ID  
     $organism_id = $organism_buddies[0]->getValue('organism.organism_id');  
@@ -124,7 +126,8 @@ By Common Name:
 .. code-block:: php
 
     $common_name = 'Tripal';  
-    $organism_buddies = $organism_buddy_instance->getOrganismFromScientificName($common_name, ['check_common_name' => TRUE]);  
+    $organism_buddies = $organism_buddy_instance->getOrganismFromScientificName($common_name,
+      ['check_common_name' => TRUE]);  
     // Then grab the organism's ID  
     $organism_id = $organism_buddies[0]->getValue('organism.organism_id');  
 

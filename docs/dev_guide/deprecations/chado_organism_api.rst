@@ -169,3 +169,27 @@ chado_unabbreviate_infraspecific_rank()
 
     $rank = $organism_buddy_instance->unabbreviateInfraspecificRank($rank_abbreviation);  
 
+chado_autocomplete_organism()
+------------------------------
+
+**Before:**
+
+.. code-block:: php
+
+    $organism_autocomplete = chado_autocomplete_organism($text);
+
+**After:**
+
+.. code-block:: php
+
+    use Drupal\tripal_chado\Controller\ChadoOrganismFormElementController;
+
+    ...
+
+    $organism_autocomplete = new ChadoOrganismFormElementController();
+    $request = Request::create(
+        'chado/organism/autocomplete/10',
+        'GET',
+        ['q' => $text]
+    );
+    $organism_autocomplete->handleAutocomplete($request, 5);

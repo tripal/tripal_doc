@@ -43,7 +43,6 @@ chado_get_organism()
     // matched the input values, and can have one or more records if matches were found.  
     $organism_buddies = $organism_buddy_instance->getOrganism($conditions, []);
 
-
 chado_get_organism_scientific_name()
 ------------------------------------
 
@@ -67,6 +66,11 @@ chado_get_organism_scientific_name()
 
     // Returns a string of the matching organism's scientific name  
     $organism_name = $organism_buddy_instance->getOrganismScientificName($conditions);
+
+chado_get_organism_image_url()
+------------------------------
+
+This function currently has no replacement in Tripal 4.
 
 chado_get_organism_select_options()
 -----------------------------------

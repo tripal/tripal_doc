@@ -1,7 +1,7 @@
 Tripal Chado Organism API is deprecated in favour of the ChadoOrganismBuddy and ChadoOrganismFormElementController
 ===================================================================================================================
 
-- **Deprecated in** tripal 4.0.0-alpha4
+- **Deprecated in** tripal 4.0.0-alpha5
 - **Removed in** tripal 4.1.0
 - **Issue** `#2424 <https://github.com/tripal/tripal/issues/2424>`_
 - **PR** `#2426 <https://github.com/tripal/tripal/pull/2426>`_

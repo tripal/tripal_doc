@@ -3,7 +3,7 @@ Testing Chado Field storage
 =============================
 
 .. warning::
-  This documentation is still under development and is not complete.
+  This approach still works but can be slow. As such many of the core tests have moved to testing chado storage indirectedly through the field classes themselves.
 
 As described in the documentation for how to create fields, Chado Fields depend on the developer to define a number of properties in order to describe to ChadoStorage how to create, load and update the various biological data associated with that field. For example, when creating a field to describe the organism associated with a gene, you will define properties for the genus, species, infraspecific type, infraspecific name, etc. Then ChadoStorage will use the property definitions to pull these data out of Chado and make them available to your field. In this tutorial, we are focusing on testing that the properties you defined in your field, act as you expect and that ChadoStorage is understanding your intent properly.
 
